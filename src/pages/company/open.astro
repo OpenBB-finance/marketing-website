@@ -1,0 +1,357 @@
+---
+import CtaLight from "../../components/CtaLight.astro";
+import HeroSimple from "../../components/HeroSimple.astro";
+import SvgIcon from "../../components/SvgIcon.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const OPEN_CONTENT = {
+  hub: {
+    title: "OpenBB Workspace",
+    subtitle: "A safe end-to-end solution for AI experimentation and deployment.",
+    charts: {
+      platformUsers: {
+        title: "OpenBB Workspace users",
+        tooltip: "Access the OpenBB ecosystem whether you are a professional, academic, student or retail investor.",
+        link: "https://pro.openbb.co/",
+      },
+    },
+  },
+  github: {
+    title: "GitHub Metrics",
+    subtitle: "Keep up-to-date with our development speed and how engaged the open source community is.",
+    charts: {
+      stars: {
+        title: "GitHub Stars",
+        tooltip: "Developers who have starred our project.",
+        link: "https://github.com/OpenBB-finance/OpenBBTerminal/stargazers",
+      },
+      forks: {
+        title: "GitHub Forks",
+        tooltip: "Developers who have branched out from our project to build their own terminal on top.",
+        link: "https://github.com/OpenBB-finance/OpenBBTerminal/network/members",
+      },
+      contributors: {
+        title: "GitHub Contributors",
+        tooltip: "Developers who contributed to the core code of OpenBB Terminal.",
+        link: "https://github.com/OpenBB-finance/OpenBBTerminal/graphs/contributors",
+      },
+      prs: {
+        title: "GitHub Merged Pull-Requests",
+        tooltip: "Number of pull-requests merged.",
+        link: "https://github.com/OpenBB-finance/OpenBBTerminal/pulls",
+      },
+      issues: {
+        title: "GitHub Closed Issues",
+        tooltip: "Number of closed issues, feature requests or enhancements.",
+        link: "https://github.com/OpenBB-finance/OpenBBTerminal/issues",
+      },
+    },
+  },
+};
+
+interface PlatformUser {
+  timestamp: string;
+  count: number;
+}
+
+interface GithubMetric {
+  updated_date: number;
+  stars: number;
+  forks: number;
+  contributors: number;
+  closed_pr: number;
+  closed_issues: number;
+}
+
+let platformUsers: PlatformUser[] = [];
+let github: GithubMetric[] = [];
+
+try {
+  const usersRes = await fetch("https://payments.openbb.co/metrics/users");
+  if (usersRes.ok) {
+    const data = await usersRes.json();
+    platformUsers = data?.users ?? [];
+  }
+} catch {}
+
+try {
+  const ghApiRes = await fetch(
+    "https://api.github.com/repos/OpenBB-finance/openbb-metricsv2/contents/metrics.json?ref=main",
+    { headers: { Accept: "application/vnd.github.v3+json" } }
+  );
+  if (ghApiRes.ok) {
+    const ghApiData = await ghApiRes.json();
+    const metricsRes = await fetch(ghApiData.download_url);
+    if (metricsRes.ok) {
+      const metrics = await metricsRes.json();
+      github = metrics?.github ?? [];
+    }
+  }
+} catch {}
+
+const chartData = { platformUsers, github };
+
+const chartConfigs = [
+  {
+    section: "hub",
+    charts: [
+      { id: "platformUsers", ...OPEN_CONTENT.hub.charts.platformUsers, dataKey: "platformUsers", yKey: "count", xKey: "timestamp", fullWidth: true },
+    ],
+  },
+  {
+    section: "github",
+    charts: [
+      { id: "stars", ...OPEN_CONTENT.github.charts.stars, dataKey: "github", yKey: "stars", fullWidth: true },
+      { id: "forks", ...OPEN_CONTENT.github.charts.forks, dataKey: "github", yKey: "forks", fullWidth: false },
+      { id: "contributors", ...OPEN_CONTENT.github.charts.contributors, dataKey: "github", yKey: "contributors", fullWidth: false },
+      { id: "prs", ...OPEN_CONTENT.github.charts.prs, dataKey: "github", yKey: "closed_pr", fullWidth: false },
+      { id: "issues", ...OPEN_CONTENT.github.charts.issues, dataKey: "github", yKey: "closed_issues", fullWidth: false },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Open Startup | OpenBB"
+  description="Follow along with all our OpenBB metrics covering community metrics and employee engagement."
+  keywords="community, podium, open source, metrics, kpi, engagement, downloads, github, stars, feedback"
+  navLight
+>
+  <main class="bg-white">
+    <HeroSimple
+      title={"Open startup in\na closed landscape"}
+      description="Transparency is one of our core values. Sharing our journey\nopenly builds trust and pushes our industry forward."
+    />
+
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+          <div class="space-y-16">
+            {chartConfigs.map((section) => (
+              <div class="space-y-12" class:list={[section.section === "hub" && "pt-8"]}>
+                <div>
+                  <h2 class="text-dark-600 text-title-s-regular md:text-title-xl-regular text-left">
+                    {section.section === "hub" ? OPEN_CONTENT.hub.title : OPEN_CONTENT.github.title}
+                  </h2>
+                  <span class="text-dark-400 text-left mt-6 block body-sm-regular md:body-lg-regular">
+                    {section.section === "hub" ? OPEN_CONTENT.hub.subtitle : OPEN_CONTENT.github.subtitle}
+                  </span>
+                </div>
+
+                {section.charts[0].fullWidth && (
+                  <div class="bg-white border border-grey-200 shadow-light-1 p-4 sm:p-6" data-chart-card>
+                    <div class="flex items-center justify-between mb-4">
+                      <div class="flex items-center gap-2">
+                        <h3 class="body-lg-bold text-dark-600">{section.charts[0].title}</h3>
+                        <div class="relative group">
+                          <SvgIcon name="info-circle" class="w-4 h-4 text-dark-400 cursor-help" />
+                          <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-2 bg-dark-800 text-white body-xs-regular rounded hidden group-hover:block z-10">
+                            {section.charts[0].tooltip}
+                          </div>
+                        </div>
+                      </div>
+                      <a href={section.charts[0].link} target="_blank" rel="noopener noreferrer" class="text-dark-400 hover:text-dark-600 transition-colors">
+                        <SvgIcon name="external-link" class="w-4 h-4" />
+                      </a>
+                    </div>
+                    <div class="h-[300px] sm:h-[400px]">
+                      <canvas data-chart={section.charts[0].id}></canvas>
+                    </div>
+                  </div>
+                )}
+
+                {section.charts.length > 1 && (
+                  <div class="grid gap-10 lg:grid-cols-2">
+                    {section.charts.slice(1).map((chart) => (
+                      <div class="bg-white border border-grey-200 shadow-light-1 p-4 sm:p-6" data-chart-card>
+                        <div class="flex items-center justify-between mb-4">
+                          <div class="flex items-center gap-2">
+                            <h3 class="body-lg-bold text-dark-600">{chart.title}</h3>
+                            <div class="relative group">
+                              <SvgIcon name="info-circle" class="w-4 h-4 text-dark-400 cursor-help" />
+                              <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-2 bg-dark-800 text-white body-xs-regular rounded hidden group-hover:block z-10">
+                                {chart.tooltip}
+                              </div>
+                            </div>
+                          </div>
+                          <a href={chart.link} target="_blank" rel="noopener noreferrer" class="text-dark-400 hover:text-dark-600 transition-colors">
+                            <SvgIcon name="external-link" class="w-4 h-4" />
+                          </a>
+                        </div>
+                        <div class="h-[300px]">
+                          <canvas data-chart={chart.id}></canvas>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+      </div>
+    </section>
+
+    <CtaLight />
+  </main>
+</Layout>
+
+<script type="application/json" id="chart-data" set:html={JSON.stringify(chartData)} />
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const chartInstances: any[] = [];
+
+    async function initCharts() {
+      const dataEl = document.getElementById("chart-data");
+      if (!dataEl) return;
+      const data = JSON.parse(dataEl.textContent!);
+
+      const { Chart, registerables } = await import("chart.js");
+      Chart.register(...registerables);
+
+      const accent = "#0088CC";
+      const accentLight = "rgba(0, 136, 204, 0.1)";
+      const gridColor = "rgba(0, 0, 0, 0.06)";
+      const textColor = "#71717A";
+
+      const baseOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { intersect: false, mode: "index" as const },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: "#1a1a2e",
+            titleColor: "#fff",
+            bodyColor: "#fff",
+            borderColor: accent,
+            borderWidth: 1,
+            padding: 12,
+            cornerRadius: 4,
+            displayColors: false,
+          },
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: textColor, maxTicksLimit: 8, font: { size: 11 } },
+            border: { display: false },
+          },
+          y: {
+            grid: { color: gridColor },
+            ticks: { color: textColor, font: { size: 11 } },
+            border: { display: false },
+          },
+        },
+      };
+
+      function toDate(val: string | number): Date {
+        if (typeof val === "number") {
+          return new Date(val < 1e12 ? val * 1000 : val);
+        }
+        return new Date(val);
+      }
+
+      function groupByWeek(arr: any[], dateKey: string): any[] {
+        if (!arr || arr.length === 0) return [];
+        const weeks: Record<string, any> = {};
+        for (const item of arr) {
+          const d = toDate(item[dateKey]);
+          const startOfWeek = new Date(d);
+          startOfWeek.setDate(d.getDate() - d.getDay());
+          const key = startOfWeek.toISOString().split("T")[0];
+          weeks[key] = item;
+        }
+        return Object.entries(weeks)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([, v]) => v);
+      }
+
+      function formatDate(val: string | number): string {
+        const d = toDate(val);
+        return d.toLocaleDateString("en-US", { month: "short", year: "2-digit" });
+      }
+
+      const usersCanvas = document.querySelector<HTMLCanvasElement>('[data-chart="platformUsers"]');
+      if (usersCanvas && data.platformUsers?.length) {
+        const users = data.platformUsers;
+        chartInstances.push(new Chart(usersCanvas, {
+          type: "line",
+          data: {
+            labels: users.map((d: any) => formatDate(d.timestamp)),
+            datasets: [{
+              data: users.map((d: any) => d.count),
+              borderColor: accent,
+              backgroundColor: accentLight,
+              fill: true,
+              tension: 0.3,
+              pointRadius: 0,
+              pointHoverRadius: 4,
+              borderWidth: 2,
+            }],
+          },
+          options: baseOptions,
+        }));
+      }
+
+      const validGithub = (data.github ?? []).filter(
+        (e: any) => e && typeof e.updated_date === "number" && e.updated_date > 0
+      );
+
+      const githubCharts = [
+        { id: "stars", yKey: "stars" },
+        { id: "forks", yKey: "forks" },
+        { id: "contributors", yKey: "contributors" },
+        { id: "prs", yKey: "closed_pr" },
+        { id: "issues", yKey: "closed_issues" },
+      ];
+
+      for (const cfg of githubCharts) {
+        const canvas = document.querySelector<HTMLCanvasElement>(`[data-chart="${cfg.id}"]`);
+        if (!canvas || !validGithub.length) continue;
+
+        const dateKey = "updated_date";
+        const weekly = groupByWeek(validGithub, dateKey);
+
+        chartInstances.push(new Chart(canvas, {
+          type: "line",
+          data: {
+            labels: weekly.map((d: any) => formatDate(d[dateKey])),
+            datasets: [{
+              data: weekly.map((d: any) => d[cfg.yKey] ?? null),
+              borderColor: accent,
+              backgroundColor: accentLight,
+              fill: true,
+              tension: 0.3,
+              pointRadius: 0,
+              pointHoverRadius: 4,
+              borderWidth: 2,
+              spanGaps: true,
+            }],
+          },
+          options: baseOptions,
+        }));
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            observer.disconnect();
+            initCharts();
+            break;
+          }
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const firstChart = document.querySelector("[data-chart-card]");
+    if (firstChart) observer.observe(firstChart);
+
+    document.addEventListener("astro:before-swap", () => {
+      observer.disconnect();
+      chartInstances.forEach((c) => c.destroy());
+    }, { once: true });
+  });
+</script>

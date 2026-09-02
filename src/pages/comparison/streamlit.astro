@@ -1,0 +1,464 @@
+---
+import CtaLight from "../../components/CtaLight.astro";
+import FadeIn from "../../components/FadeIn.astro";
+import HeroSimple from "../../components/HeroSimple.astro";
+import SvgIcon from "../../components/SvgIcon.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+  title="OpenBB vs Streamlit | OpenBB"
+  description="Streamlit gets prototypes off the ground fast. OpenBB gets financial analytics into production with modular dashboards, finance-specific widgets, and AI agents that scale securely."
+  keywords="streamlit, comparison, openbb, financial data, financial analytics, dashboards"
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroSimple
+      title={"OpenBB vs. Streamlit"}
+      description="Streamlit gets prototypes off the ground fast. OpenBB gets financial analytics into production with modular dashboards, finance-specific widgets, and AI agents that scale securely."
+    />
+
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-10">
+            <div class="w-full flex md:w-[520px] flex-col gap-10">
+              <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600">
+                The Streamlit Tradeoff
+              </h2>
+              <p class="body-md-regular md:body-lg-regular text-dark-400">
+                Streamlit is excellent for getting a single developer from notebook to prototype fast. OpenBB picks up where those prototypes stop. With finance-specific widgets instead of bare-bones components, a native Copilot and chat experience instead of ad‑hoc AI wiring, OpenBB offers a Workspace designed for teams and scalable, production-ready applications.
+              </p>
+            </div>
+            <div class="w-full md:w-[560px]">
+              <img
+                src="https://openbb-cms.directus.app/assets/40934969-9b3e-44c7-8f74-fd971a629eff.png"
+                alt="OpenBB vs Streamlit"
+                class="w-full"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-8 md:mb-20 text-center md:text-left">
+            Why financial teams choose
+            <br class="hidden md:block" /> OpenBB over Streamlit
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0">
+                  <SvgIcon name="streamlit-layout" class="w-5 h-5 text-white overflow-visible" />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Pre-built widgets for financial analysis
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Streamlit provides generic components (buttons, sliders, and basic charts), requiring you to build finance-specific tools from scratch. OpenBB ships with purpose-built widgets for time-series data, pricing grids, and interactive controls, letting you focus on proprietary logic rather than UI primitives.
+              </p>
+            </div>
+
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0">
+                  <SvgIcon name="streamlit-lightning" class="w-5 h-5 text-white overflow-visible" />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Production-ready applications
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Streamlit is great for prototyping, but scaling to production often demands a dedicated DevOps team. OpenBB is a turnkey workspace for enterprise deployment. Whether for internal tools or white-labeled client apps, it delivers secure, scalable infrastructure, no custom stack maintenance required.
+              </p>
+            </div>
+
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0">
+                  <SvgIcon name="streamlit-ai" class="w-5 h-5 text-white overflow-visible" />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Built-in AI chat experience
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Streamlit provides basic chat elements, leaving you to build agent interfaces, context handling, and visualization logic from scratch. OpenBB offers a production-ready chat interface for any AI agent, plus a native Copilot engineered for finance. It understands your data, generates citations, creates visualizations on demand, and integrates with secure backend workflows out of the box.
+              </p>
+            </div>
+
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0">
+                  <SvgIcon name="streamlit-grid" class="w-5 h-5 text-white overflow-visible" />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Scalable architecture for teams
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Streamlit apps are often isolated silos, making it difficult to share logic or enforce consistency across a team without duplicating code. OpenBB's modular backend allows you to build core analytics once and reuse them across multiple dashboards. This lets teams deploy standardized, updated tools instantly to all analysts without managing complex infrastructure or version conflicts.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <FadeIn>
+      <section class="py-16 lg:py-32 bg-dark-850">
+        <div class="page-container">
+          <h2 class="text-title-s-regular md:text-title-xl-regular text-white mb-8 md:mb-20 text-left">
+            Real-World Applications
+            <br />
+            from Macro to Crypto
+          </h2>
+
+          <div class="flex flex-col md:flex-row items-center justify-between gap-10 mb-20">
+            <div class="w-full md:w-[560px] overflow-hidden md:order-2">
+              <img
+                src="https://openbb-cms.directus.app/assets/54a79ca3-0585-4ae9-8061-88cd1fa21e56.png"
+                alt="Caique Dashboard"
+                class="w-full h-auto rounded-lg"
+                loading="lazy"
+              />
+            </div>
+            <div class="w-full md:w-[560px] flex flex-col gap-6 md:order-1">
+              <p class="body-md-regular md:body-lg-regular text-grey-100">
+                <span class="font-bold text-white">Caíque Cober</span> (macro
+                researcher and developer at Terrapin) built over 50
+                Streamlit monitors covering cross-asset moves, energy flows,
+                and short-term money markets before switching to OpenBB for
+                his macro research workflow.
+              </p>
+              <p class="body-md-regular md:body-lg-regular text-grey-100">
+                What he couldn't do in Streamlit: rearrange dashboards on
+                the fly based on evolving macro narratives, maintain
+                persistent analyst configurations without external
+                databases, or deploy advanced AI copilots with chart
+                generation and citation capabilities.
+              </p>
+              <div class="body-md-regular md:body-lg-regular text-grey-100">
+                <p class="mb-2">
+                  The result after rebuilding on OpenBB:
+                </p>
+                <p class="font-bold italic text-white">
+                  "It's the closest I've come to a workflow that feels truly
+                  customizable, shareable, auditable, and reproducible."
+                </p>
+              </div>
+              <p class="body-md-regular md:body-lg-regular text-grey-100">
+                Read his full story in our <a
+                  href="https://openbb.co/blog/from-excel-to-agents-rebuilding-the-macro-research-workflow-for-the-ai-era"
+                  class="text-light-blue-400 underline hover:text-light-blue-500"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Blog</a>.
+              </p>
+            </div>
+          </div>
+
+          <div class="h-px bg-dark-400 mb-20"></div>
+
+          <div class="flex flex-col md:flex-row items-center justify-between gap-10">
+            <div class="w-full md:w-[560px] overflow-hidden md:order-2">
+              <img
+                src="https://openbb-cms.directus.app/assets/7bce5911-8369-4e6d-a404-633b8cb5ec08.png"
+                alt="Matt Maximo Dashboard"
+                class="w-full h-auto rounded-lg"
+                loading="lazy"
+              />
+            </div>
+            <div class="w-full md:w-[560px] flex flex-col gap-6 md:order-1">
+              <p class="body-md-regular md:body-lg-regular text-grey-100">
+                Matt Maximo (Investor at VanEck) built a crypto analytics
+                dashboard in OpenBB that aggregates data from CoinGecko,
+                Velodata, Glassnode, CCData, and Google Trends into a single
+                workspace view. It uses custom widgets and parameters such
+                as coin and date range, so he can adjust views without
+                touching frontend code and package the setup as a reusable
+                workflow for future research.
+              </p>
+              <div class="body-md-regular md:body-lg-regular text-grey-100">
+                <p class="font-bold italic text-white">
+                  "Building this on OpenBB means I spend my time on data and
+                  models instead of wrestling with frontend code. The
+                  platform handles the UI, state, and layout, so my effort
+                  goes into improving the analytics, not maintaining a web
+                  app."
+                </p>
+              </div>
+              <p class="body-md-regular md:body-lg-regular text-grey-100">
+                Read our <a
+                  href="https://openbb.co/blog/a-step-by-step-guide-to-building-custom-crypto-applications-with-openbb"
+                  class="text-light-blue-400 underline hover:text-light-blue-500"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Blog</a> to learn about building crypto apps with OpenBB.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-8 md:mb-20 text-left">
+          Feature Comparison
+        </h2>
+
+        <div class="md:hidden bg-white border border-grey-300 shadow-light-2 rounded-2xl overflow-hidden">
+          {[
+            { title: "Data Integration", openbb: "File uploads, API calls via custom code", streamlit: "File uploads, API calls via custom code" },
+            { title: "Finance-Specific Components", openbb: "Pre-built widgets for financial data (but not limited to)", streamlit: "Generic widgets, requires custom development" },
+            { title: "Layout Flexibility", openbb: "Drag-and-drop widget arrangement", streamlit: "Fixed flow, requires container/column logic" },
+            { title: "Persistent User Settings", openbb: "Native configuration saving", streamlit: "Requires external database integration" },
+            { title: "Backend Separation", openbb: "Modular FastAPI architecture", streamlit: "Monolithic Python script" },
+            { title: "Performance", openbb: "Widget-level caching, selective reruns by default", streamlit: "Requires custom setup to avoid full app reruns on each interaction" },
+            { title: "Deployment", openbb: "On-prem, private cloud, enterprise SSO", streamlit: "Streamlit Community Cloud, self-hosted, or Snowflake" },
+            { title: "Team collaboration", openbb: "Shared dashboards and co-editing", streamlit: "Shareable links, limited collaboration features" },
+            { title: "Compliance", openbb: "Audit logs, role-based access controls, data residency options", streamlit: "Community features, enterprise tier available" },
+            { title: "Getting started", openbb: "Requires backend configuration. Finance-focused guides and FastAPI integration examples available.", streamlit: "Quick ramp-up for new users, minimal setup barriers" },
+          ].map((row, i, arr) => (
+            <Fragment>
+              <div class="p-5">
+                <h3 class="body-md-bold text-dark-600 mb-4">{row.title}</h3>
+                <div class="flex flex-col gap-3">
+                  <div>
+                    <p class="body-sm-bold text-dark-600 mb-1">OpenBB</p>
+                    <p class="body-sm-regular text-dark-400">{row.openbb}</p>
+                  </div>
+                  <div>
+                    <p class="body-sm-bold text-dark-600 mb-1">Streamlit</p>
+                    <p class="body-sm-regular text-dark-400">{row.streamlit}</p>
+                  </div>
+                </div>
+              </div>
+              {i < arr.length - 1 && <div class="h-[1px] bg-grey-200 mx-5"></div>}
+            </Fragment>
+          ))}
+
+          <div class="h-[1px] bg-grey-200 mx-5"></div>
+          <div class="p-5">
+            <h3 class="body-md-bold text-dark-600 mb-4">Native AI Copilot</h3>
+            <div class="flex flex-col gap-3">
+              <div>
+                <p class="body-sm-bold text-dark-600 mb-1">OpenBB</p>
+                <p class="body-sm-regular text-dark-400">
+                  Yes. <a href="https://docs.openbb.co/workspace/analysts/ai-features/copilot-basics" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">OpenBB Copilot</a>, designed for financial workflows
+                </p>
+              </div>
+              <div>
+                <p class="body-sm-bold text-dark-600 mb-1">Streamlit</p>
+                <p class="body-sm-regular text-dark-400">No</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-[1px] bg-grey-200 mx-5"></div>
+          <div class="p-5">
+            <h3 class="body-md-bold text-dark-600 mb-4">AI chat experience</h3>
+            <div class="flex flex-col gap-3">
+              <div>
+                <p class="body-sm-bold text-dark-600 mb-1">OpenBB</p>
+                <p class="body-sm-regular text-dark-400">
+                  Simplified development of advanced features with <a href="https://docs.openbb.co/workspace/developers/openbb-ai-sdk" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">OpenBB AI SDK</a>. Several <a href="https://github.com/OpenBB-finance/agents-for-openbb" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">open-source examples available</a>
+                </p>
+              </div>
+              <div>
+                <p class="body-sm-bold text-dark-600 mb-1">Streamlit</p>
+                <p class="body-sm-regular text-dark-400">Basic chat components only</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden md:block border border-grey-300 shadow-light-2 bg-white overflow-x-auto rounded-lg">
+          <table class="w-full min-w-[600px]">
+            <thead>
+              <tr class="bg-white border-b border-grey-200">
+                <th class="text-left p-5 body-lg-bold text-dark-600 w-[264px]">Feature</th>
+                <th class="text-left p-5 body-lg-bold text-dark-600">OpenBB</th>
+                <th class="text-left p-5 body-lg-bold text-dark-600">Streamlit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Data Integration</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">File uploads, API calls via custom code</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">File uploads, API calls via custom code</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Finance-Specific Components</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Pre-built widgets for financial data (but not limited to)</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Generic widgets, requires custom development</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Layout Flexibility</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Drag-and-drop widget arrangement</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Fixed flow, requires container/column logic</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Native AI Copilot</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">
+                  Yes. <a href="https://docs.openbb.co/workspace/analysts/ai-features/copilot-basics" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">OpenBB Copilot</a>, designed for financial workflows
+                </td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">No</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">AI chat experience</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">
+                  Simplified development of advanced features with <a href="https://docs.openbb.co/workspace/developers/openbb-ai-sdk" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">OpenBB AI SDK</a>. Several <a href="https://github.com/OpenBB-finance/agents-for-openbb" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">open-source examples available</a>
+                </td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Basic chat components only</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Persistent User Settings</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Native configuration saving</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Requires external database integration</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Backend Separation</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Modular FastAPI architecture</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Monolithic Python script</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Performance</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Widget-level caching, selective reruns by default</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Requires custom setup to avoid full app reruns on each interaction</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Deployment</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">On-prem, private cloud, enterprise SSO</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Streamlit Community Cloud, self-hosted, or Snowflake</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Team collaboration</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Shared dashboards and co-editing</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Shareable links, limited collaboration features</td>
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="p-5 body-md-medium text-dark-600 align-top">Compliance</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Audit logs, role-based access controls, data residency options</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Community features, enterprise tier available</td>
+              </tr>
+              <tr>
+                <td class="p-5 body-md-medium text-dark-600 align-top">Getting started</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Requires backend configuration. Finance-focused guides and FastAPI integration examples available.</td>
+                <td class="p-5 body-md-regular text-dark-400 align-top">Quick ramp-up for new users, minimal setup barriers</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-8 md:mb-20 text-left">
+          FAQs
+        </h2>
+
+        <div class="space-y-3 md:space-y-4" data-accordion>
+          {[
+            {
+              q: "Can I use my existing Streamlit code with OpenBB?",
+              a: `<p class="body-md-regular text-dark-400 mb-4">Yes. Wrap your Python logic in FastAPI endpoints (a straightforward refactor), then map those endpoints to <a href="https://docs.openbb.co/workspace/analysts/widgets/overview" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">OpenBB widgets</a>. The core analytical code remains largely unchanged.</p><p class="body-md-regular text-dark-400">To get started faster and see immediate value, you can also directly embed your existing, running Streamlit applications into an OpenBB dashboard using the <a href="https://docs.openbb.co/workspace/analysts/widgets/core-widgets" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">iframe widget</a>. This is the fastest way to unify your workflows, bringing your tools into a single view in minutes with zero code changes.</p>`,
+            },
+            {
+              q: "Does OpenBB support custom JavaScript and HTML widgets like Streamlit?",
+              a: `<p class="body-md-regular text-dark-400">Yes. OpenBB supports custom widgets for specialized use cases, similar to Streamlit's custom component system.</p>`,
+            },
+            {
+              q: "What if our team isn't familiar with FastAPI?",
+              a: `<p class="body-md-regular text-dark-400">It doesn't matter. OpenBB's frontend is backend-agnostic. It connects to any language or framework that can expose a REST API. While we provide examples using FastAPI for Python developers, it's an option, not a requirement. For example, this <a href="https://openbb.co/solutions/app-showcase?category=forecasting-sentiment-intelligence&app=polymarket-prediction-dashboard" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">Polymarket App</a> runs on a JavaScript backend.</p>`,
+            },
+            {
+              q: "How does OpenBB handle data security and compliance?",
+              a: `<p class="body-md-regular text-dark-400">OpenBB offers on-premises and private cloud deployment with enterprise-grade security controls, including SSO, role-based access, and audit logs. Your proprietary data never leaves your infrastructure.</p>`,
+            },
+            {
+              q: "Is OpenBB's community as large as Streamlit's?",
+              a: `<p class="body-md-regular text-dark-400">Streamlit has a larger general-purpose community. OpenBB's community is smaller but focused on financial services, with examples, app templates, and integrations built for finance workflows — check them out on our <a href="https://openbb.co/solutions/app-showcase" class="text-light-blue-600 hover:text-light-blue-700 hover:underline" target="_blank" rel="noopener noreferrer">Solutions</a> page.</p>`,
+            },
+            {
+              q: "What about ongoing support?",
+              a: `<p class="body-md-regular text-dark-400">OpenBB provides responsive support for production deployments.</p>`,
+            },
+          ].map((faq) => (
+            <div class="border border-grey-300 rounded-lg overflow-hidden" data-accordion-item>
+              <button
+                type="button"
+                class="group flex w-full cursor-pointer items-center justify-between bg-grey-50 px-8 py-6 text-left body-md-medium text-dark-600 transition-all hover:bg-[#EDF7FF]"
+                data-accordion-trigger
+              >
+                {faq.q}
+                <svg
+                  class="h-5 w-5 shrink-0 transition-transform duration-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  data-accordion-icon
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+              </button>
+              <div class="hidden bg-grey-50 px-8 pb-6" data-accordion-content>
+                <div class="pt-6" set:html={faq.a} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CtaLight
+      title='Ready to ship your agent inside OpenBB?'
+      description="Let's talk to learn more."
+      buttonText="Start Now"
+    />
+  </main>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll("[data-accordion-item]").forEach((item) => {
+      const trigger = item.querySelector("[data-accordion-trigger]") as HTMLElement;
+      const content = item.querySelector("[data-accordion-content]") as HTMLElement;
+      const icon = item.querySelector("[data-accordion-icon]") as SVGElement;
+
+      trigger.addEventListener("click", () => {
+        const isOpen = !content.classList.contains("hidden");
+
+        document.querySelectorAll("[data-accordion-item]").forEach((other) => {
+          if (other !== item) {
+            other.querySelector("[data-accordion-content]")?.classList.add("hidden");
+            const otherIcon = other.querySelector("[data-accordion-icon]") as SVGElement;
+            if (otherIcon) {
+              otherIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />';
+            }
+            other.querySelector("[data-accordion-trigger]")?.classList.remove("bg-[#EDF7FF]");
+          }
+        });
+
+        if (isOpen) {
+          content.classList.add("hidden");
+          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />';
+          trigger.classList.remove("bg-[#EDF7FF]");
+        } else {
+          content.classList.remove("hidden");
+          icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />';
+          trigger.classList.add("bg-[#EDF7FF]");
+        }
+      });
+    });
+  });
+</script>

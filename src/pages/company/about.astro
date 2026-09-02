@@ -1,0 +1,394 @@
+---
+import CtaLight from "../../components/CtaLight.astro";
+import FadeIn from "../../components/FadeIn.astro";
+import HeroSimple from "../../components/HeroSimple.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const timeline = [
+  {
+    name: "OpenBB Workspace first demo in San Francisco",
+    description:
+      "OpenBB Workspace was unveiled for the first time at an event in SF, highlighting that users could bring any type of data from multiple different sources into the product.",
+    date: "Dec 2023",
+  },
+  {
+    name: "OpenBB Workspace leaves Alpha in NYC event",
+    description:
+      "OpenBB Workspace left Alpha at Tower Research Ventures, where the team introduced OpenBB Copilot and showed how AI agents could interact with data in the Workspace.",
+    date: "May 2024",
+  },
+  {
+    name: "OpenBB Workspace is enterprise-ready",
+    description:
+      "We re-invented OpenBB Workspace to be enterprise-ready: VPC and on-prem deployment, role-based access, SSO, SOC 2 Type II compliance, admin roles, and more.",
+    date: "Mar 2025",
+  },
+  {
+    name: "OpenBB launches a Snowflake Native App",
+    description:
+      "OpenBB Workspace launches on Snowflake Marketplace, enabling investment teams to build analytics applications and deploy AI agents directly within Snowflake.",
+    date: "Feb 2026",
+  },
+];
+
+const investors = [
+  {
+    name: "Joseph Jacks",
+    role: "OSS Capital",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/a9fb9b75-767b-4e86-a879-ca991dad55fb.png",
+  },
+  {
+    name: "Naval Ravikant",
+    role: "Entrepreneur, Investor, Co-founder of AngelList",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/088e82f3-cf39-412e-9763-7cac95d06e87.png",
+  },
+  {
+    name: "Justin Hoffman",
+    role: "Former SVP Sales at Elastic",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/219205ea-a785-407c-bd57-aae10286926e.png",
+  },
+  {
+    name: "Larry Augustin",
+    role: "Former CEO of SugarCRM, and former VP Applications at AWS",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/4bb1890c-c11b-4fde-bf0d-8b5e11b61570.png",
+  },
+  {
+    name: "Elad Gil",
+    role: "Entrepreneur, Operating Executive and Investor",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/53aa6407-7a41-4aca-8259-601d28465b4d.png",
+  },
+  {
+    name: "Ram Shriram",
+    role: "Investor, Founding Board Member of Google",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/c956be76-645e-4e16-9238-f024f14d1949.png",
+  },
+  {
+    name: "Bob Young",
+    role: "Entrepreneur, Investor, Founder of Red Hat",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/907a1a11-ef8d-4d9c-b608-f090f84001b6.png",
+  },
+];
+
+const advisors = [
+  {
+    name: "Scott Williamson",
+    role: "Ex-CPO at Gitlab and VPP at SendGrid/Twilio",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/910b9c5e-521d-4d54-8e75-c85476f30860.png",
+  },
+  {
+    name: "Travis Oliphant",
+    role: "CEO at OpenTeams & Quansight | Founder of Anaconda & NumFOCUS | NumPy & SciPy Creator",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/0dd025fc-3090-4781-99af-88aa023c9ab0.png",
+  },
+  {
+    name: "Justin Hoffman",
+    role: "Former SVP Sales at Elastic",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/219205ea-a785-407c-bd57-aae10286926e.png",
+  },
+  {
+    name: "Larry Augustin",
+    role: "Former CEO of SugarCRM, and former VP Applications at AWS",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/4bb1890c-c11b-4fde-bf0d-8b5e11b61570.png",
+  },
+  {
+    name: "Aria Goudarzi",
+    role: "Former Head of Strategic Analytics and Data at Nikko Asset Management",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/d68b8725-3ed1-419e-ba3d-35f34332b7b8.png",
+  },
+  {
+    name: "Gabriele Columbro",
+    role: "Open Source Executive, FinTech, Enterprise Software & non-profit Advisor",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/5e4704f3-d039-44f3-b3ca-7cb49911afff.png",
+  },
+  {
+    name: "Joyce Li, CFA",
+    role: "Former Institutional Equity Fund Manager | Former Board President of CFA Society San Francisco",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/218320db-f1ac-4a16-aaae-d079ae7fb5f8.png",
+  },
+  {
+    name: "Jason Strimpel",
+    role: "Managing Director, Global AI Strategy at Andersen Consulting",
+    imageUrl:
+      "https://openbb-cms.directus.app/assets/4fa70eb4-e2ef-4444-b39f-36ca45411e1e.png",
+  },
+];
+---
+
+<Layout
+  title="About | OpenBB"
+  description="OpenBB is building an AI-powered research and analytics workspace for finance. Learn about our vision, team, investors and commitment to open-source innovation."
+  keywords="company, about, mission, culture, team, journey, CEO, funding, open source, headlines"
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroSimple
+      label="our story"
+      title={"AI, Open Source\nand Finance."}
+      description={"Learn about our vision, team, and commitment to open\nsolutions that empower the future of finance."}
+      buttonText="Start now"
+      buttonLink="https://pro.openbb.co/register"
+    />
+
+    <!-- Stats + Timeline -->
+    <section class="py-16 lg:pt-32 lg:pb-0">
+      <div class="page-container">
+        <div class="mx-auto pb-10 sm:pb-10 max-w-7xl">
+          <div
+            class="flex flex-col-reverse lg:flex-row gap-10 sm:gap-20 items-start"
+          >
+            <div class="w-full lg:w-1/2 space-y-8">
+              <div class="max-w-2xl">
+                <h2
+                  class="text-title-s-regular sm:text-title-xl-regular text-dark-600 text-left"
+                >
+                  Building open analytics <br class="hidden sm:inline" /> solutions
+                  since 2021
+                </h2>
+                <p
+                  class="mt-4 sm:mt-6 body-md-regular lg:body-lg-regular text-dark-400 text-left"
+                >
+                  We believe that financial institutions understand their data,
+                  strategies, and needs better than any vendor ever could. With
+                  roots in open source, OpenBB builds open systems that teams
+                  can modify, extend, and truly make their own, free from
+                  lock-in or black-box limitations.
+                </p>
+              </div>
+              <div class="space-y-6">
+                <div
+                  class="flex flex-row items-center gap-8 sm:gap-6 pb-6 border-b border-grey-200"
+                >
+                  <p
+                    class="text-title-s-bold lg:text-title-m-bold text-light-blue-600 w-20 text-left"
+                    data-metric-users
+                  >
+                    140k+
+                  </p>
+                  <p class="body-md-regular sm:body-lg-regular text-dark-400">
+                    Registered users
+                  </p>
+                </div>
+                <div
+                  class="flex flex-row items-center gap-8 sm:gap-6 pb-6 border-b border-grey-200"
+                >
+                  <p
+                    class="text-title-s-bold lg:text-title-m-bold text-light-blue-600 w-20 text-left"
+                    data-metric-stars
+                  >
+                    62k+
+                  </p>
+                  <p class="body-md-regular sm:body-lg-regular text-dark-400">
+                    Github Stars
+                  </p>
+                </div>
+                <div class="flex flex-row items-center gap-8 sm:gap-6 pb-6">
+                  <p
+                    class="text-title-s-bold lg:text-title-m-bold text-light-blue-600 w-20 text-left"
+                  >
+                    200+
+                  </p>
+                  <p class="body-md-regular sm:body-lg-regular text-dark-400">
+                    Solutions built on OpenBB
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full lg:w-1/2">
+              <FadeIn>
+                <img
+                  src="https://openbb-cms.directus.app/assets/1cff21f4-0369-498e-afd8-cfe9b14fab0a.png"
+                  alt="OpenBB team collaboration"
+                  class="w-full h-full object-cover rounded-lg border border-grey-200 shadow-light-3"
+                />
+              </FadeIn>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="mx-auto py-16 sm:py-20 max-w-7xl">
+          <div
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-8 sm:gap-12 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-4"
+          >
+            {
+              timeline.map((item, index) => (
+                <div data-fade-in style={`transition-delay: ${index * 200}ms`}>
+                  <time class="flex items-center body-lg-bold text-light-blue-600">
+                    <svg
+                      viewBox="0 0 4 4"
+                      aria-hidden="true"
+                      class="mr-4 size-1 flex-none"
+                    >
+                      <circle r="2" cx="2" cy="2" fill="currentColor" />
+                    </svg>
+                    {item.date}
+                    <div
+                      aria-hidden="true"
+                      class="absolute -ml-2 h-px w-screen -translate-x-full bg-light-blue-600 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0"
+                    />
+                  </time>
+                  <div class="mt-8 sm:mt-12">
+                    <p class="body-md-bold lg:body-lg-bold text-dark-600">
+                      {item.name}
+                    </p>
+                  </div>
+                  <div class="mt-5">
+                    <p class="body-md-regular text-dark-400">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Investors & Advisors -->
+    <section class="py-16 lg:py-32 bg-dark-850">
+      <div class="page-container">
+        <div class="mx-auto max-w-2xl lg:mx-0">
+          <h2
+            class="text-title-s-regular sm:text-title-xl-regular sm:mt-10 mb-5 sm:mb-6 text-white text-left"
+          >
+            Our investors and advisors
+          </h2>
+          <p class="body-lg-regular text-grey-300 text-left">
+            We are backed by industry leaders and trusted advisors who bring
+            deep expertise in open source, enterprise software, and venture
+            growth. Their support helps us drive innovation and deliver value to
+            our global community.
+          </p>
+        </div>
+
+        <div>
+          <div class="block">
+            <div
+              class="h-9 px-2 mt-10 sm:mt-20 bg-light-blue-600/20 rounded-full justify-start items-center gap-1 inline-flex overflow-hidden"
+            >
+              <div
+                class="text-center lg:text-left text-light-blue-400 body-xs-medium sm:body-sm-medium"
+              >
+                Investors
+              </div>
+            </div>
+          </div>
+          <ul
+            class="mx-auto mt-5 sm:mt-10 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-5 sm:gap-y-16 text-center sm:grid-cols-3 md:grid-cols-3 lg:mx-0 lg:max-w-none lg:grid-cols-4"
+          >
+            {
+              investors.map((person) => (
+                <li data-fade-in>
+                  <img
+                    alt={person.name}
+                    src={person.imageUrl}
+                    class="mx-auto size-24 sm:size-28"
+                    loading="lazy"
+                  />
+                  <h3 class="mt-5 sm:mt-6 body-lg-bold text-white">
+                    {person.name}
+                  </h3>
+                  <p class="body-sm-regular sm:body-lg-regular text-grey-300">
+                    {person.role}
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="border-t border-grey-700 my-10 sm:my-20"></div>
+
+        <div>
+          <div class="block">
+            <div
+              class="h-9 px-2 bg-light-blue-600/20 rounded-full justify-start items-center gap-1 inline-flex overflow-hidden"
+            >
+              <div
+                class="text-center lg:text-left text-light-blue-400 body-xs-medium sm:body-sm-medium"
+              >
+                Advisors
+              </div>
+            </div>
+          </div>
+          <ul
+            class="mx-auto mt-5 sm:mt-10 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-5 sm:gap-y-16 text-center sm:grid-cols-3 md:grid-cols-3 lg:mx-0 lg:max-w-none lg:grid-cols-4"
+          >
+            {
+              advisors.map((person) => (
+                <li data-fade-in>
+                  <img
+                    alt={person.name}
+                    src={person.imageUrl}
+                    class="mx-auto size-24 sm:size-28"
+                    loading="lazy"
+                  />
+                  <h3 class="mt-5 sm:mt-6 body-md-bold lg:body-lg-bold text-white">
+                    {person.name}
+                  </h3>
+                  <p class="body-sm-regular sm:body-lg-regular text-grey-300">
+                    {person.role}
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <CtaLight />
+  </main>
+</Layout>
+
+<script>
+  function formatCount(count: number): string {
+    if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M+`;
+    if (count >= 1000) return `${Math.floor(count / 1000)}k+`;
+    return `${count}+`;
+  }
+
+  const usersEl = document.querySelector("[data-metric-users]");
+  const starsEl = document.querySelector("[data-metric-stars]");
+
+  Promise.allSettled([
+    fetch("https://payments.openbb.co/metrics/users")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.users?.length > 0 && usersEl) {
+          usersEl.textContent = formatCount(d.users[d.users.length - 1].count);
+        }
+      }),
+    fetch(
+      "https://api.github.com/repos/OpenBB-finance/openbb-metricsv2/contents/metrics.json?ref=main",
+      {
+        headers: { Accept: "application/vnd.github.v3+json" },
+      },
+    )
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => (d?.download_url ? fetch(d.download_url) : null))
+      .then((r) => (r?.ok ? r.json() : null))
+      .then((m) => {
+        if (m?.github?.length > 0 && starsEl) {
+          starsEl.textContent = formatCount(
+            m.github[m.github.length - 1].stars,
+          );
+        }
+      }),
+  ]);
+</script>

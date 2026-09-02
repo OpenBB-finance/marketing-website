@@ -1,0 +1,296 @@
+---
+import Button from "./Button.astro";
+
+const workflows = [
+  {
+    id: "research-analysis",
+    title: "Research & Analysis",
+    image: "https://openbb-cms.directus.app/assets/77dc0fc4-d0b2-494a-9289-2e3f6ef04bd8.png",
+    heading: "Workflows that stay when analysts leave",
+    bullets: [
+      "Connect filings, transcripts, and internal models in one view",
+      "Any team member can run the workflow. No Python required",
+      "AI Agents surface relevant context automatically",
+    ],
+  },
+  {
+    id: "portfolio-analytics",
+    title: "Portfolio Analytics",
+    image: "https://openbb-cms.directus.app/assets/981b3239-1728-4d21-be89-e3c31352d1af.png",
+    heading: "Stop pulling from terminals and spreadsheets to <br />get the full picture",
+    bullets: [
+      "Ingest data from all of them, in a layout you control",
+      "One view across custodians, vendors, and internal models",
+      "PMs query the current state directly. No data team bottleneck",
+      "Attribution logic you define, not a vendor’s black box",
+    ],
+  },
+  {
+    id: "risk-monitoring",
+    title: "Risk Monitoring",
+    image: "https://openbb-cms.directus.app/assets/0b6195ac-f282-4356-99ca-69a18b92e70b.png",
+    heading: "Distribute your risk data firm-wide",
+    bullets: [
+      "Breach monitoring becomes accessible to PMs and analysts, not just the data team",
+      "Build dashboards on your models, not a vendor's pre-baked view",
+      "Analysts get an immediate answer instead of waiting for a report",
+    ],
+  },
+  {
+    id: "client-reporting",
+    title: "Client Reporting",
+    image: "https://openbb-cms.directus.app/assets/7ff95311-c852-4626-9d3d-2e90a5455f0b.png",
+    heading: "Reports that build themselves when the data updates",
+    bullets: [
+      "Branded, interactive, and updated automatically from your data",
+      "Avoid manual assembly each quarter",
+      "Control exactly what the clients see",
+    ],
+  },
+];
+---
+
+<section class="py-16 md:py-32 bg-dark-850" data-workflows>
+  <div class="page-container">
+    <div class="text-left md:text-center mb-8 md:mb-[60px]">
+      <h2 class="text-title-s-regular md:text-title-xl-regular text-white">
+        One workspace handles it all
+      </h2>
+      <p class="mt-3 md:mt-6 body-md-regular md:body-lg-regular text-grey-100 max-w-3xl md:mx-auto">
+        Pick the workflow that matches your team’s biggest friction point
+      </p>
+    </div>
+
+    <!-- Desktop tabs -->
+    <div class="hidden md:flex items-center justify-center gap-12 border-b border-dark-600 mb-[60px]" data-tabs>
+      {workflows.map((w, i) => (
+        <button
+          type="button"
+          data-tab={w.id}
+          class:list={[
+            "pb-3 body-md-regular transition-colors duration-200 whitespace-nowrap cursor-pointer",
+            i === 0 ? "text-light-blue-400 border-b-2 border-light-blue-400" : "text-dark-100 hover:text-grey-100 border-b-2 border-transparent",
+          ]}
+        >
+          {w.title}
+        </button>
+      ))}
+    </div>
+
+    <!-- Mobile arrow nav -->
+    <div class="md:hidden flex items-center mb-6" data-mobile-nav>
+      <button type="button" data-prev class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-dark-600 hover:bg-dark-500 transition-colors cursor-pointer" aria-label="Previous workflow">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 16L6 10L12 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span class="flex-1 text-center text-white body-md-medium" data-title-display>{workflows[0].title}</span>
+      <button type="button" data-next class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-dark-600 hover:bg-dark-500 transition-colors cursor-pointer" aria-label="Next workflow">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M8 4L14 10L8 16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <!-- Mobile content panels -->
+    <div class="md:hidden" data-mobile-panels>
+      {workflows.map((w, i) => (
+        <div data-panel={w.id} class:list={["py-6 transition-opacity duration-300 ease-in-out", i === 0 ? "block" : "hidden"]}>
+          <div class="mb-6">
+            <p class="body-md-bold text-white mb-2" set:html={w.heading} />
+            {/* {w.description && <p class="text-grey-100 body-md-regular mb-4">{w.description}</p>} */}
+            <ul class="space-y-2">
+              {w.bullets.map((bullet) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-light-blue-400 mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-light-blue-400"></span>
+                  <span class="text-grey-100 body-md-regular">{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="w-full overflow-hidden rounded-lg">
+            <img src={w.image} alt={`${w.title} illustration`} class="w-full h-auto rounded-lg object-cover" width="375" height="250" loading="lazy" />
+          </div>
+        </div>
+      ))}
+      <div class="mt-16 mb-8">
+        <Button variant="accent" href="/solutions/app-showcase" class="w-full">
+          See what firms are building with OpenBB
+        </Button>
+      </div>
+    </div>
+
+    <!-- Desktop two-column layout -->
+    <div class="hidden md:flex gap-12 items-center">
+      <div class="w-[45%] pt-8" data-desktop-text>
+        {workflows.map((w, i) => (
+          <div data-content={w.id} class:list={["transition-opacity duration-300 ease-in-out", i === 0 ? "block" : "hidden"]}>
+            <div class="mb-8">
+              <p class="body-lg-bold text-white mb-4 text-title-s-bold" set:html={w.heading} />
+              {/* {w.description && <p class="text-grey-100 body-lg-regular mb-6">{w.description}</p>} */}
+              <ul class="space-y-3">
+                {w.bullets.map((bullet) => (
+                  <li class="flex items-start gap-3">
+                    <span class="text-light-blue-400 mt-2.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-light-blue-400"></span>
+                    <span class="text-grey-100 body-lg-regular">{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+        <div class="mt-16">
+          <Button variant="accent" href="/solutions/app-showcase">
+            See what firms are building with OpenBB
+          </Button>
+        </div>
+      </div>
+      <div class="w-[55%]">
+        <div class="overflow-hidden rounded-2xl transition-opacity duration-300 ease-in-out" data-desktop-image>
+          <img src={workflows[0].image} alt={`${workflows[0].title} illustration`} class="w-full h-auto rounded-2xl shadow-dark-1" width="640" height="420" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const section = document.querySelector("[data-workflows]") as HTMLElement;
+    if (!section) return;
+
+    const ids = Array.from(section.querySelectorAll("[data-tab]")).map((b) => (b as HTMLElement).dataset.tab!);
+    let active = ids[0];
+    let autoplayTimer: ReturnType<typeof setInterval> | null = null;
+    const AUTOPLAY_INTERVAL = 7000;
+    const FADE_DURATION = 250;
+
+    const tabs = section.querySelectorAll("[data-tab]");
+    const panels = section.querySelectorAll("[data-panel]");
+    const contents = section.querySelectorAll("[data-content]");
+    const desktopImage = section.querySelector("[data-desktop-image]") as HTMLElement;
+    const desktopImg = desktopImage?.querySelector("img") as HTMLImageElement;
+    const titleDisplay = section.querySelector("[data-title-display]") as HTMLElement;
+
+    const images = [
+      "https://openbb-cms.directus.app/assets/77dc0fc4-d0b2-494a-9289-2e3f6ef04bd8.png",
+      "https://openbb-cms.directus.app/assets/981b3239-1728-4d21-be89-e3c31352d1af.png",
+      "https://openbb-cms.directus.app/assets/0b6195ac-f282-4356-99ca-69a18b92e70b.png",
+      "https://openbb-cms.directus.app/assets/7ff95311-c852-4626-9d3d-2e90a5455f0b.png",
+    ];
+    const titles = ["Research & Analysis", "Portfolio Analytics", "Risk Monitoring", "Client Reporting"];
+
+    let preloaded = false;
+    function preloadImages() {
+      if (preloaded) return;
+      preloaded = true;
+      images.forEach((src) => { new Image().src = src; });
+    }
+
+    function fadeIn(targets: HTMLElement[]) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          targets.forEach((el) => el.style.opacity = "1");
+        });
+      });
+    }
+
+    function switchTo(id: string) {
+      if (id === active) return;
+      stopAutoplay();
+
+      const fadeTargets = [desktopImage, ...Array.from(contents), ...Array.from(panels)].filter(Boolean) as HTMLElement[];
+      fadeTargets.forEach((el) => el.style.opacity = "0");
+
+      setTimeout(() => {
+        active = id;
+
+        tabs.forEach((tab) => {
+          const t = tab as HTMLElement;
+          if (t.dataset.tab === id) {
+            t.className = "pb-3 body-md-regular transition-colors duration-200 whitespace-nowrap cursor-pointer text-light-blue-400 border-b-2 border-light-blue-400";
+          } else {
+            t.className = "pb-3 body-md-regular transition-colors duration-200 whitespace-nowrap cursor-pointer text-dark-100 hover:text-grey-100 border-b-2 border-transparent";
+          }
+        });
+
+        panels.forEach((p) => {
+          const panel = p as HTMLElement;
+          panel.classList.toggle("hidden", panel.dataset.panel !== id);
+          panel.classList.toggle("block", panel.dataset.panel === id);
+        });
+
+        contents.forEach((c) => {
+          const content = c as HTMLElement;
+          content.classList.toggle("hidden", content.dataset.content !== id);
+          content.classList.toggle("block", content.dataset.content === id);
+        });
+
+        const workflow = ids.indexOf(id);
+        if (titleDisplay) titleDisplay.textContent = titles[workflow];
+
+        if (desktopImg) {
+          const newSrc = images[workflow];
+          if (desktopImg.src.endsWith(newSrc.split("/").pop()!)) {
+            fadeIn(fadeTargets);
+          } else {
+            desktopImg.onload = () => fadeIn(fadeTargets);
+            desktopImg.src = newSrc;
+          }
+        } else {
+          fadeIn(fadeTargets);
+        }
+      }, FADE_DURATION);
+    }
+
+    function next() {
+      const idx = ids.indexOf(active);
+      switchTo(ids[(idx + 1) % ids.length]);
+    }
+
+    function prev() {
+      const idx = ids.indexOf(active);
+      switchTo(ids[(idx - 1 + ids.length) % ids.length]);
+    }
+
+    function startAutoplay() {
+      if (window.innerWidth < 768) return;
+      stopAutoplay();
+      autoplayTimer = setInterval(next, AUTOPLAY_INTERVAL);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    tabs.forEach((tab) => tab.addEventListener("click", () => switchTo((tab as HTMLElement).dataset.tab!)));
+
+    section.querySelector("[data-prev]")?.addEventListener("click", prev);
+    section.querySelector("[data-next]")?.addEventListener("click", next);
+
+    let touchStartX = 0;
+    const mobileArea = section.querySelector("[data-mobile-panels]") as HTMLElement;
+    if (mobileArea) {
+      mobileArea.addEventListener("touchstart", (e: TouchEvent) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      mobileArea.addEventListener("touchend", (e: TouchEvent) => {
+        if (!e.changedTouches[0]) return;
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) >= 50) {
+          diff > 0 ? next() : prev();
+        }
+      }, { passive: true });
+    }
+
+    startAutoplay();
+
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { preloadImages(); startAutoplay(); }
+      else { stopAutoplay(); }
+    }, { threshold: 0.3 });
+    io.observe(section);
+
+    document.addEventListener("astro:before-swap", () => {
+      stopAutoplay();
+      io.disconnect();
+    }, { once: true });
+  });
+</script>

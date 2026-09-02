@@ -1,0 +1,70 @@
+---
+import Button from "../components/Button.astro";
+import SvgIcon from "../components/SvgIcon.astro";
+import Layout from "../layouts/Layout.astro";
+
+const cards = [
+  { href: "/", icon: "home-404", title: "Home", desc: "Visit the OpenBB Homepage" },
+  { href: "/products/workspace", icon: "layout-404", title: "Product", desc: "Explore our Workspace capabilities" },
+  { href: "/pricing", icon: "briefcase-404", title: "Pricing", desc: "View our plans and deployment options" },
+  { href: "/blog", icon: "blog-404", title: "Blog", desc: "See all the latest OpenBB news" },
+];
+---
+
+<Layout title="Not Found | OpenBB" description="Page not found" keywords="page, error">
+  <div class="flex flex-col pt-14 lg:min-h-screen lg:flex-row lg:pt-0">
+    <div class="flex w-full items-center justify-center bg-dark-800 px-5 py-8 sm:px-6 sm:py-12 lg:w-1/2 lg:px-8 lg:py-0">
+      <div class="mx-auto w-full max-w-md text-left">
+        <p class="mb-3 text-light-blue-400 sm:mb-6" style="font-size:clamp(32px,8vw,40px);font-weight:700;line-height:1.2;letter-spacing:0.1em;text-transform:uppercase;">
+          404
+        </p>
+        <h1 class="text-title-m-regular mb-3 text-white sm:mb-6">
+          Page not found
+        </h1>
+        <p class="body-lg-regular mb-5 text-dark-50 sm:mb-8">
+          Sorry, we couldn't find the page you're looking for.
+        </p>
+        <div class="sm:mb-12">
+          <Button variant="accent" class="min-h-[44px] w-full px-6 py-3 text-base sm:w-auto" data-go-back>
+            Go Back
+          </Button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="relative flex w-full items-center justify-center px-5 py-6 sm:px-6 sm:py-8 lg:w-1/2 lg:py-8"
+      style="background-image:url('https://openbb-cms.directus.app/assets/a585c2c8-6b3d-49b8-acb0-8e11458c23f9.png');background-size:cover;background-position:center;background-repeat:no-repeat;"
+    >
+      <div class="absolute inset-0 bg-black/50"></div>
+      <div class="relative z-10 w-full max-w-sm space-y-3 sm:space-y-4">
+        {cards.map((card) => (
+          <a href={card.href} class="block">
+            <div class="flex w-full cursor-pointer items-start gap-2 rounded-lg border border-transparent bg-light-blue-600 p-3 shadow-light-2 transition-all duration-200 hover:bg-[#005986] sm:p-4">
+              <div class="flex flex-shrink-0 items-center">
+                <SvgIcon name={card.icon} class="h-5 w-5 text-white sm:h-6 sm:w-6" />
+              </div>
+              <div class="min-w-0 flex-1 text-left">
+                <div class="body-sm-bold text-white">{card.title}</div>
+                <div class="body-xs-regular text-grey-100">{card.desc}</div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("astro:page-load", () => {
+      const btn = document.querySelector("[data-go-back]");
+      btn?.addEventListener("click", () => {
+        if (history.length > 1) {
+          history.back();
+        } else {
+          location.href = "/";
+        }
+      });
+    });
+  </script>
+</Layout>

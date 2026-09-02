@@ -1,0 +1,616 @@
+---
+import CtaLight from "../../components/CtaLight.astro";
+import FadeIn from "../../components/FadeIn.astro";
+import HeroSimple from "../../components/HeroSimple.astro";
+import SvgIcon from "../../components/SvgIcon.astro";
+import TestimonialCard from "../../components/TestimonialCard.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+  title="OpenBB vs Tableau | OpenBB"
+  description="If your data is already in Snowflake, OpenBB is the fastest path from that data to production analytics. No new infrastructure, no extracts, no separate deployment cycle."
+  keywords="tableau, comparison, openbb, snowflake, financial data, financial analytics, dashboards, native app"
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroSimple
+      title={"OpenBB vs. Tableau"}
+      description="If your data is already in Snowflake, OpenBB is the fastest path from that data to production analytics. No new infrastructure, no extracts, no separate deployment cycle."
+    />
+
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <div
+            class="flex flex-col md:flex-row items-center justify-between gap-10"
+          >
+            <div class="w-full flex md:w-[520px] shrink-0 flex-col gap-10">
+              <h2
+                class="text-title-s-regular md:text-title-xl-regular text-dark-600"
+              >
+                How OpenBB closes Tableau's gaps on Snowflake
+              </h2>
+              <p class="body-md-regular md:body-lg-regular text-dark-400">
+                Getting Tableau to work with your data means extracts,
+                connectors, separate servers, and an ongoing DevOps overhead
+                your team has to maintain. For firms already on Snowflake, that
+                is a slow and expensive way to get to analytics you could have
+                running today.
+              </p>
+            </div>
+            <div class="w-full md:max-w-[640px]">
+              <div
+                class="relative w-full bg-dark-800 flex items-center justify-center rounded-lg overflow-hidden"
+                data-video-container
+              >
+                <video
+                  class="w-full block"
+                  loop
+                  playsinline
+                  poster="https://openbb-cms.directus.app/assets/a35d5a70-3c64-4064-822b-1dfceb753f97"
+                  preload="metadata"
+                  data-video
+                >
+                  <source
+                    src="https://openbb-cms.directus.app/assets/b7d993f4-8e6b-49b3-b4f3-145f579f6514"
+                    type="video/mp4"
+                  />
+                </video>
+                <div
+                  class="absolute inset-0 bg-black/30 transition-opacity duration-300 pointer-events-none"
+                  data-video-overlay
+                >
+                </div>
+                <button
+                  type="button"
+                  class="absolute inset-0 flex items-center justify-center cursor-pointer bg-transparent border-none pointer-events-none"
+                  aria-label="Play video"
+                  data-play-btn
+                >
+                  <svg
+                    class="w-12 h-12 md:w-[86px] md:h-[86px] pointer-events-auto transition-transform duration-200 hover:scale-110 drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
+                    viewBox="0 0 86 86"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M34.1927 57.9023V28.0536L57.695 42.9779L34.1927 57.9023ZM43 0C19.2905 0 0 19.2905 0 43C0 66.7095 19.2905 86 43 86C66.7095 86 86 66.7095 86 43C86 19.2905 66.7095 0 43 0Z"
+                      fill="white"
+                      fill-opacity="0.7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <h2
+            class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-8 md:mb-20 text-center md:text-left"
+          >
+            Why financial teams choose OpenBB's
+            <br class="hidden md:block" /> Snowflake Native App over Tableau
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon
+                    name="data-ai-vendor"
+                    class="w-5 h-5 text-white overflow-visible"
+                  />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  From raw data to a running application fast
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Tableau requires infrastructure setup, extract pipelines, and
+                custom connectors before analysts see anything useful. With
+                OpenBB, teams install from Snowflake Marketplace and are up and
+                running the same day, instead of waiting weeks for a new
+                dashboard.
+              </p>
+            </div>
+
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon
+                    name="streamlit-lightning"
+                    class="w-5 h-5 text-white overflow-visible"
+                  />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  AI on your data, without separate infrastructure
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Adding AI to Tableau means provisioning Salesforce Data Cloud,
+                replicating data, and managing a second platform. OpenBB Copilot
+                runs inside your Snowflake account on the data already there.
+                Analysts query data, generate SQL, and draft memos in minutes.
+              </p>
+            </div>
+
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon
+                    name="streamlit-grid"
+                    class="w-5 h-5 text-white overflow-visible"
+                  />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Analytics apps without a frontend dev cycle
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                When Tableau's standard visuals run out, teams end up in
+                JavaScript extensions and months of custom builds. OpenBB's
+                no-code components let analysts build and customize their own
+                dashboards directly on Snowflake data, without engineering
+                support.
+              </p>
+            </div>
+
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon
+                    name="streamlit-layout"
+                    class="w-5 h-5 text-white overflow-visible"
+                  />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  One infrastructure footprint, not two
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Every tool added to your stack is a deployment to maintain and a
+                permission model to sync. With OpenBB running natively in
+                Snowflake, authentication, permissions, and compute are already
+                handled. Teams ship faster because there is less to manage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <h2
+          class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-4 md:mb-6 text-left"
+        >
+          Comparison
+        </h2>
+        <p
+          class="body-md-regular md:body-lg-regular text-dark-400 mb-8 md:mb-20 max-w-3xl"
+        >
+          Features below refer to the Snowflake Native App deployment and how we
+          compare in architecture, governance, and operating model. OpenBB
+          Workspace is also available as a standalone cloud or on-premises
+          deployment.
+        </p>
+
+        <div
+          class="md:hidden bg-white border border-grey-300 shadow-light-2 rounded-2xl overflow-hidden"
+        >
+          {
+            [
+              {
+                category: "Deployment",
+                title: "Deployment model",
+                openbb:
+                  "Runs entirely in customer Snowflake account (on-premises or private cloud versions are also available)",
+                tableau: "External infrastructure (Tableau Server/Cloud)",
+              },
+              {
+                category: "AI",
+                title: "AI infrastructure",
+                openbb: "Native Copilot powered by Snowflake Cortex",
+                tableau: "Limited, requires Salesforce Data Cloud integration",
+              },
+              {
+                category: "Compliance",
+                title: "Governance",
+                openbb: "Inherits Snowflake RBAC automatically",
+                tableau: "Separate permission layer, manual sync required",
+              },
+              {
+                category: "Compliance",
+                title: "Data Movement",
+                openbb: "Zero. Data never leaves your environment",
+                tableau: "Requires data extracts and movement",
+              },
+              {
+                category: "Compliance",
+                title: "Audit Trails",
+                openbb: "Snowflake's native activity logging",
+                tableau: "Separate Tableau audit configuration",
+              },
+              {
+                category: "Usability",
+                title: "Data processing",
+                openbb: "Snowpark computation on governed data",
+                tableau:
+                  "Data extracts or live connections with performance tradeoffs",
+              },
+              {
+                category: "Usability",
+                title: "Installation",
+                openbb: "One-click from Snowflake Marketplace",
+                tableau:
+                  "Separate procurement, infrastructure setup, configuration",
+              },
+              {
+                category: "Usability",
+                title: "Mobile Access",
+                openbb: "Browser-based, responsive design",
+                tableau:
+                  "Dedicated mobile apps (iOS/Android) with offline capabilities",
+              },
+            ].map((row, i, arr) => (
+              <Fragment>
+                <div class="p-5">
+                  <p class="body-xs-medium text-dark-400 mb-1">
+                    {row.category}
+                  </p>
+                  <h3 class="body-md-bold text-dark-600 mb-4">{row.title}</h3>
+                  <div class="flex flex-col gap-3">
+                    <div>
+                      <p class="body-sm-bold text-dark-600 mb-1">OpenBB</p>
+                      <p class="body-sm-regular text-dark-400">{row.openbb}</p>
+                    </div>
+                    <div>
+                      <p class="body-sm-bold text-dark-600 mb-1">Tableau</p>
+                      <p class="body-sm-regular text-dark-400">{row.tableau}</p>
+                    </div>
+                  </div>
+                </div>
+                {i < arr.length - 1 && <div class="h-px bg-grey-200 mx-5" />}
+              </Fragment>
+            ))
+          }
+        </div>
+
+        <div
+          class="hidden md:block border border-grey-300 shadow-light-2 bg-white overflow-x-auto rounded-2xl"
+        >
+          <table class="w-full min-w-[600px]">
+            <thead>
+              <tr class="bg-grey-50">
+                <th class="text-left p-5 body-lg-bold text-dark-600 w-[160px]"
+                ></th>
+                <th
+                  class="text-left px-8 py-5 body-lg-bold text-dark-600 whitespace-nowrap"
+                  >Feature</th
+                >
+                <th class="text-left px-8 py-5 body-lg-bold text-dark-600"
+                  >OpenBB (Snowflake Native App)</th
+                >
+                <th class="text-left px-8 py-5 body-lg-bold text-dark-600"
+                  >Tableau</th
+                >
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-grey-200">
+                <td
+                  class="p-5 body-md-medium text-dark-600 align-top bg-grey-50"
+                  >Deployment</td
+                >
+                <td
+                  class="px-8 py-5 body-md-bold text-dark-600 align-top whitespace-nowrap"
+                  >Deployment model</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Runs entirely in customer Snowflake account (on-premises or
+                  private cloud versions are also available)</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >External infrastructure (Tableau Server/Cloud)</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td
+                  class="p-5 body-md-medium text-dark-600 align-top bg-grey-50"
+                  >AI</td
+                >
+                <td
+                  class="px-8 py-5 body-md-bold text-dark-600 align-top whitespace-nowrap"
+                  >AI infrastructure</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Native Copilot powered by Snowflake Cortex</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Limited, requires Salesforce Data Cloud integration</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td
+                  rowspan="3"
+                  class="p-5 body-md-medium text-dark-600 align-top bg-grey-50 border-b-0"
+                  >Compliance</td
+                >
+                <td
+                  class="px-8 py-5 body-md-bold text-dark-600 align-top whitespace-nowrap"
+                  >Governance</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Inherits Snowflake RBAC automatically</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Separate permission layer, manual sync required</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td
+                  class="px-8 py-5 body-md-bold text-dark-600 align-top whitespace-nowrap"
+                  >Data Movement</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Zero. Data never leaves your environment</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Requires data extracts and movement</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td
+                  class="px-8 py-5 body-md-bold text-dark-600 align-top whitespace-nowrap"
+                  >Audit Trails</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Snowflake's native activity logging</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Separate Tableau audit configuration</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td
+                  rowspan="3"
+                  class="p-5 body-md-medium text-dark-600 align-top bg-grey-50 border-b-0"
+                  >Usability</td
+                >
+                <td
+                  class="px-8 py-5 body-md-bold text-dark-600 align-top whitespace-nowrap"
+                  >Data processing</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Snowpark computation on governed data</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Data extracts or live connections with performance tradeoffs</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td
+                  class="px-8 py-5 body-md-bold text-dark-600 align-top whitespace-nowrap"
+                  >Installation</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >One-click from Snowflake Marketplace</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Separate procurement, infrastructure setup, configuration</td
+                >
+              </tr>
+              <tr>
+                <td
+                  class="px-8 py-5 body-md-bold text-dark-600 align-top whitespace-nowrap"
+                  >Mobile Access</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Browser-based, responsive design</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Dedicated mobile apps (iOS/Android) with offline capabilities</td
+                >
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <FadeIn>
+      <TestimonialCard
+        image="https://openbb-cms.directus.app/assets/ff358739-8774-4237-a9f9-a92dac94e0bc.png"
+        headline="Partners like OpenBB provide our customers with the specialized toolkit needed to mobilize global market data"
+        quote="For banks and asset managers, building applications natively in Snowflake lets teams push quantitative and fundamental research forward while keeping proprietary models and sensitive client data inside Snowflake's security perimeter."
+        author="Jonathan Regenstein"
+        company="Head of Financial Services AI, Snowflake"
+      />
+    </FadeIn>
+
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <h2
+          class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-8 md:mb-20 text-left"
+        >
+          FAQs
+        </h2>
+
+        <div class="space-y-3 md:space-y-4" data-accordion>
+          {
+            [
+              {
+                q: "Is the Snowflake Native App a separate product from OpenBB Workspace?",
+                a: `<p class="body-md-regular text-dark-400">It is the same product, OpenBB Workspace, available in different editions. The Snowflake edition runs natively in your Snowflake account via Snowflake Marketplace. The self-hosted edition runs in your own cloud or on-premises environment. The feature set is consistent, but infrastructure, governance, and procurement follow the deployment model that fits your firm.</p>`,
+              },
+              {
+                q: "Do we need to already be on Snowflake to use OpenBB?",
+                a: `<p class="body-md-regular text-dark-400">No. OpenBB Workspace is the product, and it can run in your own cloud or on-premises/VPC without Snowflake. The Snowflake Native App is a Workspace edition for firms that already use Snowflake and want the product to run directly in their Snowflake account. It is an additional deployment option, not a prerequisite.</p>`,
+              },
+              {
+                q: "Can OpenBB handle the same data volumes as Tableau?",
+                a: `<p class="body-md-regular text-dark-400">OpenBB processes data where it lives. When deployed as a Snowflake Native App, computation happens through Snowpark on Snowflake's infrastructure, handling the same large datasets your analysts already query. Cloud and on-premises deployments scale based on your infrastructure, with no arbitrary row limits.</p>`,
+              },
+              {
+                q: "Does this work with our on-premises Snowflake deployment?",
+                a: `<p class="body-md-regular text-dark-400">Yes. Snowflake Native Apps run wherever your Snowflake account runs, including private cloud and customer-managed keys configurations. If your compliance requirements led you to on-premises Snowflake, OpenBB operates under the same security posture. Cloud-based and VPC deployments of OpenBB remain available for firms not using Snowflake or requiring hybrid architectures.</p>`,
+              },
+              {
+                q: "How does OpenBB work for Tableau users who require self-service analytics?",
+                a: `<p class="body-md-regular text-dark-400">OpenBB supports both no-code dashboard building for business users and Python/SQL development for technical teams in the same interface. Analysts who built Tableau dashboards through drag-and-drop find OpenBB's component library familiar. The difference is they now work directly on governed data with AI assistance instead of waiting for IT to refresh extracts or modify calculations.</p>`,
+              },
+            ].map((faq) => (
+              <div
+                class="border border-grey-300 rounded-lg overflow-hidden"
+                data-accordion-item
+              >
+                <button
+                  type="button"
+                  class="group flex w-full cursor-pointer items-center justify-between bg-grey-50 px-8 py-6 text-left body-md-medium text-dark-600 transition-all hover:bg-[#EDF7FF]"
+                  data-accordion-trigger
+                >
+                  {faq.q}
+                  <svg
+                    class="h-5 w-5 shrink-0 transition-transform duration-200"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    data-accordion-icon
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                </button>
+                <div class="hidden bg-grey-50 px-8 pb-6" data-accordion-content>
+                  <div set:html={faq.a} />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <CtaLight
+      title="Want to see it in action?"
+      description="See how you can transform Snowflake data into production-ready, AI-powered applications."
+      buttonText="See Solutions"
+      buttonHref="/solutions/app-showcase"
+      buttonTarget="_self"
+    />
+  </main>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll("[data-accordion-item]").forEach((item) => {
+      const trigger = item.querySelector(
+        "[data-accordion-trigger]",
+      ) as HTMLElement;
+      const content = item.querySelector(
+        "[data-accordion-content]",
+      ) as HTMLElement;
+      const icon = item.querySelector("[data-accordion-icon]") as SVGElement;
+
+      trigger.addEventListener("click", () => {
+        const isOpen = !content.classList.contains("hidden");
+
+        document.querySelectorAll("[data-accordion-item]").forEach((other) => {
+          if (other !== item) {
+            other
+              .querySelector("[data-accordion-content]")
+              ?.classList.add("hidden");
+            const otherIcon = other.querySelector(
+              "[data-accordion-icon]",
+            ) as SVGElement;
+            if (otherIcon) {
+              otherIcon.innerHTML =
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />';
+            }
+            other
+              .querySelector("[data-accordion-trigger]")
+              ?.classList.remove("bg-[#EDF7FF]");
+          }
+        });
+
+        if (isOpen) {
+          content.classList.add("hidden");
+          icon.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />';
+          trigger.classList.remove("bg-[#EDF7FF]");
+        } else {
+          content.classList.remove("hidden");
+          icon.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />';
+          trigger.classList.add("bg-[#EDF7FF]");
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const container = document.querySelector("[data-video-container]");
+    if (container) {
+      const video = container.querySelector<HTMLVideoElement>("[data-video]");
+      const playBtn =
+        container.querySelector<HTMLButtonElement>("[data-play-btn]");
+      const overlay = container.querySelector<HTMLElement>(
+        "[data-video-overlay]",
+      );
+      if (video && playBtn) {
+        playBtn.addEventListener("click", () => {
+          video.play();
+          video.controls = true;
+          video.style.position = "relative";
+          video.style.zIndex = "20";
+          playBtn.style.display = "none";
+          if (overlay) overlay.style.opacity = "0";
+        });
+        video.addEventListener("pause", () => {
+          setTimeout(() => {
+            if (!video.seeking && video.paused) {
+              playBtn.style.display = "flex";
+              video.style.zIndex = "0";
+              if (overlay) overlay.style.opacity = "1";
+            }
+          }, 150);
+        });
+        video.addEventListener("play", () => {
+          playBtn.style.display = "none";
+          video.style.zIndex = "20";
+          if (overlay) overlay.style.opacity = "0";
+        });
+        video.addEventListener("seeked", () => {
+          setTimeout(() => {
+            if (video.paused) {
+              playBtn.style.display = "flex";
+              video.style.zIndex = "0";
+              if (overlay) overlay.style.opacity = "1";
+            }
+          }, 150);
+        });
+      }
+    }
+  });
+</script>

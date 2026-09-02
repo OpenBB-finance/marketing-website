@@ -1,0 +1,97 @@
+---
+import SvgIcon from "./SvgIcon.astro";
+
+export interface Cell {
+  value: boolean | null; // true → check, false → cross, null → plain text (no icon)
+  label: string;
+  href?: string; // renders the label as an external/download link
+  tooltip?: {
+    title: string;
+    body: string;
+    href?: string;
+    linkLabel?: string;
+  };
+}
+
+interface Props {
+  cell: Cell;
+}
+
+const { cell } = Astro.props;
+---
+
+{
+  cell.value === null ? (
+    <span class="body-sm-regular text-dark-400 whitespace-pre-line">
+      {cell.label}
+    </span>
+  ) : cell.value === false ? (
+    <span class="inline-flex items-start gap-2">
+      <SvgIcon
+        name="pricing-cross"
+        class="mt-0.5 min-w-5 w-5 h-5 shrink-0"
+      />
+      <span class="body-sm-regular text-dark-400">{cell.label}</span>
+    </span>
+  ) : (
+    <span class="inline-flex items-start gap-2">
+      <SvgIcon
+        name="pricing-tick"
+        class="mt-0.5 min-w-5 w-5 h-5 shrink-0 text-light-blue-600"
+      />
+      <span class="body-sm-regular text-dark-400">
+        {cell.href ? (
+          <a
+            href={cell.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 border-b border-light-blue-400 pb-px transition-opacity hover:opacity-75"
+          >
+            {cell.label}
+            <SvgIcon name="pdf-download" class="h-4 w-4" />
+          </a>
+        ) : (
+          cell.label
+        )}
+        {cell.tooltip && (
+          <span class="group/tip relative ml-1.5 inline-flex align-middle">
+            <button
+              type="button"
+              class="cursor-help text-grey-400 transition-colors hover:text-light-blue-600 focus-visible:text-light-blue-600 focus-visible:outline-none"
+              aria-label={`${cell.tooltip.title}. ${cell.tooltip.body}${cell.tooltip.href ? ` ${cell.tooltip.linkLabel ?? "Learn more"}` : ""}`}
+            >
+              <SvgIcon name="info-circle" class="h-4 w-4" />
+            </button>
+            {/*
+              Outer shell: pb-2 bridges the gap to the trigger so the mouse
+              can move into a clickable tooltip without losing :hover.
+            */}
+            <span
+              role="tooltip"
+              class="absolute bottom-full right-0 z-20 w-64 pb-2 text-left opacity-0 pointer-events-none transition-opacity duration-150 group-hover/tip:opacity-100 group-hover/tip:pointer-events-auto group-focus-within/tip:opacity-100 group-focus-within/tip:pointer-events-auto"
+            >
+              <span class="block rounded-lg bg-white p-3 shadow-light-3">
+                <span class="mb-1 block body-xs-bold text-dark-600">
+                  {cell.tooltip.title}
+                </span>
+                <span class="block body-xs-regular text-grey-600">
+                  {cell.tooltip.body}
+                </span>
+                {cell.tooltip.href && (
+                  <a
+                    href={cell.tooltip.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-2 inline-block body-xs-medium text-light-blue-600 transition-colors hover:text-light-blue-800"
+                  >
+                    {cell.tooltip.linkLabel ?? "Learn more"}
+                  </a>
+                )}
+              </span>
+            </span>
+          </span>
+        )}
+      </span>
+    </span>
+  )
+}

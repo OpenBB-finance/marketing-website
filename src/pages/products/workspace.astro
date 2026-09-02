@@ -1,0 +1,471 @@
+---
+import ArrowLink from "../../components/ArrowLink.astro";
+import Button from "../../components/Button.astro";
+import ContactModal from "../../components/ContactModal.astro";
+import CtaLight from "../../components/CtaLight.astro";
+import CtaMid from "../../components/CtaMid.astro";
+import FadeIn from "../../components/FadeIn.astro";
+import HeroWorkspace from "../../components/HeroWorkspace.astro";
+import SvgIcon from "../../components/SvgIcon.astro";
+import TestimonialCard from "../../components/TestimonialCard.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const featureCards = [
+  {
+    tag: "WHAT WE SOLVE",
+    title: "Data access",
+    text: "Your data lives across vendors and internal databases. OpenBB connects all of it into one interface your analysts query directly, without going through the data team.",
+    bg: "https://openbb-cms.directus.app/assets/69cb996a-244e-4154-a088-33bfb8380918.png?format=webp&quality=90&width=1440",
+    link: "https://docs.openbb.co/workspace/analysts/widgets/overview",
+  },
+  {
+    tag: "HOW IT'S DISTRIBUTED",
+    title: "Interactive dashboards",
+    text: "Build production-ready dashboards without a frontend developer. Analysts can customize them on the fly and share them with colleagues.",
+    bg: "https://openbb-cms.directus.app/assets/6fb0d1a7-4d96-4ffb-a9a8-adf623973a22.png?format=webp&quality=90&width=1440",
+    link: "https://docs.openbb.co/workspace/analysts/dashboards",
+  },
+  {
+    tag: "WHY IT'S FUTURE-PROOF",
+    title: "AI agents run on your data",
+    text: "Analysts are running their own AI setup. Ungoverned, siloed, leaking proprietary data. With OpenBB, agents run on your data, workflows can be shared, and no IP leaves.",
+    bg: "https://openbb-cms.directus.app/assets/d9366d1d-ea32-4d37-a233-daece7767e1f.png?format=webp&quality=90&width=1440",
+    link: "https://docs.openbb.co/workspace/analysts/ai-features/copilot-basics",
+  },
+  {
+    tag: "WHERE IT LIVES",
+    title: "Self-hosted or VPC-deployed",
+    text: "Secure infra with one admin layer for data entitlement, access controls, and audit trails, across every workflow your team builds. So compliance isn't an afterthought.",
+    bg: "https://openbb-cms.directus.app/assets/e5158ca3-0a6c-4ea0-a078-f233a41a3ab4.png?format=webp&quality=90&width=1440",
+    link: "/security",
+  },
+];
+
+const whoCards = [
+  {
+    id: "analysts",
+    label: "Analysts",
+    icon: "analyst",
+    image:
+      "https://openbb-cms.directus.app/assets/d1dd9dda-1a45-48b9-9b59-96925c2aa8b7.webp",
+    items: [
+      {
+        title: "Stop going through the data team",
+        text: "Questions that take half a day should take minutes. Query your own data directly, without going through anyone.",
+      },
+      {
+        title: "Share work, not screenshots",
+        text: "Distribute analysis firm-wide as interactive dashboards. No more email attachments, no more one-off exports.",
+      },
+      {
+        title: "Your AI, on your data",
+        text: "Run Copilot or your own AI model against the data your firm actually uses, not a public dataset.",
+      },
+    ],
+  },
+  {
+    id: "leadership",
+    label: "Leadership",
+    icon: "firm",
+    image:
+      "https://openbb-cms.directus.app/assets/0aea36b2-58dd-4483-a18f-70409881e15e.webp",
+    items: [
+      {
+        title: "Your IP doesn't live in someone else's product",
+        text: "Every SaaS terminal is optimized for lock-in. OpenBB is infrastructure you own. Workflows, IP, and institutional knowledge stay in-house.",
+      },
+      {
+        title: "One platform for all the data you already pay for",
+        text: "FactSet, LSEG, CapIQ, internal pipelines — bring them all into one workspace instead of switching between closed systems.",
+      },
+      {
+        title: "AI that your compliance team can sign off on",
+        text: "On-prem or private cloud deployment. Full audit trails. Data entitlement and access controls your security team can track and inspect.",
+      },
+    ],
+  },
+  {
+    id: "dev",
+    label: "Developers",
+    desktopLabel: "Developers",
+    mobileLabel: "Developers",
+    icon: "dev",
+    image:
+      "https://openbb-cms.directus.app/assets/e0f3040d-7d9b-4e5b-a019-902e122270cc.webp",
+    items: [
+      {
+        title: "Skip the frontend build",
+        text: "Pre-built widgets handle the interface layer. Your team ships data applications without writing a single line of frontend code.",
+      },
+      {
+        title: "Connect any data source",
+        text: "REST API, internal database, third-party feed — if it has an endpoint, OpenBB can ingest it. No proprietary connectors, no lock-in.",
+      },
+      {
+        title: "Deploy AI agents in minutes, not sprints",
+        text: "Connect your own agents or use Copilot. The infrastructure for governed, firm-wide AI is already there.",
+      },
+    ],
+  },
+];
+
+const workflows = [
+  {
+    title: "Portfolio analytics",
+    text: "Consolidate performance data, sector exposures, and risk metrics across asset classes into a single dashboard. Pull from your broker and internal systems to generate attribution analysis and volatility measures for internal reviews and stakeholder reporting.",
+  },
+  {
+    title: "Crypto and digital assets",
+    text: "Aggregate tokenomics, on-chain metrics, and prediction market data from CoinGecko, DeFiLlama, Polymarket, Pyth, or any other. Monitor protocol health and cross-reference decentralized sentiment with equity and macro signals in real time.",
+  },
+  {
+    title: "Macro research and scenario planning",
+    text: "Run CPI scenarios, track GDP forecasts, and monitor legislative bills that move markets. Layer in Congress tracking and FOMC data to stress-test assumptions and communicate trends without waiting on data teams. Build scenario models in minutes, not days.",
+  },
+  {
+    title: "Compliance and operations intelligence",
+    text: "Query policy documents, audit reports, and vendor packets instantly. Ask Copilot for MFA policies or contract clauses and get the exact page and context. Turn multi-day reviews into focused sprints, with full audit trails.",
+  },
+  {
+    title: "Alternative data integration",
+    text: "Bring shipping fuel prices, freight indices, real estate signals, or consumer spend data into your workflow. Connect alternative feeds like ICE bunker pricing directly to your research to model transport costs and inflation proxies without switching platforms.",
+  },
+];
+---
+
+<Layout
+  title="Workspace | OpenBB"
+  description="OpenBB Workspace is a collaborative and fully customizable investment research app for the 21st century."
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroWorkspace
+      title={"Keep the flexibility of internal build,\ndrop the one-off app problem"}
+      description={"Firms build bespoke workflows because they know their needs best. OpenBB is the shared workspace that makes those workflows governable, scalable, and AI-ready, without rebuilding from scratch each time."}
+      imageSrc="https://openbb-cms.directus.app/assets/2fbbfcd6-87d4-431e-9d03-d8edc1c872ce.png"
+      imageAlt="OpenBB Analytics Dashboard"
+      features={["Any data source", "Self-hosted", "No frontend work", "Your IP stays yours"]}
+    />
+
+    <!-- Feature cards -->
+    <FadeIn>
+      <section class="py-16 lg:pb-20 lg:pt-32">
+        <div class="page-container">
+          <h2
+            class="text-dark-600 text-title-s-regular md:text-title-xl-regular mb-4 md:mb-6 text-center md:text-left"
+          >
+            Every new workflow is another thing to<br class="hidden md:block" /> govern, maintain, and scale
+          </h2>
+          <p class="body-md-regular md:body-lg-regular text-dark-400 mb-10 md:mb-20 text-center md:text-left max-w-3xl">
+            Every one-off app creates another data access problem, another permissions layer, another AI integration to manage. There's a better way to structure this.
+          </p>
+          <div
+            class="flex flex-col md:grid md:grid-cols-2 gap-10 md:gap-8 lg:gap-[120px]"
+          >
+            {
+              featureCards.map((card) => (
+                <div
+                  data-feature-card
+                  class="relative flex flex-col min-h-[440px] h-auto md:h-[480px] rounded-lg md:rounded-2xl overflow-hidden items-start justify-end p-6 md:p-[40px] w-full"
+                >
+                  <div
+                    class="absolute inset-0 bg-cover bg-top"
+                    style={`background-image: url('${card.bg}')`}
+                  />
+                  <div class="absolute inset-0 bg-black/40 bg-gradient-to-t from-black/90 via-black/20 to-transparent md:hidden" />
+                  <div class="relative flex flex-col gap-3 md:gap-[20px] items-start justify-start w-full z-10">
+                    <div class="flex flex-col gap-1 md:gap-2">
+                      <span class="text-[10px] md:text-xs font-normal tracking-wider text-grey-300 uppercase">
+                        {card.tag}
+                      </span>
+                      <h3 class="body-lg-bold md:body-xl-bold text-white">
+                        {card.title}
+                      </h3>
+                    </div>
+                    <p class="body-md-regular text-grey-100">{card.text}</p>
+                    <ArrowLink
+                      label="Learn more"
+                      href={card.link}
+                      class="text-white"
+                    />
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <!-- CTA Mid -->
+    <CtaMid
+      title="Start building with the free tier"
+      subtitle="The Community Edition is free for individuals. No sales call required. Scale when you’re ready."
+      class="pt-4 pb-16 lg:pt-20 lg:pb-32"
+    />
+
+    <!-- Who it's for -->
+    <section class="py-16 lg:py-32 bg-dark-850">
+      <FadeIn>
+        <div class="page-container">
+          <div class="flex flex-col gap-10 md:gap-20 items-center">
+            <h2
+              class="text-white text-title-s-regular md:text-title-xl-regular text-left md:text-center max-w-full"
+            >
+              One workspace, better results at every level
+            </h2>
+
+            <!-- Mobile: vertical cards -->
+            <div class="flex md:hidden flex-col gap-16 w-full">
+              {
+                whoCards.map((card) => (
+                  <div class="flex flex-col gap-5">
+                    <img
+                      src={card.image}
+                      alt={card.label}
+                      class="w-full h-[246px] object-cover rounded-lg"
+                      loading="lazy"
+                    />
+                    <div class="flex flex-col gap-4">
+                      <h3 class="body-lg-bold text-white">
+                        {card.mobileLabel || card.label}
+                      </h3>
+                      <div class="flex flex-col gap-4">
+                        {card.items.map((item) => (
+                          <div class="flex flex-col gap-2">
+                            <h4 class="body-md-bold text-white">
+                              {item.title}
+                            </h4>
+                            <p class="body-md-regular text-grey-300">
+                              {item.text}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+
+            <!-- Desktop: tab selector -->
+            <div
+              class="hidden md:flex flex-row gap-10 items-center w-full"
+              data-tab-section
+            >
+              <div class="flex flex-col gap-10 w-[280px]">
+                {
+                  whoCards.map((card, i) => (
+                    <button
+                      type="button"
+                      data-tab-btn={card.id}
+                      class:list={[
+                        "group flex gap-3 items-center p-2.5 shadow-md transition-colors cursor-pointer border border-dark-400 rounded",
+                        i === 0 ? "bg-dark-600" : "bg-dark-750",
+                      ]}
+                    >
+                      <div class="relative w-10 h-10 shrink-0">
+                        <div
+                          class:list={[
+                            "absolute inset-0 rounded transition-colors",
+                            i === 0 ? "bg-light-blue-600" : "bg-light-blue-800",
+                          ]}
+                          data-tab-icon={card.id}
+                        />
+                        <div class="absolute inset-0 flex items-center justify-center">
+                          <SvgIcon
+                            name={card.icon}
+                            class="w-5 h-5 text-white"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        class:list={[
+                          "text-title-xs-regular text-left",
+                          i === 0 ? "text-white" : "text-dark-100 group-hover:text-white",
+                        ]}
+                        data-tab-label={card.id}
+                      >
+                        {card.label}
+                      </div>
+                    </button>
+                  ))
+                }
+              </div>
+
+              <div
+                class="bg-dark-750 border border-dark-400 rounded-2xl shadow-md p-10 flex flex-row gap-10 items-center flex-1 w-full"
+              >
+                {
+                  whoCards.map((card, i) => (
+                    <div
+                      data-tab-content={card.id}
+                      class:list={[
+                        "flex-1 flex flex-col gap-4 mx-auto max-w-md",
+                        i !== 0 && "hidden",
+                      ]}
+                    >
+                      {card.items.map((item) => (
+                        <div class="flex flex-col gap-2">
+                          <h4 class="body-md-bold text-white">{item.title}</h4>
+                          <p class="body-md-regular text-grey-300">
+                            {item.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ))
+                }
+
+                <div class="w-[370px] h-[328px] shrink-0 overflow-hidden">
+                  {
+                    whoCards.map((card, i) => (
+                      <img
+                        data-tab-image={card.id}
+                        src={card.image}
+                        alt={card.label}
+                        class:list={[
+                          "w-full h-full object-cover rounded-2xl",
+                          i !== 0 && "hidden",
+                        ]}
+                        loading="lazy"
+                      />
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </FadeIn>
+    </section>
+
+    <!-- Workflows -->
+    <FadeIn>
+      <section class="py-16 lg:pt-32 lg:pb-20">
+        <div class="page-container">
+          <div class="flex flex-col gap-10 items-center">
+            <div
+              class="flex flex-col md:flex-row items-start md:items-end justify-between w-full gap-5 md:gap-6"
+            >
+              <div
+                class="flex flex-col gap-5 md:gap-6 items-start text-center md:text-left w-full md:w-auto"
+              >
+                <h2
+                  class="text-dark-600 text-title-s-regular md:text-title-xl-regular w-full"
+                >
+                  What teams build on OpenBB
+                </h2>
+                <p
+                  class="body-md-regular md:body-lg-regular text-dark-400 md:max-w-[538px] w-full"
+                >
+                  Asset managers and hedge funds use OpenBB to build proprietary workflows on shared infrastructure.
+                </p>
+              </div>
+              <a
+                href="/contact"
+                class="inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-sm cursor-pointer px-5 py-2.5 body-sm-medium bg-light-blue-600 text-white hover:bg-light-blue-700 w-full md:w-auto"
+              >
+                Get in touch
+              </a>
+            </div>
+
+            <div class="border border-grey-300 rounded-lg md:rounded-2xl w-full">
+              <div class="grid grid-cols-1 md:grid-cols-2">
+                {
+                  workflows.map((wf, i) => (
+                    <div
+                      class:list={[
+                        "p-6 md:p-10 flex flex-col gap-2.5",
+                        i < 4 && "border-b border-grey-300",
+                        i % 2 === 0 && i < 4 && "md:border-r",
+                        i === 4 && "md:border-r border-b md:border-b-0 border-grey-300",
+                      ]}
+                    >
+                      <h3 class="body-lg-bold text-dark-600">{wf.title}</h3>
+                      <p class="body-md-regular text-dark-400">{wf.text}</p>
+                    </div>
+                  ))
+                }
+                <div class="p-6 md:p-10 flex flex-col gap-2.5">
+                  <h3 class="body-lg-bold text-dark-600">
+                    + Multiple other use cases
+                  </h3>
+                  <ArrowLink
+                    label="Browse workflow examples"
+                    href="/solutions/app-showcase"
+                    class="body-md-regular text-dark-400 hover:text-light-blue-600"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <!-- Testimonial -->
+    <FadeIn>
+      <TestimonialCard
+        image="https://openbb-cms.directus.app/assets/c63b78f7-48e7-4126-ae68-a9e6d5ef0e68.png"
+        headline="Tasks that used to take us weeks can now be completed within a few hours"
+        quote="Tasks that used to take us weeks can now be completed within a few hours, saving a substantial amount in staffing costs. In addition, the data is easier to access, less error-prone, and more robust."
+        author="Dr. Chase Armer, President, CFP, CFA, EA"
+        company="Planned Solutions"
+        sectionTitle="What our clients have to say"
+      />
+    </FadeIn>
+
+    <CtaLight
+      title="Start with one workflow.<br />Own the infrastructure for everything that follows."
+      description="Start free with the Community Edition, or talk to us about deploying for your team."
+      buttonText="Start now"
+    />
+</main>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const section = document.querySelector("[data-tab-section]");
+    if (section) {
+      const buttons =
+        section.querySelectorAll<HTMLButtonElement>("[data-tab-btn]");
+      const contents =
+        section.querySelectorAll<HTMLElement>("[data-tab-content]");
+      const images =
+        section.querySelectorAll<HTMLImageElement>("[data-tab-image]");
+      const icons =
+        section.querySelectorAll<HTMLElement>("[data-tab-icon]");
+      const labels =
+        section.querySelectorAll<HTMLElement>("[data-tab-label]");
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.tabBtn;
+          buttons.forEach((b) => {
+            const isActive = b.dataset.tabBtn === id;
+            b.classList.toggle("bg-dark-600", isActive);
+            b.classList.toggle("bg-dark-750", !isActive);
+          });
+          icons.forEach((icon) => {
+            const isActive = icon.dataset.tabIcon === id;
+            icon.classList.toggle("bg-light-blue-600", isActive);
+            icon.classList.toggle("bg-light-blue-800", !isActive);
+          });
+          labels.forEach((label) => {
+            const isActive = label.dataset.tabLabel === id;
+            label.classList.toggle("text-white", isActive);
+            label.classList.toggle("text-dark-100", !isActive);
+            label.classList.toggle("group-hover:text-white", !isActive);
+          });
+          contents.forEach((c) =>
+            c.classList.toggle("hidden", c.dataset.tabContent !== id),
+          );
+          images.forEach((img) =>
+            img.classList.toggle("hidden", img.dataset.tabImage !== id),
+          );
+        });
+      });
+    }
+  });
+</script>

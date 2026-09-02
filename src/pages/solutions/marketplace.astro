@@ -1,0 +1,1203 @@
+---
+import AppModal from "../../components/AppModal.astro";
+import CtaLight from "../../components/CtaLight.astro";
+import HeroSimple from "../../components/HeroSimple.astro";
+import SvgIcon from "../../components/SvgIcon.astro";
+import Layout from "../../layouts/Layout.astro";
+
+interface Category {
+  id: string;
+  title: string;
+  slug: string;
+}
+
+const categories: Category[] = [
+  { id: "commodities", title: "Commodities", slug: "commodities" },
+  { id: "crypto", title: "Crypto", slug: "crypto" },
+  { id: "consumer", title: "Consumer", slug: "consumer" },
+  {
+    id: "filings-research",
+    title: "Filings and Research",
+    slug: "filings-research",
+  },
+  { id: "fixed-income", title: "Fixed Income", slug: "fixed-income" },
+  { id: "forecasting", title: "Forecasting", slug: "forecasting" },
+  { id: "fundamentals", title: "Fundamentals", slug: "fundamentals" },
+  { id: "macroeconomy", title: "Macroeconomy", slug: "macroeconomy" },
+  { id: "news", title: "News", slug: "news" },
+  { id: "portfolio-risk", title: "Portfolio Risk", slug: "portfolio-risk" },
+  {
+    id: "prediction-markets",
+    title: "Prediction Markets",
+    slug: "prediction-markets",
+  },
+  { id: "sentiment", title: "Sentiment", slug: "sentiment" },
+  {
+    id: "trading-activity",
+    title: "Trading activity",
+    slug: "trading-activity",
+  },
+];
+
+const marketplaceApps: Record<string, any[]> = {
+  commodities: [
+    {
+      title: "EIA Energy Data",
+      description:
+        "Browse, search, and chart U.S. energy time series and tables from Weekly Petroleum Status Report, Short-Term Energy Outlook, and other select databases from the EIA.",
+      image:
+        "https://openbb-cms.directus.app/assets/0d2f6b4e-f58f-4be2-906a-cb4a06934f5b",
+    },
+  ],
+  crypto: [
+    {
+      title: "Velo Crypto Analytics",
+      description:
+        "Velo's API stores 5+ years of 1-minute market data for thousands of crypto products. Our libraries offer easy, normalized formats for spot and derivatives products across multiple exchanges.",
+      image:
+        "https://openbb-cms.directus.app/assets/69d3727e-8814-4ac8-83f2-89ec1567db83",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/9a9b274a-f1f7-4aa2-aa1b-f205f238ddbb",
+        logoSize: 48,
+        logoSizeDesktop: 80,
+      },
+      blog: {
+        url: "https://openbb.co/blog/velo-brings-digital-assets-market-data-to-OpenBB/",
+      },
+    },
+    {
+      title: "Koinju Crypto Data",
+      description:
+        "The Koinju OpenBB app enables users to access market data across a wide range of crypto exchanges. From simple price quotes covering all the major crypto markets to Implied Volatility and funding rates figures, Koinju's high quality data pipeline serves as a reliable source for trading insights and reactive decision making. This app is free to use — sign up for an API key to access all widgets. You can also upgrade for a longer history period.",
+      image:
+        "https://openbb-cms.directus.app/assets/64a96e5c-6872-4ce2-8856-ab0d9aa3cd46",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/7a764de8-d68b-4332-9559-656f06728f01",
+        logoSize: 48,
+        logoSizeDesktop: 80,
+      },
+      blog: {
+        url: "https://openbb.co/blog/koinju-brings-cross-venue-normalized-crypto-data-to-openbb-workspace",
+      },
+    },
+  ],
+  consumer: [
+    {
+      title: "Carbon Arc",
+      description:
+        "Import and merge your purchased Carbon Arc frameworks — credit-card spend, app usage, foot traffic — and compare them with interactive charting in one Workspace view.",
+      image:
+        "https://openbb-cms.directus.app/assets/114fe81f-d54a-44ad-a082-07983fdaf31c",
+      blog: {
+        url: "https://openbb.co/blog/carbon-arc-brings-card-spend-web-traffic-and-more-into-openbb/",
+      },
+    },
+  ],
+  "filings-research": [
+    {
+      title: "HSDL Document Library",
+      description:
+        "Search, explore, and view the public collection of documents in the Homeland Security Digital Library.",
+      image:
+        "https://openbb-cms.directus.app/assets/cd7bcff0-647e-4191-b9d5-2992d7f8d30d",
+    },
+    {
+      title: "AlphaCreek SEC",
+      description:
+        "Ask SEC questions in OpenBB Copilot and get answers grounded in real 10-K, 10-Q, 8-K, 20-F, and 6-K filings — with citation links to every source passage.",
+      image:
+        "https://openbb-cms.directus.app/assets/ed213e09-db1e-47e9-a7b9-a895767291ce",
+      blog: {
+        url: "https://openbb.co/blog/alphacreek-brings-verifiable-sec-filing-answers-to-openbb/",
+      },
+    },
+  ],
+  "fixed-income": [
+    {
+      title: "BlueGamma Interest Rates",
+      description:
+        "Live interest rate curves and swap rates for SOFR, SONIA, EURIBOR, CORRA, and 30+ indices. This app provides 7-day delayed data for free. Visit bluegamma.io for live access.",
+      image:
+        "https://openbb-cms.directus.app/assets/442fad43-6a5c-4d29-9700-4f6d244ca97a",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/deb50dd4-8b79-4bdd-b7f3-d8fab0dc7c2c",
+        logoSize: 60,
+        logoSizeDesktop: 96,
+      },
+    },
+    {
+      title: "Terrapin Muni Bond Lookup",
+      description:
+        "Search US muni bonds and drill into any CUSIP for reference data, cashflows, pricing history, and documents — plus issuance and trade market stats.",
+      image:
+        "https://openbb-cms.directus.app/assets/ef371848-c572-4e94-bf69-9e92913f88a7",
+    },
+  ],
+  fundamentals: [
+    {
+      title: "Axiora Japanese equity intelligence",
+      description:
+        "Financials, ownership networks, and earnings signals for ~4,000 Japanese listed companies — every row traces to a source EDINET filing.",
+      image:
+        "https://openbb-cms.directus.app/assets/d1c96469-025d-4bd1-b64d-ecb0cb322177",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/f1cccaae-0552-4063-a5bc-4ad6c82eb344",
+        logoSize: 48,
+        logoSizeDesktop: 80,
+      },
+    },
+    {
+      title: "Financial Datasets Market Intelligence",
+      description:
+        "Financial Datasets delivers real-time market data from financial exchanges and regulatory bodies like the SEC. OpenBB's clean and intuitive interface makes ingesting our data easy, providing you with critical insights to make informed investment decisions.",
+      image:
+        "https://openbb-cms.directus.app/assets/d357eac8-7a36-49bf-9adb-7332730d6ea1",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/9ab7ecf4-84eb-475e-a7cb-9ad54a9ba82f",
+        logoSize: 80,
+        logoSizeDesktop: 128,
+      },
+    },
+  ],
+  macroeconomy: [
+    {
+      title: "BLS Employment Situation",
+      description:
+        "JOLTS, household (CPS), and establishment (CES) surveys with charts, release documents, and analytical tables.",
+      image:
+        "https://openbb-cms.directus.app/assets/256b19e0-0d19-4ca2-ae77-8837f0d0df7b",
+    },
+    {
+      title: "BLS Consumer Price Index",
+      description:
+        "BLS Consumer Price Index — release documents, news-release tables, reference tables, and the news-release chart package.",
+      image:
+        "https://openbb-cms.directus.app/assets/7eae915a-80ad-43b4-b152-6152a653c9f8",
+    },
+    {
+      title: "BLS Productivity & Costs",
+      description:
+        "BLS Productivity & Costs — release documents, supplemental tables, and selected charts.",
+      image:
+        "https://openbb-cms.directus.app/assets/f6dc0d95-c8c7-4017-8adb-47a6e2a170b2",
+    },
+    {
+      title: "BLS Producer Price Index",
+      description:
+        "BLS Producer Price Index — release documents, the detailed report, reference tables, the final- and intermediate-demand chart packages, and U.S. import/export price indexes.",
+      image:
+        "https://openbb-cms.directus.app/assets/af05fbcc-a720-49f9-aaf3-b53d574083fc",
+    },
+    {
+      title: "IMF Port Watch",
+      description:
+        "Maritime trade monitoring powered by the IMF Port Watch dataset — global ports, chokepoints, and live disruption events.",
+      image:
+        "https://openbb-cms.directus.app/assets/48fe7a2f-1daa-4834-a781-d00842d95978",
+    },
+  ],
+  news: [
+    {
+      title: "Synorb Briefs & Signals",
+      description:
+        "Temporal context from 10,000+ daily sources — 8-Ks, central banks, podcasts, IB research — as Briefs and Signals for your OpenBB dashboards.",
+      image:
+        "https://openbb-cms.directus.app/assets/a5f97564-da6a-4a24-ab07-158f0c2e36ed",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/16764661-afa8-4790-b688-c5ea689ad437",
+        logoSize: 48,
+        logoSizeDesktop: 80,
+      },
+    },
+  ],
+  "portfolio-risk": [
+    {
+      title: "VecViz Portfolio Analytics",
+      description:
+        "One integrated view of risk and opportunity. Built by a former buy-side PM with 25 years across fundamental research, multi-asset portfolio management, and quantitative roles, VecViz has run in live, out-of-sample production for over four years.",
+      image:
+        "https://openbb-cms.directus.app/assets/3a37af37-119c-4ea6-9b76-be3ef58d2943",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/0bd4ab1c-6771-46aa-a194-d1923f334729",
+        logoSize: 48,
+        logoSizeDesktop: 80,
+      },
+      blog: {
+        url: "https://openbb.co/blog/vecviz-app-on-openbb-makes-target-prices-explainable/",
+      },
+    },
+    {
+      title: "Open Portfolio",
+      description:
+        "Portfolio management suite with tools for imputing positions, analyzing holdings, and performance attribution.",
+      image:
+        "https://openbb-cms.directus.app/assets/d4457575-1834-4bbc-a98b-4213e6a6d079",
+    },
+    {
+      title: "SnapTrade",
+      description:
+        "Securely link your brokerage accounts and bring your real portfolio into OpenBB — consolidated overview, positions, orders, and activity across 30+ brokers.",
+      image:
+        "https://openbb-cms.directus.app/assets/65938188-2ffe-4d38-a506-961ff0fc5ef4",
+    },
+  ],
+  sentiment: [
+    {
+      title: "Adanos Market Sentiment",
+      description:
+        "Buzz scores, trending tickers, and per-symbol sentiment from Reddit, X/Twitter, 50+ news sources, and Polymarket — all in one OpenBB dashboard.",
+      image:
+        "https://openbb-cms.directus.app/assets/9f851ecf-26db-4848-aef9-e6bd613260e5",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/501c58a3-e951-4196-a01f-c55ca9b654d6?key=system-medium-cover&v=2026-06-02T16%3A39%3A48.237Z",
+        logoSize: 48,
+        logoSizeDesktop: 80,
+      },
+    },
+    {
+      title: "Lexfi Quant Signals",
+      description:
+        "AI-scored earnings-call and central-bank insights plus social and news sentiment — trends, written briefings, and signals across three dashboards.",
+      image:
+        "https://openbb-cms.directus.app/assets/1eab0744-e1f1-49d3-b53b-4959c4a10d6b",
+      blog: {
+        url: "https://openbb.co/blog/lexfi-turns-macro-and-equity-text-into-tradable-signals-inside-openbb/",
+      },
+    },
+  ],
+  "forecasting": [
+    {
+      title: "Numinous Intelligence",
+      description:
+        "Forecasts and reasoning on Polymarket and geopolitical events, crowd-sourced from the AI agents competing in the Numinous forecasting competition.",
+      image:
+        "https://openbb-cms.directus.app/assets/ce686158-32f2-4a2e-9d22-19c3caa98f9f",
+      blog: {
+        url: "https://openbb.co/blog/numinous-brings-geopolitical-forecasting-data-to-openbb/",
+      },
+    },
+  ],
+  "prediction-markets": [
+    {
+      title: "Kalshi Prediction Markets",
+      description:
+        "Event-first Kalshi dashboard. Start with readable event discovery, click an event, inspect all associated markets, then click a market for YES/NO probability, orderbook depth, trades, and historical chart/raw data.",
+      image:
+        "https://openbb-cms.directus.app/assets/6cfff37d-e29c-44fa-82d4-e86b3db55674",
+    },
+  ],
+  "trading-activity": [
+    {
+      title: "Exponential Flow Intelligence",
+      description:
+        "You see price and volume. The mechanics of who is driving flow and why liquidity is shifting remain trapped behind an event horizon of high-frequency noise. Exponential's proprietary translation layer converts raw, nanosecond-level order book complexity into clean, real-time supply and demand functions — segmented by investor type.",
+      image:
+        "https://openbb-cms.directus.app/assets/d5ec19bb-0f14-46e5-a45e-9ea499fd0dad",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/3b420741-b44b-429f-a9e4-eca5a3f0baba",
+        logoSize: 48,
+        logoSizeDesktop: 80,
+      },
+    },
+    {
+      title: "SuperQuant Investor Flow",
+      description:
+        "Know who's behind every trade - across equities, ETFs, futures, and options, down to the minute. The app lets you visualize investor flow by investor type, i.e. retail, institutional investors, market-makers, throughout equities, ETFs, Options and Futures.",
+      image:
+        "https://openbb-cms.directus.app/assets/37e0421c-1112-4d65-8e7d-6b1369dd54e9",
+      dataHighlight: {
+        image:
+          "https://openbb-cms.directus.app/assets/75da9aab-feb2-4895-9dc7-fe7daee6adf0",
+        logoSize: 48,
+        logoSizeDesktop: 80,
+      },
+    },
+    {
+      title: "CFTC Public Reports",
+      description:
+        "Search and query the full historical database of reports for contracts covering commodity and financial futures.",
+      image:
+        "https://openbb-cms.directus.app/assets/d2595d52-1d16-4af8-8897-8cc067733b6f",
+    },
+  ],
+};
+
+const allApps = categories
+  .flatMap((cat) => {
+    const apps = marketplaceApps[cat.slug];
+    if (!apps) return [];
+    return apps.map((app) => ({
+      ...app,
+      category: cat.title,
+      categorySlug: cat.slug,
+    }));
+  })
+  .sort((a, b) => a.title.localeCompare(b.title));
+---
+
+<Layout
+  title="OpenBB App Marketplace"
+  description="Financial data apps from vetted providers, live inside the OpenBB Workspace. Find, trial, and connect new data sources without a sales cycle, an IT request, or a custom integration."
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroSimple
+      label="openbb app marketplace"
+      title={"The data you need,\nright where you work"}
+      description="Financial data apps from vetted providers, live inside the OpenBB Workspace. Find, trial, and connect new data sources without a sales cycle, an IT request, or a custom integration."
+      buttonText="Go to the Marketplace"
+      buttonLink="https://pro.openbb.co/app?tab=apps-marketplace"
+    />
+
+    <!-- Mobile Navigation Toggle -->
+    <div
+      class="lg:hidden sticky top-0 z-40 bg-grey-50 border-b border-grey-200"
+      data-mobile-cat-nav
+    >
+      <div class="px-4 sm:px-6">
+        <div class="py-4">
+          <p
+            class="text-grey-500 body-sm-regular mb-4 pb-4 border-b border-grey-300"
+          >
+            Categories
+          </p>
+          <button
+            type="button"
+            data-mobile-cat-toggle
+            class="flex items-center justify-between w-full text-left"
+          >
+            <span data-mobile-cat-label class="text-dark-600 body-md-bold">
+              All
+            </span>
+            <svg
+              class="w-5 h-5 text-dark-600 transition-transform duration-200 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              data-mobile-chevron
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div
+          data-mobile-cat-dropdown
+          class="hidden border-t border-grey-200 bg-grey-50"
+        >
+          <nav class="py-2 max-h-64 overflow-y-auto">
+            <button
+              type="button"
+              data-mobile-cat-btn="all"
+              class="w-full text-left px-4 py-3 transition-colors duration-200 body-md-regular text-light-blue-600 hover:text-light-blue-600"
+            >
+              All
+            </button>
+            {
+              categories.map((cat) => (
+                <button
+                  type="button"
+                  data-mobile-cat-btn={cat.slug}
+                  class="w-full text-left px-4 py-3 transition-colors duration-200 body-md-regular text-dark-600 hover:text-light-blue-600"
+                >
+                  {cat.title}
+                </button>
+              ))
+            }
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <section id="marketplace-content">
+      <div class="flex max-w-[1440px] mx-auto pr-5 lg:pr-[80px]">
+        <!-- Desktop Sidebar -->
+        <aside class="hidden lg:block w-[360px] flex-shrink-0">
+          <div class="pt-[78px] pl-8 pr-8" data-sidebar-sticky>
+            <h3
+              class="text-grey-400 border-b border-grey-200 body-sm-regular mb-4 pb-2"
+            >
+              Categories
+            </h3>
+            <nav class="flex flex-col pb-8">
+              <button
+                type="button"
+                data-sidebar-btn="all"
+                class="w-full text-left py-2 transition-colors duration-200 body-sm-regular text-light-blue-600 hover:text-grey-300 cursor-pointer"
+              >
+                All
+              </button>
+              {
+                categories.map((cat) => (
+                  <button
+                    type="button"
+                    data-sidebar-btn={cat.slug}
+                    class="w-full text-left py-2 transition-colors duration-200 body-sm-regular text-dark-600 hover:text-grey-300 cursor-pointer"
+                  >
+                    {cat.title}
+                  </button>
+                ))
+              }
+            </nav>
+          </div>
+        </aside>
+
+        <!-- Content Area -->
+        <div class="flex-1 min-w-0 py-10 md:py-16 lg:pl-10 pl-5">
+          <!-- Search -->
+          <div class="mb-8 lg:mb-10 relative">
+            <svg
+              class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-grey-400 pointer-events-none"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input
+              data-search-input
+              type="text"
+              placeholder="Search"
+              class="w-full bg-white border border-grey-200 text-dark-600 placeholder-grey-400 rounded-[4px] pl-9 pr-9 py-2 body-md-regular outline-none focus:border-light-blue-600 transition-colors"
+            />
+            <button
+              type="button"
+              data-search-clear
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-grey-400 hover:text-dark-600 hidden"
+              aria-label="Clear search"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- No Results -->
+          <div data-no-results class="hidden text-center py-12">
+            <h3 class="text-dark-400 text-title-xs-bold mb-2">No apps found</h3>
+            <p class="text-grey-600 body-sm-regular">
+              Try adjusting your search terms
+            </p>
+          </div>
+
+          <!-- App Grid -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-16 lg:mb-20"
+            data-app-grid
+          >
+            {
+              allApps.map((app: any, globalIndex: number) => {
+                return (
+                  <button
+                    type="button"
+                    data-app-card
+                    data-app-category={app.categorySlug}
+                    data-app-index={globalIndex}
+                    data-app-title={app.title.toLowerCase()}
+                    data-app-desc={app.description?.toLowerCase() || ""}
+                    class="cursor-pointer group text-left border-b border-grey-200 app-card"
+                  >
+                    <div class="px-3 pt-5 pb-0">
+                      <div class="aspect-[16/10] rounded-md flex items-center justify-center overflow-hidden transition-transform duration-300 ease-out group-hover:scale-[1.02]">
+                        <img
+                          src={app.image}
+                          alt={app.imageAlt || app.title}
+                          class="w-full h-full object-cover app-img-loading"
+                          loading="lazy"
+                          decoding="async"
+                          onload="this.classList.add('app-img-loaded')"
+                        />
+                      </div>
+                    </div>
+                    <div class="px-3 pt-5 pb-5 flex items-start justify-between gap-3">
+                      <div>
+                        <p class="text-grey-400 uppercase text-[10px] font-bold tracking-wider mb-1">
+                          {app.category}
+                        </p>
+                        <h3 class="text-dark-600 body-md-bold leading-[1.3] min-w-0 flex-1">
+                          {app.title}
+                        </h3>
+                        <p class="text-dark-400 body-xs-regular mt-2 line-clamp-2">
+                          {app.description}
+                        </p>
+                        <div class="mt-4 flex items-center gap-1 text-light-blue-600 body-xs-bold group-hover:text-light-blue-700 transition-colors">
+                          <span>Learn more</span>
+                          <svg
+                            class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M9 18l6-6-6-6" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CtaLight
+      title="Want to list your app and reach<br />thousands of financial professionals?"
+      description="Contact us to learn more about joining the OpenBB App Marketplace."
+      buttonText="Contact us"
+      buttonHref="/contact"
+      buttonTarget="_self"
+    />
+  </main>
+  <AppModal />
+</Layout>
+
+<script
+  id="marketplace-apps-data"
+  type="application/json"
+  set:html={JSON.stringify(allApps)}
+/>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const dataEl = document.getElementById("marketplace-apps-data");
+    if (!dataEl) return;
+
+    const ac = new AbortController();
+    const { signal } = ac;
+
+    const appsData: any[] = JSON.parse(dataEl.textContent!);
+
+    const modal = document.querySelector<HTMLElement>("[data-app-modal]")!;
+    const overlay = modal.querySelector<HTMLElement>("[data-modal-overlay]")!;
+    const prevBtn = modal.querySelector<HTMLElement>("[data-modal-prev]")!;
+    const nextBtn = modal.querySelector<HTMLElement>("[data-modal-next]")!;
+    const closeBtns = modal.querySelectorAll<HTMLElement>(
+      "[data-modal-close], [data-modal-close-desktop]",
+    );
+
+    const mCategory = modal.querySelector<HTMLElement>(
+      "[data-modal-category]",
+    )!;
+    const mCategoryDesktop = modal.querySelector<HTMLElement>(
+      "[data-modal-category-desktop]",
+    )!;
+    const mTitleMobile = modal.querySelector<HTMLElement>(
+      "[data-modal-title-mobile]",
+    )!;
+    const mTitleDesktop = modal.querySelector<HTMLElement>(
+      "[data-modal-title-desktop]",
+    )!;
+    const mLogo = modal.querySelector<HTMLImageElement>("[data-modal-logo]")!;
+    const mLogoDesktop = modal.querySelector<HTMLImageElement>(
+      "[data-modal-logo-desktop]",
+    )!;
+    const mScreenshot = modal.querySelector<HTMLImageElement>(
+      "[data-modal-screenshot]",
+    )!;
+    const mDescription = modal.querySelector<HTMLElement>(
+      "[data-modal-description]",
+    )!;
+    const mButtons = modal.querySelector<HTMLElement>("[data-modal-buttons]")!;
+    const mBtnGithub = modal.querySelector<HTMLAnchorElement>(
+      "[data-modal-btn-github]",
+    )!;
+    const mBtnBlog = modal.querySelector<HTMLAnchorElement>(
+      "[data-modal-btn-blog]",
+    )!;
+
+    // Dynamically create header blog buttons (marketplace page only)
+    function createHeaderBlogBtn(
+      classes: string,
+      label: string,
+    ): HTMLAnchorElement {
+      const btn = document.createElement("a");
+      btn.target = "_blank";
+      btn.rel = "noopener noreferrer";
+      btn.className = `hidden ${classes}`;
+      btn.textContent = label;
+      return btn;
+    }
+
+    // Mobile header blog button
+    const mobileHeaderActions = modal.querySelector(
+      ".md\\:hidden [data-marketplace-btn]",
+    )?.parentElement;
+    const mobileHeaderBlogBtn = createHeaderBlogBtn(
+      "inline-flex items-center justify-center font-bold transition-colors duration-200 rounded-sm cursor-pointer px-2 py-1 text-[10px] uppercase bg-white text-dark-600 border border-grey-300 hover:bg-grey-50",
+      "Blog post",
+    );
+    if (mobileHeaderActions) {
+      const marketplaceBtn = mobileHeaderActions.querySelector(
+        "[data-marketplace-btn]",
+      );
+      if (marketplaceBtn)
+        marketplaceBtn.insertAdjacentElement("afterend", mobileHeaderBlogBtn);
+    }
+
+    // Desktop header blog button
+    const desktopHeaderActions = modal.querySelector(
+      ".hidden.md\\:flex [data-marketplace-btn]",
+    )?.parentElement;
+    const desktopHeaderBlogBtn = createHeaderBlogBtn(
+      "inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-sm cursor-pointer px-4 py-2 body-sm-medium bg-white text-dark-600 border border-grey-300 hover:bg-grey-50",
+      "Read blog post",
+    );
+    if (desktopHeaderActions) {
+      const marketplaceBtn = desktopHeaderActions.querySelector(
+        "[data-marketplace-btn]",
+      );
+      if (marketplaceBtn)
+        marketplaceBtn.insertAdjacentElement("afterend", desktopHeaderBlogBtn);
+    }
+
+    const mHeaderBlogBtns = [mobileHeaderBlogBtn, desktopHeaderBlogBtn];
+
+    // Show and restyle marketplace buttons (marketplace page only)
+    modal
+      .querySelectorAll<HTMLAnchorElement>("[data-marketplace-btn]")
+      .forEach((btn) => {
+        btn.classList.remove(
+          "hidden",
+          "bg-white",
+          "text-dark-600",
+          "border",
+          "border-grey-300",
+          "hover:bg-grey-50",
+        );
+        btn.classList.add(
+          "inline-flex",
+          "bg-grey-750",
+          "text-white",
+          "hover:bg-grey-800",
+        );
+      });
+
+    // Hide logos in modal on this page
+    modal
+      .querySelectorAll("[data-modal-logo], [data-modal-logo-desktop]")
+      .forEach((el) => {
+        (el as HTMLElement).style.display = "none";
+      });
+    const mBtnVideo = modal.querySelector<HTMLAnchorElement>(
+      "[data-modal-btn-video]",
+    )!;
+    const mQuote = modal.querySelector<HTMLElement>("[data-modal-quote]")!;
+    const mQuoteText = modal.querySelector<HTMLElement>(
+      "[data-modal-quote-text]",
+    )!;
+    const mQuoteAuthor = modal.querySelector<HTMLElement>(
+      "[data-modal-quote-author]",
+    )!;
+
+    const searchInput = document.querySelector<HTMLInputElement>(
+      "[data-search-input]",
+    )!;
+    const searchClear = document.querySelector<HTMLElement>(
+      "[data-search-clear]",
+    )!;
+    const noResults = document.querySelector<HTMLElement>("[data-no-results]")!;
+    const cards = document.querySelectorAll<HTMLElement>("[data-app-card]");
+    const sidebarBtns =
+      document.querySelectorAll<HTMLElement>("[data-sidebar-btn]");
+    const mobileCatToggle = document.querySelector<HTMLElement>(
+      "[data-mobile-cat-toggle]",
+    )!;
+    const mobileCatDropdown = document.querySelector<HTMLElement>(
+      "[data-mobile-cat-dropdown]",
+    )!;
+    const mobileCatLabel = document.querySelector<HTMLElement>(
+      "[data-mobile-cat-label]",
+    )!;
+    const mobileCatBtns = document.querySelectorAll<HTMLElement>(
+      "[data-mobile-cat-btn]",
+    );
+
+    let currentIndex = 0;
+    let activeSlug = "";
+    let savedScrollY = 0;
+    let savedNavbarDisplay = "";
+
+    function isDemoEntry(entry: any): boolean {
+      const url = (entry?.url || "").toLowerCase();
+      const label = (entry?.label || "").toLowerCase();
+      return (
+        url.includes("youtube.com") ||
+        url.includes("youtu.be") ||
+        label.includes("demo") ||
+        label.includes("webinar")
+      );
+    }
+
+    function getLinks(app: any) {
+      let blogUrl = "";
+      let videoUrl = "";
+      const blogs = app.blog
+        ? Array.isArray(app.blog)
+          ? app.blog
+          : [app.blog]
+        : [];
+      for (const b of blogs) {
+        if (isDemoEntry(b)) {
+          if (!videoUrl) videoUrl = b.url;
+        } else {
+          if (!blogUrl) blogUrl = b.url;
+        }
+      }
+      if (app.blog2) {
+        if (isDemoEntry(app.blog2)) {
+          if (!videoUrl) videoUrl = app.blog2.url;
+        } else {
+          if (!blogUrl) blogUrl = app.blog2.url;
+        }
+      }
+      return { blogUrl, videoUrl };
+    }
+
+    function populateModal(app: any) {
+      mCategory.textContent = app.category;
+      mCategoryDesktop.textContent = app.category;
+      mTitleMobile.textContent = app.title;
+      mTitleDesktop.textContent = app.title;
+
+      mScreenshot.src = app.image;
+      mScreenshot.alt = app.imageAlt || app.title;
+      mDescription.textContent = app.description || "";
+
+      const { blogUrl, videoUrl } = getLinks(app);
+      const githubUrl = app.github?.url || "";
+      const hasAny = githubUrl || videoUrl;
+
+      if (hasAny) {
+        mButtons.classList.remove("hidden");
+        mButtons.classList.add("flex");
+      } else {
+        mButtons.classList.add("hidden");
+        mButtons.classList.remove("flex");
+      }
+
+      if (githubUrl) {
+        mBtnGithub.href = githubUrl;
+        mBtnGithub.classList.remove("hidden");
+        mBtnGithub.classList.add("inline-flex");
+      } else {
+        mBtnGithub.classList.add("hidden");
+        mBtnGithub.classList.remove("inline-flex");
+      }
+
+      // Always hide bottom blog button on marketplace
+      mBtnBlog.classList.add("hidden");
+      mBtnBlog.classList.remove("inline-flex");
+
+      if (blogUrl) {
+        mHeaderBlogBtns.forEach((btn) => {
+          btn.href = blogUrl;
+          btn.classList.remove("hidden");
+          btn.classList.add("inline-flex");
+        });
+      } else {
+        mHeaderBlogBtns.forEach((btn) => {
+          btn.classList.add("hidden");
+          btn.classList.remove("inline-flex");
+        });
+      }
+
+      if (videoUrl) {
+        mBtnVideo.href = videoUrl;
+        mBtnVideo.classList.remove("hidden");
+        mBtnVideo.classList.add("inline-flex");
+      } else {
+        mBtnVideo.classList.add("hidden");
+        mBtnVideo.classList.remove("inline-flex");
+      }
+
+      if (app.quote) {
+        mQuote.classList.remove("hidden");
+        mQuoteText.textContent = app.quote.text;
+        const parts = [
+          app.quote.author,
+          app.quote.title,
+          app.quote.company,
+        ].filter(Boolean);
+        mQuoteAuthor.textContent = parts.join(", ");
+      } else {
+        mQuote.classList.add("hidden");
+      }
+
+      const globalIdx = appsData.indexOf(app);
+      prevBtn.style.display = globalIdx > 0 ? "" : "none";
+      nextBtn.style.display = globalIdx < appsData.length - 1 ? "" : "none";
+    }
+
+    function toSlug(s: string) {
+      return s.toLowerCase().replace(/\s+/g, "-");
+    }
+
+    function openModal(index: number) {
+      currentIndex = index;
+      const app = appsData[index];
+      if (!app) return;
+      populateModal(app);
+      savedScrollY = window.scrollY;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${savedScrollY}px`;
+      document.body.style.width = "100%";
+      const navbar = document.querySelector<HTMLElement>("[data-navbar]");
+      if (navbar) {
+        savedNavbarDisplay = navbar.style.display;
+        navbar.style.display = "none";
+      }
+      history.replaceState(
+        null,
+        "",
+        `/solutions/marketplace?category=${activeSlug}&app=${toSlug(app.title)}`,
+      );
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      const navbar = document.querySelector<HTMLElement>("[data-navbar]");
+      if (navbar) navbar.style.display = savedNavbarDisplay;
+      history.replaceState(
+        null,
+        "",
+        `/solutions/marketplace?category=${activeSlug}`,
+      );
+      requestAnimationFrame(() => window.scrollTo(0, savedScrollY));
+    }
+
+    function navModal(dir: number) {
+      const nextIndex = currentIndex + dir;
+      if (nextIndex < 0 || nextIndex >= appsData.length) return;
+      currentIndex = nextIndex;
+      const nextApp = appsData[nextIndex];
+      populateModal(nextApp);
+      history.replaceState(
+        null,
+        "",
+        `/solutions/marketplace?category=${activeSlug}&app=${toSlug(nextApp.title)}`,
+      );
+      modal.querySelector(".overflow-y-auto")?.scrollTo(0, 0);
+    }
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const idx = parseInt(card.dataset.appIndex || "0", 10);
+        openModal(idx);
+      });
+    });
+
+    closeBtns.forEach((btn) => btn.addEventListener("click", closeModal));
+    overlay.addEventListener("click", closeModal);
+    prevBtn.addEventListener("click", () => navModal(-1));
+    nextBtn.addEventListener("click", () => navModal(1));
+
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        if (!modal.classList.contains("flex")) return;
+        if (e.key === "Escape") closeModal();
+        else if (e.key === "ArrowLeft") navModal(-1);
+        else if (e.key === "ArrowRight") navModal(1);
+      },
+      { signal },
+    );
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    modal.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      },
+      { passive: true },
+    );
+    modal.addEventListener(
+      "touchend",
+      (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 2)
+          navModal(dx < 0 ? 1 : -1);
+      },
+      { passive: true },
+    );
+
+    function updateBorders() {
+      const visibleCards = Array.from(cards).filter(
+        (c) => c.style.display !== "none",
+      );
+      visibleCards.forEach((c, i) => {
+        c.style.borderRight = "";
+        const isDesktop = window.innerWidth >= 1024;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
+        if (isDesktop && ((i + 1) % 3 === 0 || i === visibleCards.length - 1)) {
+          c.style.borderRight = "none";
+        } else if (
+          isTablet &&
+          ((i + 1) % 2 === 0 || i === visibleCards.length - 1)
+        ) {
+          c.style.borderRight = "none";
+        } else if (window.innerWidth < 768) {
+          c.style.borderRight = "none";
+        }
+      });
+    }
+
+    window.addEventListener(
+      "resize",
+      () => {
+        if (cards.length > 0) updateBorders();
+      },
+      { signal, passive: true },
+    );
+
+    function applyFilters() {
+      const q = searchInput.value.toLowerCase().trim();
+      searchClear.classList.toggle("hidden", !q);
+
+      let anyVisible = false;
+      cards.forEach((card) => {
+        const matchCategory =
+          activeSlug === "all" || card.dataset.appCategory === activeSlug;
+        const matchSearch =
+          !q ||
+          card.dataset.appTitle!.includes(q) ||
+          card.dataset.appDesc!.includes(q);
+
+        if (matchCategory && matchSearch) {
+          card.style.display = "";
+          anyVisible = true;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      noResults.classList.toggle("hidden", anyVisible);
+      updateBorders();
+    }
+
+    function setActiveSidebar(slug: string) {
+      activeSlug = slug;
+      sidebarBtns.forEach((btn) => {
+        const isActive = btn.dataset.sidebarBtn === slug;
+        btn.classList.toggle("text-light-blue-600", isActive);
+        btn.classList.toggle("text-dark-600", !isActive);
+      });
+      mobileCatBtns.forEach((btn) => {
+        const isActive = btn.dataset.mobileCatBtn === slug;
+        btn.classList.toggle("text-light-blue-600", isActive);
+        btn.classList.toggle("text-dark-600", !isActive);
+      });
+      if (slug === "all") {
+        if (mobileCatLabel) mobileCatLabel.textContent = "All";
+      } else {
+        const cat = appsData.find((a) => a.categorySlug === slug);
+        if (cat && mobileCatLabel) mobileCatLabel.textContent = cat.category;
+      }
+      applyFilters();
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    searchClear.addEventListener("click", () => {
+      searchInput.value = "";
+      applyFilters();
+      searchInput.focus();
+    });
+
+    sidebarBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setActiveSidebar(btn.dataset.sidebarBtn!);
+        const content = document.getElementById("marketplace-content");
+        if (content)
+          content.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    mobileCatToggle?.addEventListener("click", () => {
+      const open = !mobileCatDropdown.classList.contains("hidden");
+      mobileCatDropdown.classList.toggle("hidden", open);
+      const chevron = mobileCatToggle.querySelector("[data-mobile-chevron]");
+      if (chevron)
+        (chevron as HTMLElement).style.transform = open ? "" : "rotate(180deg)";
+    });
+
+    mobileCatBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        mobileCatDropdown.classList.add("hidden");
+        const chevron = mobileCatToggle.querySelector("[data-mobile-chevron]");
+        if (chevron) (chevron as HTMLElement).style.transform = "";
+        setActiveSidebar(btn.dataset.mobileCatBtn!);
+        const content = document.getElementById("marketplace-content");
+        if (content)
+          content.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    const params = new URLSearchParams(location.search);
+    const catParam = params.get("category");
+    const appParam = params.get("app");
+
+    if (catParam) {
+      setActiveSidebar(catParam);
+    } else {
+      setActiveSidebar("all");
+    }
+
+    if (appParam && catParam) {
+      const idx = appsData.findIndex(
+        (a) => toSlug(a.title) === appParam && a.categorySlug === catParam,
+      );
+      if (idx !== -1) openModal(idx);
+    }
+
+    const sidebarEl = document.querySelector<HTMLElement>(
+      "[data-sidebar-sticky]",
+    );
+    if (sidebarEl) {
+      const aside = sidebarEl.parentElement!;
+      const flexContainer = aside.parentElement!;
+      const topGap = 16;
+      let startY = 0;
+
+      function calcStartY() {
+        startY = aside.getBoundingClientRect().top + window.scrollY;
+      }
+      calcStartY();
+
+      function updateSidebar() {
+        const sidebarH = sidebarEl!.offsetHeight;
+        const flexBottom = flexContainer.offsetTop + flexContainer.offsetHeight;
+        const stopY = flexBottom - sidebarH - topGap;
+
+        if (window.scrollY > stopY) {
+          sidebarEl!.style.position = "relative";
+          sidebarEl!.style.top = stopY - startY + topGap + "px";
+          sidebarEl!.style.width = "";
+        } else if (window.scrollY > startY - topGap) {
+          sidebarEl!.style.position = "fixed";
+          sidebarEl!.style.top = topGap + "px";
+          sidebarEl!.style.width = aside.offsetWidth + "px";
+        } else {
+          sidebarEl!.style.position = "";
+          sidebarEl!.style.top = "";
+          sidebarEl!.style.width = "";
+        }
+      }
+
+      window.addEventListener("scroll", updateSidebar, {
+        signal,
+        passive: true,
+      });
+      window.addEventListener(
+        "resize",
+        () => {
+          calcStartY();
+          updateSidebar();
+        },
+        { signal, passive: true },
+      );
+      updateSidebar();
+    }
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        ac.abort();
+        if (modal.classList.contains("flex")) {
+          document.body.style.overflow = "";
+          document.body.style.position = "";
+          document.body.style.top = "";
+          document.body.style.width = "";
+        }
+
+        // Restore marketplace buttons to original hidden/outlined state
+        modal
+          .querySelectorAll<HTMLAnchorElement>("[data-marketplace-btn]")
+          .forEach((btn) => {
+            btn.classList.add(
+              "hidden",
+              "bg-white",
+              "text-dark-600",
+              "border",
+              "border-grey-300",
+              "hover:bg-grey-50",
+            );
+            btn.classList.remove(
+              "inline-flex",
+              "bg-grey-750",
+              "text-white",
+              "hover:bg-grey-800",
+            );
+          });
+
+        // Restore logos
+        modal
+          .querySelectorAll("[data-modal-logo], [data-modal-logo-desktop]")
+          .forEach((el) => {
+            (el as HTMLElement).style.display = "";
+          });
+
+        // Remove injected header blog buttons
+        mHeaderBlogBtns.forEach((btn) => btn.remove());
+      },
+      { once: true },
+    );
+  });
+</script>
+
+<style>
+  .app-card {
+    border-right: 1px solid var(--color-grey-200);
+  }
+  .app-img-loading {
+    opacity: 0;
+  }
+  .app-img-loaded {
+    opacity: 1;
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.3s ease;
+  }
+</style>

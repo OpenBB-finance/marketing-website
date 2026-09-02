@@ -1,0 +1,292 @@
+---
+import ArrowLink from "../components/ArrowLink.astro";
+import ContactModal from "../components/ContactModal.astro";
+import CtaLight from "../components/CtaLight.astro";
+import FadeIn from "../components/FadeIn.astro";
+import HeroProductLight from "../components/HeroProductLight.astro";
+import SvgIcon from "../components/SvgIcon.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="AI Vendors | OpenBB"
+  description="Integrate your AI agent into OpenBB Workspace. Focus on intelligence while OpenBB handles deployment, security, data connectors and the enterprise interface layer."
+  keywords="ai vendors, artificial intelligence, ai integration, ai agents"
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroProductLight
+      title={"Focus on intelligence,\nnot infrastructure."}
+      description="OpenBB provides the unifying environment for analysis. Integrate once via MCP or API, and deploy through white-label solutions or direct integration with firms already using OpenBB."
+      buttonText="Start now"
+      buttonLink="https://pro.openbb.co/register"
+      imageSrc="https://openbb-cms.directus.app/assets/95394647-924d-4941-9d45-653d8ad9f2e9.png"
+      imageAlt="OpenBB AI Vendor Integration"
+    />
+
+    <!-- Co-build enterprise section -->
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+          <div class="space-y-6">
+            <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600">
+              Co-build enterprise solutions with OpenBB
+            </h2>
+            <div class="flex flex-col gap-4">
+              <p class="body-md-regular md:body-lg-regular text-dark-400">
+                For vendors aiming at deeper integration, OpenBB can co-design solutions where:
+              </p>
+              <ul class="list-disc pl-5 flex flex-col gap-2">
+                <li class="body-md-regular md:body-lg-regular text-dark-400">Your agent becomes the primary intelligence layer</li>
+                <li class="body-md-regular md:body-lg-regular text-dark-400">Clients get a branded environment powered by your AI</li>
+                <li class="body-md-regular md:body-lg-regular text-dark-400">OpenBB handles deployment, security, user access, and interface</li>
+              </ul>
+              <p class="body-md-regular md:body-lg-regular text-dark-400">
+                Turn your AI agent into a complete enterprise-ready solution.
+              </p>
+            </div>
+          </div>
+          <FadeIn>
+            <img
+              src="https://openbb-cms.directus.app/assets/f7852c87-0b3e-40b0-8b09-d313350e1937.png"
+              alt="OpenBB Workspace Interface"
+              class="w-full h-auto object-cover rounded-lg shadow-light-2"
+              loading="lazy"
+            />
+          </FadeIn>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why AI Vendors + Your agent sections -->
+    <section class="py-16 lg:py-32 bg-dark-850">
+      <div class="page-container">
+        <h2 class="text-title-s-regular md:text-title-xl-regular text-white mb-10 md:mb-20 text-left">
+          Why AI vendors choose OpenBB
+        </h2>
+        <FadeIn>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                image: "https://openbb-cms.directus.app/assets/1c9b9be1-d86e-448d-b685-69d828343692.png",
+                title: "Unifying interface layer",
+                text: "Don't waste time building dashboards, visualization widgets, data connections, controls, or governance. OpenBB provides it all, so you focus on developing the best AI agents.",
+                link: "https://docs.openbb.co/workspace/developers/agents-integration",
+              },
+              {
+                image: "https://openbb-cms.directus.app/assets/b0c52581-1a29-436d-a273-3fa06e30e9cb.png",
+                title: "Reusable artifacts",
+                text: "Analysts can run multi-step workflows, not just one-off queries, and outputs become persistent artifacts\u2014tables, dashboards, briefings\u2014that teams can reuse and share.",
+                link: "https://openbb.co/blog/bringing-multi-step-research-workflows-into-openbb",
+              },
+              {
+                image: "https://openbb-cms.directus.app/assets/2084b3d0-a629-412c-9ffa-8091a4a56156.png",
+                title: "Integration with client data",
+                text: "Your agents operate directly on client documents, market feeds, and internal systems through OpenBB Workspace, without you building and maintaining custom connectors or data pipelines.",
+                link: "https://docs.openbb.co/workspace/developers/openbb-ai-sdk",
+              },
+              {
+                image: "https://openbb-cms.directus.app/assets/d0139149-65cb-43ba-850e-f04969e13028.png",
+                title: "Two deployment models",
+                text: "Launch your agent within firms already using our Workspace or offer a white-labeled workspace where your agent becomes the centerpiece of a branded enterprise solution you own.",
+                link: "https://docs.openbb.co/workspace/getting-started/enterprise/administration",
+              },
+            ].map((card) => (
+              <div class="flex flex-col gap-4">
+                <div class="w-full overflow-hidden rounded-lg">
+                  <img src={card.image} alt={card.title} class="w-full h-full object-cover" loading="lazy" />
+                </div>
+                <h3 class="body-lg-bold text-white">{card.title}</h3>
+                <p class="body-md-regular text-grey-300">{card.text}</p>
+                <ArrowLink label="Learn more" href={card.link} class="text-white mt-auto" />
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+      </div>
+
+      <div class="page-container pt-16 lg:pt-32">
+        <h2 class="text-title-s-regular md:text-title-xl-regular text-white mb-10 md:mb-20 text-left">
+          Your agent, their data,<br />our Workspace.
+        </h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+          {[
+            {
+              icon: "tick-ai-vendor",
+              title: "Optimize resources",
+              text: "Focus engineering work on intelligence, not UI",
+            },
+            {
+              icon: "lock-buy-side",
+              title: "Deploy safely",
+              text: "Your agents operate securely on client's data",
+            },
+            {
+              icon: "ai-buy-side",
+              title: "Own the AI",
+              text: "Bring your own models, workflows, and logic",
+            },
+            {
+              icon: "data-ai-vendor",
+              title: "Get more context",
+              text: "Use all Workspace's data as context for your agent",
+            },
+          ].map((item) => (
+            <div class="bg-dark-750 border border-dark-400 shadow-dark-1 rounded-lg p-5 md:p-6 flex flex-col gap-3">
+              <div class="w-10 h-10 bg-light-blue-600 flex items-center justify-center shrink-0 rounded-md">
+                <SvgIcon name={item.icon} class="w-5 h-5 text-white" />
+              </div>
+              <h3 class="body-lg-bold text-white">{item.title}</h3>
+              <p class="body-md-regular text-grey-300">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonial section -->
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <div class="flex flex-col gap-10 items-center text-center">
+          <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600">
+            AI vendors bring specialized <br class="hidden md:block" />solutions into OpenBB
+          </h2>
+          <p class="body-md-regular md:body-lg-regular text-dark-400 max-w-[900px]">
+            <span class="font-bold">Quantly</span> integrates into OpenBB Workspace via MCP so analysts can run multi-step workflows directly alongside their data. <span class="font-bold">LinqAlpha</span> makes market-specific intelligence available to analysts by integrating their financial research agent into OpenBB, where outputs can be pinned to dashboards, shared across teams, and integrated into existing processes.
+          </p>
+
+          <div class="relative w-full" data-testimonial-carousel>
+            <button
+              data-testimonial-prev
+              class="absolute -left-14 top-1/2 -translate-y-1/2 w-10 h-10 bg-white hover:bg-grey-100 text-grey-900 rounded-sm hidden md:flex items-center justify-center transition-colors duration-200 shadow-light-3 cursor-pointer z-10"
+              aria-label="Previous testimonial"
+              type="button"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m15 18-6-6 6-6" /></svg>
+            </button>
+            <button
+              data-testimonial-next
+              class="absolute -right-14 top-1/2 -translate-y-1/2 w-10 h-10 bg-white hover:bg-grey-100 text-grey-900 rounded-sm hidden md:flex items-center justify-center transition-colors duration-200 shadow-light-3 cursor-pointer z-10"
+              aria-label="Next testimonial"
+              type="button"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6" /></svg>
+            </button>
+
+            <FadeIn>
+              <div class="overflow-hidden rounded-lg border border-grey-300 shadow-light-1">
+                <div class="flex transition-transform duration-500 ease-in-out" data-testimonial-track>
+                  {[
+                    {
+                      logo: "https://openbb-cms.directus.app/assets/ac030721-6e71-4550-9d98-ee077bca1ff2.png",
+                      quote: "Our users get a unified Workspace to leverage Quantly where they work",
+                      text: "Integrating Quantly into OpenBB via MCP meant we could focus on delivering Quantly's workflows regardless of where they work. Our users get sophisticated, multi-step research capabilities running alongside their data and proprietary tools in a Workspace that's tailored by them.",
+                      author: "Vladislav Stanev, CEO",
+                      company: "Quantly",
+                    },
+                    {
+                      logo: "https://openbb-cms.directus.app/assets/dc1dab6a-daa7-4bfa-9368-290e46a4418f.png",
+                      quote: "With OpenBB, we could get to market faster",
+                      text: "We built world-class financial research AI, but we didn't want to spend years building the workspace around it. OpenBB provided the enterprise-grade interface and deployment infrastructure so we could get to market faster.",
+                      author: "Jacob Chanyeol Choi, Co-CEO",
+                      company: "LinqAlpha",
+                    },
+                  ].map((t) => (
+                    <div class="w-full flex-shrink-0 flex flex-col" data-testimonial-slide>
+                      <div class="bg-white overflow-hidden flex-1 flex flex-col">
+                        <!-- Mobile -->
+                        <div class="flex flex-col md:hidden">
+                          <div class="w-full bg-dark-800">
+                            <img src={t.logo} alt={t.company} class="w-full h-full object-cover" loading="lazy" />
+                          </div>
+                          <div class="px-5 py-5 flex flex-col gap-5">
+                            <h3 class="text-dark-600 text-left text-title-xs-bold">"{t.quote}"</h3>
+                            <p class="text-dark-400 text-left body-md-regular">{t.text}</p>
+                            <div>
+                              <p class="text-dark-50 text-left body-xs-bold">{t.author}</p>
+                              <p class="text-grey-500 text-left body-xs-regular">{t.company}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Desktop -->
+                        <div class="hidden md:grid md:grid-cols-[1fr_2fr] flex-1">
+                          <div class="bg-dark-800 relative">
+                            <img src={t.logo} alt={t.company} class="absolute inset-0 w-full h-full object-cover block" loading="lazy" />
+                          </div>
+                          <div class="px-8 py-10 flex flex-col justify-center">
+                            <h3 class="text-dark-600 text-left text-title-s-bold mb-6">"{t.quote}"</h3>
+                            <p class="text-dark-400 text-left body-md-regular mb-6">{t.text}</p>
+                            <div>
+                              <p class="text-dark-50 text-left body-xs-bold">{t.author}</p>
+                              <p class="text-grey-500 text-left body-xs-regular">{t.company}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CtaLight
+      title='Ready to ship your <br class="hidden md:inline" /> agent inside OpenBB?'
+      description="Let's talk business."
+      buttonText="Talk to us"
+      buttonDataModal
+      secondaryButtonText="Explore Workspace"
+      secondaryButtonHref="https://pro.openbb.co/register"
+    />
+  </main>
+
+  <ContactModal title="Talk to us" />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const carousel = document.querySelector<HTMLElement>("[data-testimonial-carousel]");
+    if (!carousel) return;
+
+    const track = carousel.querySelector<HTMLElement>("[data-testimonial-track]")!;
+    const slides = carousel.querySelectorAll("[data-testimonial-slide]");
+    const prevBtn = carousel.querySelector<HTMLButtonElement>("[data-testimonial-prev]")!;
+    const nextBtn = carousel.querySelector<HTMLButtonElement>("[data-testimonial-next]")!;
+    const total = slides.length;
+    let current = 0;
+
+    function goTo(index: number) {
+      current = ((index % total) + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+    }
+
+    function resetAutoplay() {
+      clearInterval(autoplay);
+      autoplay = setInterval(() => goTo(current + 1), 10000);
+    }
+
+    prevBtn.addEventListener("click", () => { goTo(current + 1); resetAutoplay(); });
+    nextBtn.addEventListener("click", () => { goTo(current + 1); resetAutoplay(); });
+
+    let autoplay = setInterval(() => goTo(current + 1), 10000);
+    carousel.addEventListener("mouseenter", () => clearInterval(autoplay));
+    carousel.addEventListener("mouseleave", resetAutoplay);
+
+    let touchStartX = 0;
+    track.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener("touchend", (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        goTo(current + 1);
+        resetAutoplay();
+      }
+    }, { passive: true });
+
+    document.addEventListener("astro:before-swap", () => {
+      clearInterval(autoplay);
+    }, { once: true });
+  });
+</script>

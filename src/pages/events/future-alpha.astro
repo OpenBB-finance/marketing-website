@@ -1,0 +1,397 @@
+---
+import ContactModal from "../../components/ContactModal.astro";
+import FadeIn from "../../components/FadeIn.astro";
+import HeroWorkspace from "../../components/HeroWorkspace.astro";
+import TestimonialCard from "../../components/TestimonialCard.astro";
+import { FORMBRICKS } from "../../data/contact";
+import Layout from "../../layouts/Layout.astro";
+
+const bentoCards = [
+  {
+    title: "Your data, all in one place",
+    description:
+      "Proprietary feeds, licensed data, internal models. Structured and unstructured. Everything your analysts need, connected and ready for AI to act on.",
+    image:
+      "https://openbb-cms.directus.app/assets/a050a2a1-562c-4a31-9567-92ce26404001.png?format=webp&quality=90&width=1920",
+    alt: "Data connectors illustration",
+    layout: "bottom" as const,
+  },
+  {
+    title: "Analytics apps built in hours",
+    description:
+      "A flexible layout your team configures without engineering support. Share it with 5 analysts or 500. No custom frontend work needed.",
+    image:
+      "https://openbb-cms.directus.app/assets/090b67a2-dbde-42c6-bc67-2bfded394472.png?format=webp&quality=90&width=1920",
+    alt: "OpenBB dashboard screenshot",
+    layout: "right" as const,
+  },
+  {
+    title: "AI that runs on your terms",
+    description:
+      "Bring your own models, connect your own agents, keep your data inside your environment. No black box. Full visibility into how every result is produced.",
+    image:
+      "https://openbb-cms.directus.app/assets/03a6987f-8f99-42de-9afd-afbfea93b549.png?format=webp&quality=90&width=1920",
+    alt: "AI agent integration screenshot",
+    layout: "overlay" as const,
+  },
+  {
+    title: "On-prem or private cloud",
+    description:
+      "Built for the conversation with your security and compliance teams. Deploy on-prem or in your private cloud, with SOC 2 Type II certification, RBAC, and full control over where your data and AI models live.",
+    image:
+      "https://openbb-cms.directus.app/assets/396cd4e0-5794-4cc1-a173-22ec108948fd.png?format=webp&quality=90&width=1920",
+    alt: "On-premises deployment illustration",
+    layout: "bottom" as const,
+  },
+];
+---
+
+<Layout
+  title="Future Alpha New York | OpenBB"
+  description="Didier Lopes presented the case against fragmented data infrastructure at Future Alpha New York. Fragmentation kills alpha — here's what to do about it."
+  navLight
+>
+  <main class="bg-white">
+    <!-- Section 1: Hero -->
+    <HeroWorkspace
+      title={"Fragmentation kills alpha.\nHere's what to do about it."}
+      description={"Didier Lopes presented this thesis at Future Alpha New York on March 31st.\nHere's the full picture."}
+      buttonText="Book a demo"
+      buttonLink="#"
+      buttonDataOpenModal="contact"
+      imageSrc="https://openbb-cms.directus.app/assets/2fbbfcd6-87d4-431e-9d03-d8edc1c872ce.png"
+      imageAlt="OpenBB Workspace dashboard"
+    />
+
+    <!-- Section 2: Data, AI, and Context -->
+    <FadeIn>
+      <section class="bg-white py-16 lg:py-32">
+        <div class="page-container">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+            <div class="space-y-6">
+              <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600">
+                The problem isn't your data or your AI
+              </h2>
+              <p class="body-md-regular md:body-lg-regular text-dark-400">
+                It's the layer between them. Most investment firms are running data in one place, AI in another, and research context scattered across platforms and spreadsheets. There's no feedback loop. No compounding. Intelligence resets daily.
+              </p>
+              <p class="body-lg-medium text-dark-600">
+                OpenBB Workspace is where data, AI, and context work together.
+              </p>
+            </div>
+            <div>
+              <!-- TODO: Replace with specific section 2 image -->
+              <img
+                src="https://openbb-cms.directus.app/assets/b120fb1b-f554-4b51-a27b-642acc5f28e0"
+                alt="OpenBB Workspace interface"
+                class="w-full h-auto rounded-lg shadow-light-2"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <!-- Section 3: Bridge your data with AI. Securely. -->
+    <section class="bg-white py-16 lg:py-32">
+      <div class="page-container">
+        <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600 text-left">
+          One environment. No more gaps
+        </h2>
+        <p class="body-md-regular md:body-lg-regular text-dark-400 mt-3 md:mt-4 text-left">
+          Your data, your AI agents, your research workflows. No extracts, no context switching, no building from scratch.
+        </p>
+
+        <!-- Desktop 2x2 grid -->
+        <div class="mt-10 md:mt-14 hidden md:flex flex-col gap-10">
+          <!-- Row 1 -->
+          <div class="grid grid-cols-[480fr_640fr] gap-10 h-[560px]">
+            <!-- Consolidate all your data -->
+            <div class="relative overflow-hidden rounded-2xl border border-grey-100 shadow-light-1 transition-transform duration-300">
+              <div class="absolute inset-0 bg-grey-50 rounded-2xl"></div>
+              <div class="relative flex h-full flex-col overflow-hidden rounded-2xl p-[50px]">
+                <div>
+                  <p class="body-lg-bold text-dark-600">{bentoCards[0].title}</p>
+                  <p class="mt-2 body-lg-regular text-dark-400">
+                    {bentoCards[0].description}
+                  </p>
+                </div>
+                <div class="flex flex-1 items-center justify-center -mx-[60px] -mt-4">
+                  <img
+                    class="w-[125%] opacity-0 translate-y-6 transition-all duration-1000"
+                    data-bento-fa-img
+                    src={bentoCards[0].image}
+                    alt={bentoCards[0].alt}
+                    width="608"
+                    height="234"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Design your dashboard -->
+            <div class="relative overflow-hidden rounded-2xl border border-grey-100 shadow-light-1 transition-transform duration-300">
+              <div class="absolute inset-0 bg-grey-50 rounded-2xl"></div>
+              <div class="relative flex h-full flex-col overflow-hidden rounded-2xl p-[50px] pb-0 pr-0">
+                <div class="pr-[50px]">
+                  <p class="body-lg-bold text-dark-600">{bentoCards[1].title}</p>
+                  <p class="mt-2 body-lg-regular text-dark-400 max-w-lg">
+                    {bentoCards[1].description}
+                  </p>
+                </div>
+                <div class="relative flex-1 mt-4 -ml-[20px]">
+                  <img
+                    class="w-[calc(100%+50px)] h-full rounded-tl-2xl object-cover object-left-top opacity-0 translate-y-6 transition-all duration-1000"
+                    data-bento-fa-img
+                    src={bentoCards[1].image}
+                    alt={bentoCards[1].alt}
+                    width="640"
+                    height="360"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="grid grid-cols-[640fr_480fr] gap-10 h-[460px]">
+            <!-- Adopt AI with confidence -->
+            <div class="relative overflow-hidden rounded-2xl border border-grey-100 shadow-light-1 transition-transform duration-300">
+              <div class="absolute inset-0 bg-grey-50 rounded-2xl"></div>
+              <div class="relative h-full overflow-hidden rounded-2xl">
+                <img
+                  class="absolute top-[-6%] left-[20%] w-[80%] h-auto opacity-0 translate-y-6 transition-all duration-1000"
+                  data-bento-fa-img
+                  src={bentoCards[2].image}
+                  alt={bentoCards[2].alt}
+                  width="640"
+                  height="460"
+                  loading="lazy"
+                />
+                <div class="relative z-10 flex flex-col w-[55%] p-[50px]">
+                  <p class="body-lg-bold text-dark-600">{bentoCards[2].title}</p>
+                  <p class="mt-4 body-lg-regular text-dark-400">
+                    {bentoCards[2].description}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stay in control of your data -->
+            <div class="relative overflow-hidden rounded-2xl border border-grey-100 shadow-light-1 transition-transform duration-300">
+              <div class="absolute inset-0 bg-grey-50 rounded-2xl"></div>
+              <div class="relative flex h-full flex-col overflow-hidden rounded-2xl p-[50px]">
+                <div>
+                  <p class="body-lg-bold text-dark-600">{bentoCards[3].title}</p>
+                  <p class="mt-2 body-lg-regular text-dark-400">
+                    {bentoCards[3].description}
+                  </p>
+                </div>
+                <div class="flex flex-1 items-center justify-center -mx-[60px] -mt-4">
+                  <img
+                    class="w-[125%] opacity-0 translate-y-6 transition-all duration-1000"
+                    data-bento-fa-img
+                    src={bentoCards[3].image}
+                    alt={bentoCards[3].alt}
+                    width="608"
+                    height="234"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile stacked layout -->
+        <div class="mt-8 md:hidden grid gap-6">
+          {bentoCards.map((card) => (
+            <div class="relative overflow-hidden rounded-lg border border-grey-100 shadow-light-1">
+              <div class="absolute inset-0 bg-grey-50 rounded-lg"></div>
+              <div class="relative flex flex-col overflow-hidden rounded-lg">
+                <div class="px-4 pt-6">
+                  <p class="body-md-bold text-dark-600">{card.title}</p>
+                  <p class="mt-2 body-md-regular text-dark-400">{card.description}</p>
+                </div>
+                <div
+                  class:list={[
+                    "overflow-hidden",
+                    card.layout === "right"
+                      ? "mt-4 h-[220px]"
+                      : card.layout === "overlay"
+                        ? "mt-4 pb-0 h-[240px]"
+                        : "flex items-end justify-center -mx-4 -mb-4 mt-6",
+                  ]}
+                >
+                  <img
+                    class:list={[
+                      "w-full",
+                      card.layout === "right"
+                        ? "h-full rounded-tl-md object-cover object-left-top"
+                        : card.layout === "overlay"
+                          ? "rounded-2xl object-cover object-top"
+                          : "",
+                    ]}
+                    src={card.image}
+                    alt={card.alt}
+                    width="375"
+                    height="240"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Video -->
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <div class="text-center mb-10 md:mb-20">
+            <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600">
+              What unified infrastructure looks like in practice
+            </h2>
+            <p class="body-md-regular md:body-lg-regular text-dark-400 mt-4 mx-auto">
+              A Fama French attribution workflow, from raw factor data to client-ready output, without leaving the Workspace.
+            </p>
+          </div>
+          <div
+            class="relative w-full aspect-[4162/2160] bg-dark-800 flex items-center justify-center rounded-lg md:rounded-xl overflow-hidden"
+            data-fa-video-container
+          >
+            <!-- TODO: Replace poster and video source with actual Future Alpha video -->
+            <video
+              class="w-full h-full object-contain"
+              loop
+              playsinline
+              poster="https://openbb-cms.directus.app/assets/b7336070-a269-4914-b6fd-49c9cb52090f"
+              preload="metadata"
+              data-fa-video
+            >
+              <source
+                src="https://openbb-cms.directus.app/assets/7d06b998-bc3e-4f6b-8fb8-f49ed0f1b7fa"
+                type="video/mp4"
+              />
+            </video>
+            <div
+              class="absolute inset-0 bg-black/30 transition-opacity duration-300 pointer-events-none"
+              data-fa-video-overlay
+            ></div>
+            <button
+              type="button"
+              class="absolute inset-0 flex items-center justify-center cursor-pointer bg-transparent border-none pointer-events-none"
+              aria-label="Play video"
+              data-fa-play-btn
+            >
+              <svg
+                class="w-12 h-12 md:w-[86px] md:h-[86px] pointer-events-auto transition-transform duration-200 hover:scale-110 drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
+                viewBox="0 0 86 86"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M34.1927 57.9023V28.0536L57.695 42.9779L34.1927 57.9023ZM43 0C19.2905 0 0 19.2905 0 43C0 66.7095 19.2905 86 43 86C66.7095 86 86 66.7095 86 43C86 19.2905 66.7095 0 43 0Z"
+                  fill="white"
+                  fill-opacity="0.7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <!-- Section 5: Testimonial -->
+    <FadeIn>
+      <TestimonialCard
+        image="https://openbb-cms.directus.app/assets/f35afdab-8c81-4583-af7f-608dbd7bf054.png"
+        headline="One of the most impressive development teams I've ever worked with."
+        quote="OpenBB brings together brilliant minds with an extraordinary product. Their agile teams truly listen, act, and deliver, making them one of the most impressive development teams I've ever worked with."
+        author="Pete Petersen, CTO"
+        company="Causeway Capital Management"
+        sectionTitle="What our clients have to say"
+      />
+    </FadeIn>
+
+    <!-- Section 6: Bottom CTA -->
+    <section class="py-16 lg:py-20">
+      <div class="page-container">
+        <div class="bg-grey-50 shadow-light-1 p-6 border border-grey-100 rounded-lg md:rounded-2xl sm:p-10">
+          <div class="flex flex-col md:flex-row items-center md:items-start md:justify-between gap-6 text-center md:text-left">
+            <div class="flex flex-col gap-6 md:gap-2">
+              <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600">
+                What would this look like for your firm?
+              </h2>
+              <p class="text-dark-400 md:text-dark-600 body-md-regular md:body-lg-regular">
+                Schedule 15 minutes with our team to see how this works for your infrastructure and your research workflows.
+              </p>
+            </div>
+            <div class="w-full md:w-auto md:self-end">
+              <button
+                type="button"
+                data-open-modal="contact"
+                class="inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-sm cursor-pointer px-6 py-3 body-md-medium bg-light-blue-600 text-white hover:bg-light-blue-700 w-full md:w-auto"
+              >
+                Book a demo
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <ContactModal iframeSrc="https://app.formbricks.com/s/y3y1f7kkeesnl7vrnzjosc4p?embed=true" title="Book a demo" />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+
+    // Bento image reveal
+    const bentoImgs = document.querySelectorAll("[data-bento-fa-img]");
+    if (bentoImgs.length) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target as HTMLElement;
+              el.style.opacity = "1";
+              el.style.transform = "translateY(0)";
+              io.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+      bentoImgs.forEach((img) => io.observe(img));
+    }
+
+    // Video play/pause
+    const videoContainer = document.querySelector("[data-fa-video-container]");
+    if (videoContainer) {
+      const video = videoContainer.querySelector<HTMLVideoElement>("[data-fa-video]");
+      const playBtn = videoContainer.querySelector<HTMLButtonElement>("[data-fa-play-btn]");
+      const overlay = videoContainer.querySelector<HTMLElement>("[data-fa-video-overlay]");
+      if (video && playBtn) {
+        playBtn.addEventListener("click", () => {
+          video.play();
+          video.controls = true;
+          playBtn.style.display = "none";
+          if (overlay) overlay.style.opacity = "0";
+        });
+        video.addEventListener("ended", () => {
+          playBtn.style.display = "flex";
+          video.controls = false;
+          if (overlay) overlay.style.opacity = "1";
+        });
+      }
+    }
+  });
+</script>

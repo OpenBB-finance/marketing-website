@@ -1,0 +1,86 @@
+---
+import Button from "./Button.astro";
+import SvgIcon from "./SvgIcon.astro";
+
+const features = [
+  { icon: "monitor", label: "Self-hosted or VPC" },
+  { icon: "sheild-tick", label: "SOC 2 Type II" },
+  { icon: "lock-closed", label: "Access control" },
+  { icon: "file-check-02", label: "Full audit trail" },
+];
+---
+
+<section class="py-16 lg:pt-20 lg:pb-32">
+  <div class="page-container">
+    <!-- Desktop security banner -->
+    <div class="hidden md:block">
+      <div class="bg-dark-800 border border-light-blue-100 overflow-hidden relative shadow-light-3 rounded-2xl">
+        <div class="flex flex-col items-start gap-8 py-16 md:py-24 px-8 md:px-10 relative z-10 max-w-[46%]">
+          <h2 class="text-white md:text-title-xl-regular text-title-s-regular">
+            Data governance, <br />entitlement, lineage
+          </h2>
+          <p class="text-grey-100 body-lg-regular max-w-2xl">
+            None of these can be solved holistically when the infrastructure belongs to someone else. OpenBB is the infrastructure you own.
+          </p>
+          <Button variant="primary" href="/security">
+            See security details
+          </Button>
+        </div>
+        <div class="absolute -inset-y-8 right-0 z-0 flex opacity-80 w-[65%]">
+          <img
+            src="https://openbb-cms.directus.app/assets/bcd69fa5-0de3-4bee-909c-ae576d34d22e.png"
+            alt="World Map"
+            class="w-full h-full object-contain object-right"
+            width="600"
+            height="400"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile security banner -->
+    <div class="md:hidden w-full border border-dark-400 bg-dark-800 relative overflow-hidden rounded-lg">
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://openbb-cms.directus.app/assets/dec1b890-78fd-4043-a0ce-f46ac6377b2b.webp"
+          alt="Security Background"
+          class="w-full h-full object-cover opacity-80"
+          width="375"
+          height="400"
+          loading="lazy"
+        />
+      </div>
+      <div class="relative z-10 px-4 sm:px-6">
+        <div class="max-w-[1200px] mx-auto flex flex-col items-center text-center gap-6 py-12">
+          <h2 class="text-white text-title-s-regular">
+            Data governance, <br />entitlement, lineage
+          </h2>
+          <p class="text-grey-100 body-lg-regular">
+            None of these can be solved holistically when the infrastructure belongs to someone else. OpenBB is the infrastructure you own.
+          </p>
+          <Button variant="primary" href="/security" class="w-full">
+            See security details
+          </Button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature icons -->
+    <div class="mb-10 mx-auto grid grid-cols-2 md:grid-cols-4 mt-8 md:mt-16 w-full gap-y-12">
+      {features.map((feature, i) => (
+        <div class="flex flex-col items-center gap-4 relative">
+          <div class="bg-light-blue-600 rounded-sm p-4 flex items-center justify-center">
+            <SvgIcon name={feature.icon} class="h-10 w-10 text-white" />
+          </div>
+          <h3 class="text-dark-600 pt-4 body-md-medium md:body-lg-medium text-center md:whitespace-nowrap">
+            {feature.label}
+          </h3>
+          {i < features.length - 1 && (
+            <div class="hidden md:block absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 h-[60%] w-px bg-grey-300"></div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

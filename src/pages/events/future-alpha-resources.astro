@@ -1,0 +1,373 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const resources = [
+  {
+    category: "OPENBB WEBSITE",
+    title: "Future Alpha Page",
+    href: "https://openbb.link/KTGSQnE",
+    badge: null,
+    image: "https://openbb-cms.directus.app/assets/cd8b4dad-f550-4112-8bf3-291cd0c00d9e",
+  },
+  {
+    category: "LINKEDIN",
+    title: "Didier Lopes Profile",
+    href: "https://openbb.link/mspUKCM",
+    badge: null,
+    image: "https://openbb-cms.directus.app/assets/41009928-d55d-49e6-b69d-74d4e98b0822",
+  },
+  {
+    category: "CALENDLY",
+    title: "Book a demo with Didier",
+    href: "https://openbb.link/cIpu7IF",
+    badge: null,
+    image: "https://openbb-cms.directus.app/assets/503f8818-5faa-4a03-ab67-d53f15d97dbe",
+  },
+  {
+    category: "SNOWFLAKE MARKETPLACE",
+    title: "OpenBB Snowflake Native App Page",
+    href: "https://openbb.link/SdJOYt4",
+    badge: null,
+    image: "https://openbb-cms.directus.app/assets/6f05a4e7-c9e5-4b28-bf76-7a30f7cb702f",
+  },
+  {
+    category: "YOUTUBE",
+    title: "OpenBB x Snowflake Series",
+    href: "https://openbb.link/ASPaN76",
+    badge: null,
+    image: "https://openbb-cms.directus.app/assets/70ba40b6-f748-44e7-9f45-084ee344771c",
+  },
+  {
+    category: "PRODUCT",
+    title: "OpenBB Workspace Sign-up",
+    href: "https://openbb.link/lMcbCwh",
+    badge: null,
+    image: "https://openbb-cms.directus.app/assets/f16bfed5-3988-4001-b2ee-f24d897a9c5d",
+  },
+];
+---
+
+<Layout
+  title="Future Alpha 2026 — Resources | OpenBB"
+  description="Quick-access resource links and QR codes from the Future Alpha 2026 event presentation."
+  navLight
+>
+  <main class="bg-white min-h-screen">
+    <!-- Hero -->
+    <section class="pt-28 pb-12 md:pt-36 md:pb-16" data-res-hero>
+      <div class="page-container text-center">
+        <p
+          class="text-sm font-medium tracking-[0.15em] text-light-blue-600 uppercase mb-3 opacity-0 translate-y-3 transition-all duration-600"
+          data-res-hero-el
+        >
+          Resources
+        </p>
+        <h1
+          class="text-title-m-medium md:text-title-xl-medium text-dark-800 opacity-0 translate-y-3 transition-all duration-600"
+          data-res-hero-el
+        >
+          Future Alpha 2026
+        </h1>
+      </div>
+    </section>
+
+    <!-- Desktop grid -->
+    <section class="hidden md:block pb-24 lg:pb-32">
+      <div class="page-container">
+        <div class="grid grid-cols-3 gap-8" data-fade-in>
+          {resources.map((r) => (
+            <div class="group flex flex-col">
+              <a
+                href={r.href}
+                target={r.href.startsWith("http") ? "_blank" : undefined}
+                rel={r.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                class="block rounded-xl overflow-hidden transition-all duration-300 hover:shadow-light-2"
+              >
+                <div class="aspect-square w-full bg-dark-800 p-8 flex items-center justify-center rounded-xl">
+                  {r.image ? (
+                    <img src={r.image} alt={r.title} class="w-full h-full object-contain" loading="lazy" />
+                  ) : (
+                    <div class="w-full h-full rounded-lg bg-dark-800 flex items-center justify-center">
+                      <svg class="w-16 h-16 text-white/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z" />
+                        <path d="M14 14h3v3h-3zM18 14h3v3h-3zM14 18h3v3h-3zM18 18h3v3h-3z" />
+                        <rect x="5" y="5" width="3" height="3" />
+                        <rect x="16" y="5" width="3" height="3" />
+                        <rect x="5" y="16" width="3" height="3" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              </a>
+              <p class="body-xs-medium text-dark-100 uppercase tracking-[0.08em] mt-5">
+                {r.category}
+                {r.badge && (
+                  <span class="ml-2 inline-flex items-center bg-light-blue-50 text-light-blue-700 body-xs-medium px-2 py-0.5 rounded-full">
+                    {r.badge}
+                  </span>
+                )}
+              </p>
+              <p class="body-md-bold text-dark-600 mt-2">{r.title}</p>
+              <a
+                href={r.href}
+                target={r.href.startsWith("http") ? "_blank" : undefined}
+                rel={r.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                class="inline-flex items-center gap-1.5 body-sm-medium text-dark-600 transition-colors hover:text-dark-800 mt-3"
+              >
+                Open
+                <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile list -->
+    <section class="md:hidden pb-16">
+      <div class="page-container">
+        <div class="flex flex-col gap-3">
+          {resources.map((r, idx) => (
+            <button
+              type="button"
+              class="w-full flex items-center justify-between px-5 py-4 bg-white border border-grey-200 rounded-xl text-left cursor-pointer transition-all duration-200 active:scale-[0.98]"
+              data-res-card-btn
+              data-res-idx={idx}
+            >
+              <div class="flex flex-col gap-1 min-w-0 pr-4">
+                <p class="body-xs-medium text-dark-100 uppercase tracking-[0.08em] flex items-center gap-2 flex-wrap">
+                  {r.category}
+                  {r.badge && (
+                    <span class="inline-flex items-center bg-light-blue-50 text-light-blue-700 body-xs-medium px-2 py-0.5 rounded-full">
+                      {r.badge}
+                    </span>
+                  )}
+                </p>
+                <p class="body-md-bold text-dark-600 truncate">{r.title}</p>
+              </div>
+              <div class="shrink-0 w-8 h-8 rounded-full bg-grey-50 flex items-center justify-center">
+                <svg class="w-4 h-4 text-dark-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom drawer (mobile only) -->
+    <div
+      class="fixed inset-0 z-50 pointer-events-none md:hidden"
+      data-res-drawer
+    >
+      <!-- Backdrop -->
+      <div
+        class="absolute inset-0 bg-black/0 transition-[background-color] duration-300"
+        data-res-backdrop
+      ></div>
+
+      <!-- Drawer panel -->
+      <div
+        class="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl transition-transform duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_-8px_40px_rgba(0,0,0,0.15)]"
+        data-res-drawer-panel
+      >
+        <!-- Handle bar -->
+        <div class="flex justify-center pt-3 pb-2">
+          <div class="w-10 h-1 rounded-full bg-grey-300"></div>
+        </div>
+
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 pb-4">
+          <div>
+            <p class="body-xs-medium text-dark-100 uppercase tracking-[0.08em]" data-res-drawer-category></p>
+            <p class="body-lg-bold text-dark-800 mt-1" data-res-drawer-title></p>
+          </div>
+          <button
+            type="button"
+            class="w-9 h-9 rounded-full bg-grey-100 flex items-center justify-center cursor-pointer transition-colors hover:bg-grey-200"
+            data-res-drawer-close
+            aria-label="Close"
+          >
+            <svg class="w-4 h-4 text-dark-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- QR Code area -->
+        <div class="px-6 pb-4">
+          <div class="aspect-square w-full max-w-[320px] mx-auto bg-dark-800 rounded-xl p-5 flex items-center justify-center">
+            <img
+              src=""
+              alt=""
+              class="w-full h-full object-contain transition-all duration-400"
+              data-res-drawer-qr-img
+            />
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="px-6 pb-8 flex gap-3">
+          <a
+            class="flex-1 inline-flex items-center justify-center gap-2 body-md-medium text-white bg-light-blue-600 hover:bg-light-blue-700 rounded-lg px-4 py-3.5 transition-colors duration-200"
+            data-res-drawer-link
+            href="#"
+          >
+            Open link
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+          <button
+            type="button"
+            class="shrink-0 w-[52px] inline-flex items-center justify-center bg-grey-100 hover:bg-grey-200 rounded-lg transition-colors duration-200 cursor-pointer"
+            data-res-copy-btn
+            aria-label="Copy link"
+          >
+            <svg class="w-5 h-5 text-dark-400" data-res-copy-icon fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            <svg class="w-5 h-5 text-success-600 hidden" data-res-check-icon fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  [data-res-drawer-panel] {
+    transform: translateY(100%);
+  }
+  [data-res-drawer-qr] {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  [data-res-drawer].is-open {
+    pointer-events: auto;
+  }
+  [data-res-drawer].is-open [data-res-backdrop] {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  [data-res-drawer].is-open [data-res-drawer-panel] {
+    transform: translateY(0);
+  }
+  [data-res-drawer].is-open [data-res-drawer-qr] {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 100ms;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    // Hero entrance
+    const hero = document.querySelector("[data-res-hero]");
+    if (hero) {
+      const els = hero.querySelectorAll("[data-res-hero-el]");
+      setTimeout(() => {
+        els.forEach((el, i) => {
+          setTimeout(() => {
+            (el as HTMLElement).style.opacity = "1";
+            (el as HTMLElement).style.transform = "translateY(0)";
+          }, i * 120);
+        });
+      }, 200);
+    }
+
+    // Drawer
+    const drawer = document.querySelector("[data-res-drawer]");
+    const backdrop = document.querySelector("[data-res-backdrop]");
+    const closeBtn = document.querySelector("[data-res-drawer-close]");
+    const drawerCategory = document.querySelector("[data-res-drawer-category]");
+    const drawerTitle = document.querySelector("[data-res-drawer-title]");
+    const drawerLink = document.querySelector<HTMLAnchorElement>("[data-res-drawer-link]");
+    const drawerQrImg = document.querySelector<HTMLImageElement>("[data-res-drawer-qr-img]");
+
+    if (!drawer) return;
+
+    const resources = [
+      { category: "OPENBB WEBSITE", title: "Future Alpha Page", href: "https://openbb.link/KTGSQnE", image: "https://openbb-cms.directus.app/assets/cd8b4dad-f550-4112-8bf3-291cd0c00d9e" },
+      { category: "LINKEDIN", title: "Didier Lopes Profile", href: "https://openbb.link/mspUKCM", image: "https://openbb-cms.directus.app/assets/41009928-d55d-49e6-b69d-74d4e98b0822" },
+      { category: "CALENDLY", title: "Book a demo with Didier", href: "https://openbb.link/cIpu7IF", image: "https://openbb-cms.directus.app/assets/503f8818-5faa-4a03-ab67-d53f15d97dbe" },
+      { category: "SNOWFLAKE MARKETPLACE", title: "OpenBB Snowflake Native App Page", href: "https://openbb.link/SdJOYt4", image: "https://openbb-cms.directus.app/assets/6f05a4e7-c9e5-4b28-bf76-7a30f7cb702f" },
+      { category: "YOUTUBE", title: "OpenBB x Snowflake Series", href: "https://openbb.link/ASPaN76", image: "https://openbb-cms.directus.app/assets/70ba40b6-f748-44e7-9f45-084ee344771c" },
+      { category: "PRODUCT", title: "OpenBB Workspace Sign-up", href: "https://openbb.link/lMcbCwh", image: "https://openbb-cms.directus.app/assets/f16bfed5-3988-4001-b2ee-f24d897a9c5d" },
+    ];
+
+    function openDrawer(idx: number) {
+      const r = resources[idx];
+      if (!r || !drawerCategory || !drawerTitle || !drawerLink || !drawerQrImg) return;
+
+      drawerCategory.textContent = r.category;
+      drawerTitle.textContent = r.title;
+      drawerQrImg.src = r.image;
+      drawerQrImg.alt = r.title;
+      drawerLink.href = r.href;
+      if (r.href.startsWith("http")) {
+        drawerLink.target = "_blank";
+        drawerLink.rel = "noopener noreferrer";
+      } else {
+        drawerLink.removeAttribute("target");
+        drawerLink.removeAttribute("rel");
+      }
+
+      drawer!.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDrawer() {
+      drawer!.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+
+    // Card buttons open drawer
+    document.querySelectorAll("[data-res-card-btn]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt((btn as HTMLElement).dataset.resIdx || "0", 10);
+        openDrawer(idx);
+      });
+    });
+
+    // Close drawer
+    if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+    if (backdrop) backdrop.addEventListener("click", closeDrawer);
+
+    // Copy link
+    const copyBtn = document.querySelector("[data-res-copy-btn]");
+    const copyIcon = document.querySelector("[data-res-copy-icon]");
+    const checkIcon = document.querySelector("[data-res-check-icon]");
+    if (copyBtn && drawerLink) {
+      copyBtn.addEventListener("click", () => {
+        const url = drawerLink.href;
+        navigator.clipboard.writeText(url).then(() => {
+          copyIcon?.classList.add("hidden");
+          checkIcon?.classList.remove("hidden");
+          setTimeout(() => {
+            copyIcon?.classList.remove("hidden");
+            checkIcon?.classList.add("hidden");
+          }, 1500);
+        });
+      });
+    }
+
+    // Swipe down to close
+    let touchStartY = 0;
+    const panel = document.querySelector("[data-res-drawer-panel]");
+    if (panel) {
+      panel.addEventListener("touchstart", (e) => {
+        touchStartY = (e as TouchEvent).touches[0].clientY;
+      }, { passive: true });
+
+      panel.addEventListener("touchend", (e) => {
+        const deltaY = (e as TouchEvent).changedTouches[0].clientY - touchStartY;
+        if (deltaY > 80) closeDrawer();
+      }, { passive: true });
+    }
+  });
+</script>

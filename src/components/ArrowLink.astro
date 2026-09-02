@@ -1,0 +1,21 @@
+---
+interface Props {
+  label: string;
+  href: string;
+  class?: string;
+}
+
+const { label, href, class: className = "" } = Astro.props;
+const isExternal = href.startsWith("https");
+---
+
+<a
+  href={href}
+  class:list={["group inline-flex items-center gap-2 body-md-medium cursor-pointer", className]}
+  {...isExternal ? { target: "_blank", rel: "noreferrer noopener" } : {}}
+>
+  {label}
+  <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+  </svg>
+</a>

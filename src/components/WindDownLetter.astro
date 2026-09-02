@@ -1,0 +1,139 @@
+---
+import {
+  type DirectusBlogItem,
+  directusAssetUrl,
+  formatDate,
+} from "../lib/directus";
+import { parseMarkdown } from "../lib/marked";
+import SvgIcon from "./SvgIcon.astro";
+
+interface Props {
+  post: DirectusBlogItem;
+}
+
+const { post } = Astro.props;
+
+const title = post.title.trim();
+const publishDate = post.publishDate ?? post.date_created.slice(0, 10);
+const dateStr = formatDate(new Date(`${publishDate}T00:00:00`));
+const html = parseMarkdown(post.body).replace(
+  /<a href=/g,
+  '<a target="_blank" rel="noopener noreferrer" href=',
+);
+const signOff = `<strong>${post.authorName}</strong>`;
+const signOffAt = html.lastIndexOf(signOff);
+const signatureImg = `<img src="/assets/images/signature.png" alt="${post.authorName}" width="622" height="140" class="signature" decoding="async">`;
+const bodyHtml =
+  signOffAt === -1
+    ? html
+    : `${html.slice(0, signOffAt)}${signatureImg}${html.slice(signOffAt + signOff.length)}`;
+const avatarUrl = `${directusAssetUrl(post.authorImgUrl)}?width=96&height=96&fit=cover&format=webp`;
+---
+
+<div
+  data-letter
+  class="fixed inset-0 z-[100] overflow-y-auto overscroll-contain bg-dark-900/70 outline-none"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="wind-down-title"
+  tabindex="-1"
+>
+  <div class="flex min-h-full justify-center px-4 py-6 sm:px-6 md:py-16">
+    <article
+      class="letter w-full max-w-[720px] self-start rounded-sm bg-white px-6 py-10 text-dark-600 sm:px-10 md:px-14 md:py-16 lg:max-w-[960px] lg:px-20 lg:py-20"
+    >
+      <header class="flex items-center justify-between gap-4">
+        <SvgIcon name="minimal-logo-icon" class="h-6 w-12" />
+        <div class="flex items-center gap-2 md:gap-4">
+          <p class="body-xs-regular uppercase tracking-widest text-dark-50">
+            <time datetime={publishDate}>{dateStr}</time>
+          </p>
+          <button
+            type="button"
+            data-letter-close
+            class="-mr-2 cursor-pointer rounded-sm p-2 text-dark-50 transition-colors hover:bg-grey-100 hover:text-dark-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-light-blue-600"
+            aria-label="Close letter"
+          >
+            <SvgIcon name="x-icon" class="h-5 w-5" />
+          </button>
+        </div>
+      </header>
+
+      <h1 id="wind-down-title" class="mt-10 text-title-s-bold md:text-title-m-bold">{title}</h1>
+
+      <div class="mt-6 flex items-center gap-3">
+        <img
+          src={avatarUrl}
+          alt=""
+          width="40"
+          height="40"
+          class="h-10 w-10 rounded-full object-cover"
+        />
+        <div>
+          <p class="body-sm-medium">{post.authorName}</p>
+          <p class="body-xs-regular text-dark-50">Founder & CEO, OpenBB</p>
+        </div>
+      </div>
+
+      <hr class="my-8 border-grey-200" />
+
+      <div class="prose max-w-none prose-a:text-light-blue-600 md:prose-lg lg:prose-xl" set:html={bodyHtml} />
+    </article>
+  </div>
+</div>
+
+<script>
+  function closeLetter() {
+    const letter = document.querySelector<HTMLElement>("[data-letter]");
+    if (!letter || letter.hidden) return;
+    letter.hidden = true;
+    const page = document.querySelector("[data-page]");
+    page?.removeAttribute("inert");
+    page?.removeAttribute("aria-hidden");
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    document.querySelector<HTMLElement>("[data-letter]")?.focus();
+  });
+
+  document.addEventListener("click", (e) => {
+    if ((e.target as Element).closest("[data-letter-close]")) closeLetter();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLetter();
+  });
+</script>
+
+<style>
+  .letter {
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.7);
+    animation: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .letter :global(.signature) {
+    display: inline-block;
+    width: 220px;
+    height: auto;
+    margin: 0.5em 0 0.25em;
+  }
+
+  @media (min-width: 64rem) {
+    .letter :global(.signature) {
+      width: 280px;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .letter {
+      animation: none;
+    }
+  }
+</style>

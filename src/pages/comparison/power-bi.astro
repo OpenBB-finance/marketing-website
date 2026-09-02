@@ -1,0 +1,646 @@
+---
+import ContactModal from "../../components/ContactModal.astro";
+import CtaLight from "../../components/CtaLight.astro";
+import FadeIn from "../../components/FadeIn.astro";
+import HeroSimple from "../../components/HeroSimple.astro";
+import SvgIcon from "../../components/SvgIcon.astro";
+import TestimonialCard from "../../components/TestimonialCard.astro";
+import { FORMBRICKS } from "../../data/contact";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+  title="OpenBB vs Power BI | OpenBB"
+  description="OpenBB runs as a Snowflake Native App, solving what Power BI can't: analytics and AI on governed data without extraction, separate infrastructure, or compliance gaps."
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroSimple
+      title={"OpenBB vs. Power BI"}
+      description="OpenBB runs as a Snowflake Native App, solving what Power BI can't: analytics and AI on governed data without extraction, separate infrastructure, or compliance gaps."
+    />
+
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <div
+            class="flex flex-col md:flex-row items-center justify-between gap-10"
+          >
+            <div class="w-full flex md:w-[520px] shrink-0 flex-col gap-10">
+              <h2
+                class="text-title-s-regular md:text-title-xl-regular text-dark-600"
+              >
+                How OpenBB solves what Power BI can't on Snowflake
+              </h2>
+              <p class="body-md-regular md:body-lg-regular text-dark-400">
+                For firms that have consolidated proprietary and licensed data
+                in Snowflake, Power BI introduces the problem you just solved.
+                Data extracts, a separate permission layer to maintain, Azure
+                infrastructure, and AI capabilities that live outside your
+                governed environment. Every one of those is weeks your team
+                spends on setup instead of analysis.
+              </p>
+            </div>
+            <div class="w-full md:max-w-[640px]">
+              <div
+                class="relative w-full bg-dark-800 flex items-center justify-center rounded-lg overflow-hidden"
+                data-video-container
+              >
+                <video
+                  class="w-full block"
+                  loop
+                  playsinline
+                  poster="https://openbb-cms.directus.app/assets/a35d5a70-3c64-4064-822b-1dfceb753f97"
+                  preload="metadata"
+                  data-video
+                >
+                  <source
+                    src="https://openbb-cms.directus.app/assets/b7d993f4-8e6b-49b3-b4f3-145f579f6514"
+                    type="video/mp4"
+                  />
+                </video>
+                <div
+                  class="absolute inset-0 bg-black/30 transition-opacity duration-300 pointer-events-none"
+                  data-video-overlay
+                >
+                </div>
+                <button
+                  type="button"
+                  class="absolute inset-0 flex items-center justify-center cursor-pointer bg-transparent border-none pointer-events-none"
+                  aria-label="Play video"
+                  data-play-btn
+                >
+                  <svg
+                    class="w-12 h-12 md:w-[86px] md:h-[86px] pointer-events-auto transition-transform duration-200 hover:scale-110 drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
+                    viewBox="0 0 86 86"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M34.1927 57.9023V28.0536L57.695 42.9779L34.1927 57.9023ZM43 0C19.2905 0 0 19.2905 0 43C0 66.7095 19.2905 86 43 86C66.7095 86 86 66.7095 86 43C86 19.2905 66.7095 0 43 0Z"
+                      fill="white"
+                      fill-opacity="0.7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <h2
+            class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-8 md:mb-20 text-center md:text-left"
+          >
+            Why financial teams choose OpenBB’s
+            <br class="hidden md:block" /> Snowflake Native App over Power BI
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon
+                    name="data-ai-vendor"
+                    class="w-5 h-5 text-white overflow-visible"
+                  />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Skip the extract pipeline entirely
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Power BI pulls data out of Snowflake to work with it. Live
+                connections still route through Microsoft's infrastructure. With
+                OpenBB running natively in Snowflake, your team skips weeks of
+                pipeline work and starts building on day one.
+              </p>
+            </div>
+
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon
+                    name="streamlit-ai"
+                    class="w-5 h-5 text-white overflow-visible"
+                  />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  AI that works without a separate Azure project
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                With Power BI Copilot, advanced workflows require provisioning
+                Azure ML, replicating data, and maintaining a second platform.
+                OpenBB Copilot runs on Snowflake Cortex, where your data already
+                lives, so teams get AI running in days, not months.
+              </p>
+            </div>
+
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon
+                    name="streamlit-layout"
+                    class="w-5 h-5 text-white overflow-visible"
+                  />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Analysts and engineers work in one place
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Power BI's advanced customization depends on DAX and JavaScript,
+                creating a hard dependency on engineering. With OpenBB, analysts
+                build using no-code components and data scientists write Python
+                and SQL through Snowpark, in the same workspace.
+              </p>
+            </div>
+
+            <div class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon
+                    name="bar-chart-10"
+                    class="w-5 h-5 text-white overflow-visible"
+                  />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Permissions that keep up with your structure
+                </h3>
+              </div>
+              <p class="body-md-regular text-dark-400">
+                Power BI maintains its own permission layer, separate from
+                Snowflake, that has to be manually synced as your org structure
+                changes. OpenBB picks up your existing Snowflake RBAC
+                automatically, so access updates once and everything follows.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <h2
+          class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-4 md:mb-6 text-left"
+        >
+          Comparison
+        </h2>
+        <p
+          class="body-md-regular md:body-lg-regular text-dark-400 mb-8 md:mb-20 max-w-3xl"
+        >
+          Features below refer to the Snowflake Native App deployment and how we
+          compare in architecture, governance, and operating model. OpenBB
+          Workspace is also available as a standalone cloud or on-premises
+          deployment.
+        </p>
+
+        <div
+          class="md:hidden bg-white border border-grey-300 shadow-light-2 rounded-2xl overflow-hidden"
+        >
+          {
+            [
+              {
+                category: "Deployment",
+                title: "Deployment model",
+                openbb:
+                  "Runs entirely in customer Snowflake account (on-premises or private cloud versions are also available)",
+                powerbi:
+                  "External infrastructure (Power BI Service or Report Server)",
+              },
+              {
+                category: "AI",
+                title: "AI infrastructure",
+                openbb: "Native Copilot powered by Snowflake Cortex",
+                powerbi:
+                  "Microsoft Copilot + Azure ML, requires separate Azure configuration",
+              },
+              {
+                category: "Compliance",
+                title: "Data Movement",
+                openbb:
+                  "Zero. Applications operate on data in place within Snowflake",
+                powerbi:
+                  "Imports require data extraction; live connections still route through Power BI Service",
+              },
+              {
+                category: "Compliance",
+                title: "Governance",
+                openbb:
+                  "Inherits Snowflake RBAC automatically, no separate layer",
+                powerbi:
+                  "Separate Power BI permission layer requires manual sync with your data warehouse",
+              },
+              {
+                category: "Compliance",
+                title: "Certifications",
+                openbb:
+                  "Inherits Snowflake's existing certifications and security controls",
+                powerbi: "Separate compliance evaluation required for Power BI",
+              },
+              {
+                category: "Usability",
+                title: "Computation engine",
+                openbb:
+                  "Snowpark: Python and SQL at Snowflake scale, no data movement",
+                powerbi:
+                  "DAX engine, or external Azure processing for advanced workloads",
+              },
+              {
+                category: "Usability",
+                title: "Dashboard interactivity",
+                openbb:
+                  "Parameter linking across widgets, AI-driven exploration via Copilot",
+                powerbi: "Cross-filtering, drill-through, click actions",
+              },
+              {
+                category: "Usability",
+                title: "Installation",
+                openbb: "One-click from Snowflake Marketplace",
+                powerbi:
+                  "Separate Microsoft licensing, infrastructure setup/configuration",
+              },
+              {
+                category: "Usability",
+                title: "Mobile Access",
+                openbb: "Browser-based, responsive design",
+                powerbi:
+                  "Dedicated mobile apps (iOS/Android) with offline capabilities",
+              },
+            ].map((row, i, arr) => (
+              <Fragment>
+                <div class="p-5">
+                  <p class="body-xs-medium text-dark-400 mb-1">
+                    {row.category}
+                  </p>
+                  <h3 class="body-md-bold text-dark-600 mb-4">{row.title}</h3>
+                  <div class="flex flex-col gap-3">
+                    <div>
+                      <p class="body-sm-bold text-dark-600 mb-1">OpenBB</p>
+                      <p class="body-sm-regular text-dark-400">{row.openbb}</p>
+                    </div>
+                    <div>
+                      <p class="body-sm-bold text-dark-600 mb-1">Power BI</p>
+                      <p class="body-sm-regular text-dark-400">{row.powerbi}</p>
+                    </div>
+                  </div>
+                </div>
+                {i < arr.length - 1 && <div class="h-px bg-grey-200 mx-5" />}
+              </Fragment>
+            ))
+          }
+        </div>
+
+        <div
+          class="hidden md:block border border-grey-300 shadow-light-2 bg-white overflow-x-auto rounded-2xl"
+        >
+          <table class="w-full min-w-[600px]">
+            <thead>
+              <tr class="bg-grey-50">
+                <th class="text-left p-5 body-lg-bold text-dark-600 w-[160px]"
+                ></th>
+                <th
+                  class="text-left px-8 py-5 body-lg-bold text-dark-600 w-[200px]"
+                  >Feature</th
+                >
+                <th class="text-left px-8 py-5 body-lg-bold text-dark-600"
+                  >OpenBB (Snowflake Native App)</th
+                >
+                <th class="text-left px-8 py-5 body-lg-bold text-dark-600"
+                  >Power BI</th
+                >
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-grey-200">
+                <td
+                  class="p-5 body-md-medium text-dark-600 align-top bg-grey-50"
+                  >Deployment</td
+                >
+                <td class="px-8 py-5 body-md-bold text-dark-600 align-top"
+                  >Deployment model</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Runs entirely in customer Snowflake account (on-premises or
+                  private cloud versions are also available)</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >External infrastructure (Power BI Service or Report Server)</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td
+                  class="p-5 body-md-medium text-dark-600 align-top bg-grey-50"
+                  >AI</td
+                >
+                <td class="px-8 py-5 body-md-bold text-dark-600 align-top"
+                  >AI infrastructure</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Native Copilot powered by Snowflake Cortex</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Microsoft Copilot + Azure ML, requires separate Azure
+                  configuration</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td
+                  rowspan="3"
+                  class="p-5 body-md-medium text-dark-600 align-top bg-grey-50 border-b-0"
+                  >Compliance</td
+                >
+                <td class="px-8 py-5 body-md-bold text-dark-600 align-top"
+                  >Data Movement</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Zero. Applications operate on data in place within Snowflake</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Imports require data extraction; live connections still route
+                  through Power BI Service</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="px-8 py-5 body-md-bold text-dark-600 align-top"
+                  >Governance</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Inherits Snowflake RBAC automatically, no separate layer</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Separate Power BI permission layer requires manual sync with
+                  your data warehouse</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="px-8 py-5 body-md-bold text-dark-600 align-top"
+                  >Certifications</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Inherits Snowflake's existing certifications and security
+                  controls</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Separate compliance evaluation required for Power BI</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td
+                  rowspan="4"
+                  class="p-5 body-md-medium text-dark-600 align-top bg-grey-50 border-b-0"
+                  >Usability</td
+                >
+                <td class="px-8 py-5 body-md-bold text-dark-600 align-top"
+                  >Computation engine</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Snowpark: Python and SQL at Snowflake scale, no data movement</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >DAX engine, or external Azure processing for advanced
+                  workloads</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="px-8 py-5 body-md-bold text-dark-600 align-top"
+                  >Dashboard interactivity</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Parameter linking across widgets, AI-driven exploration via
+                  Copilot</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Cross-filtering, drill-through, click actions</td
+                >
+              </tr>
+              <tr class="border-b border-grey-200">
+                <td class="px-8 py-5 body-md-bold text-dark-600 align-top"
+                  >Installation</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >One-click from Snowflake Marketplace</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Separate Microsoft licensing, infrastructure
+                  setup/configuration</td
+                >
+              </tr>
+              <tr>
+                <td class="px-8 py-5 body-md-bold text-dark-600 align-top"
+                  >Mobile Access</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Browser-based, responsive design</td
+                >
+                <td class="px-8 py-5 body-md-regular text-dark-400 align-top"
+                  >Dedicated mobile apps (iOS/Android) with offline capabilities</td
+                >
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <FadeIn>
+      <TestimonialCard
+        image="https://openbb-cms.directus.app/assets/ff358739-8774-4237-a9f9-a92dac94e0bc.png"
+        headline="Partners like OpenBB provide our customers with the specialized toolkit needed to mobilize global market data"
+        quote="For banks and asset managers, building applications natively in Snowflake lets teams push quantitative and fundamental research forward while keeping proprietary models and sensitive client data inside Snowflake's security perimeter."
+        author="Jonathan Regenstein"
+        company="Head of Financial Services AI, Snowflake"
+      />
+    </FadeIn>
+
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <h2
+          class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-8 md:mb-20 text-left"
+        >
+          FAQs
+        </h2>
+
+        <div class="space-y-3 md:space-y-4" data-accordion>
+          {
+            [
+              {
+                q: "Is the Snowflake Native App a separate product from OpenBB Workspace?",
+                a: `<p class="body-md-regular text-dark-400">It is the same product, OpenBB Workspace, available in different editions. The Snowflake edition runs natively in your Snowflake account via Snowflake Marketplace. The self-hosted edition runs in your own cloud or on-premises environment. The feature set is consistent, but infrastructure, governance, and procurement follow the deployment model that fits your firm.</p>`,
+              },
+              {
+                q: "Do we need to already be on Snowflake to use OpenBB?",
+                a: `<p class="body-md-regular text-dark-400">No. OpenBB Workspace is the product, and it can run in your own cloud or on-premises/VPC without Snowflake. The Snowflake Native App is a Workspace edition for firms that already use Snowflake and want the product to run directly in their Snowflake account. It is an additional deployment option, not a prerequisite.</p>`,
+              },
+              {
+                q: "How does OpenBB's AI differ from Power BI Copilot?",
+                a: `<p class="body-md-regular text-dark-400">Power BI Copilot operates at the report layer and requires Azure ML for advanced capabilities. OpenBB Copilot is context-aware of every widget, dataset, and live connection in your workspace. It can generate SQL and Python workflows, draft research memos, and run multi-step analysis, all within your governed environment, with full transparency into how every result was produced. Custom agents can also be deployed using your own models and infrastructure if you are using the other version.</p>`,
+              },
+              {
+                q: "Can analysts use OpenBB without engineering support?",
+                a: `<p class="body-md-regular text-dark-400">Yes, OpenBB was designed for self-serve analytics. Analysts build interactive dashboards using no-code, drag-and-drop components. Data scientists can work in the same Workspace writing Python and SQL through Snowpark. Both output to a shared environment, so there's no hand-off bottleneck or separate tooling for different skill levels.</p>`,
+              },
+              {
+                q: "How does pricing compare to Power BI Premium?",
+                a: `<p class="body-md-regular text-dark-400">OpenBB and Power BI use different pricing models, so a line-by-line comparison is not very helpful. OpenBB Workspace is priced for institutional deployments and can be aligned with your Snowflake commitment when you use the Snowflake edition. For detailed pricing for your firm, contact us through the <button type="button" data-open-modal="contact" class="text-light-blue-600 hover:text-light-blue-700 hover:underline cursor-pointer bg-transparent border-none p-0 font-inherit body-md-regular">pricing form</button> and our team will follow up with a tailored quote.</p>`,
+              },
+            ].map((faq) => (
+              <div
+                class="border border-grey-300 rounded-lg overflow-hidden"
+                data-accordion-item
+              >
+                <button
+                  type="button"
+                  class="group flex w-full cursor-pointer items-center justify-between bg-grey-50 px-8 py-6 text-left body-md-medium text-dark-600 transition-all hover:bg-[#EDF7FF]"
+                  data-accordion-trigger
+                >
+                  {faq.q}
+                  <svg
+                    class="h-5 w-5 shrink-0 transition-transform duration-200"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    data-accordion-icon
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                </button>
+                <div class="hidden bg-grey-50 px-8 pb-6" data-accordion-content>
+                  <div set:html={faq.a} />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <CtaLight
+      title="Want to see it in action?"
+      description="See how you can transform Snowflake data into production-ready, AI-powered applications."
+      buttonText="See Solutions"
+      buttonHref="/solutions/app-showcase"
+      buttonTarget="_self"
+    />
+  </main>
+
+  <ContactModal
+    iframeSrc={FORMBRICKS.general}
+    title="Contact Sales"
+  />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll("[data-accordion-item]").forEach((item) => {
+      const trigger = item.querySelector(
+        "[data-accordion-trigger]",
+      ) as HTMLElement;
+      const content = item.querySelector(
+        "[data-accordion-content]",
+      ) as HTMLElement;
+      const icon = item.querySelector("[data-accordion-icon]") as SVGElement;
+
+      trigger.addEventListener("click", () => {
+        const isOpen = !content.classList.contains("hidden");
+
+        document.querySelectorAll("[data-accordion-item]").forEach((other) => {
+          if (other !== item) {
+            other
+              .querySelector("[data-accordion-content]")
+              ?.classList.add("hidden");
+            const otherIcon = other.querySelector(
+              "[data-accordion-icon]",
+            ) as SVGElement;
+            if (otherIcon) {
+              otherIcon.innerHTML =
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />';
+            }
+            other
+              .querySelector("[data-accordion-trigger]")
+              ?.classList.remove("bg-[#EDF7FF]");
+          }
+        });
+
+        if (isOpen) {
+          content.classList.add("hidden");
+          icon.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />';
+          trigger.classList.remove("bg-[#EDF7FF]");
+        } else {
+          content.classList.remove("hidden");
+          icon.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />';
+          trigger.classList.add("bg-[#EDF7FF]");
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const container = document.querySelector("[data-video-container]");
+    if (container) {
+      const video = container.querySelector<HTMLVideoElement>("[data-video]");
+      const playBtn =
+        container.querySelector<HTMLButtonElement>("[data-play-btn]");
+      const overlay = container.querySelector<HTMLElement>(
+        "[data-video-overlay]",
+      );
+      if (video && playBtn) {
+        playBtn.addEventListener("click", () => {
+          video.play();
+          video.controls = true;
+          video.style.position = "relative";
+          video.style.zIndex = "20";
+          playBtn.style.display = "none";
+          if (overlay) overlay.style.opacity = "0";
+        });
+        video.addEventListener("pause", () => {
+          setTimeout(() => {
+            if (!video.seeking && video.paused) {
+              playBtn.style.display = "flex";
+              video.style.zIndex = "0";
+              if (overlay) overlay.style.opacity = "1";
+            }
+          }, 150);
+        });
+        video.addEventListener("play", () => {
+          playBtn.style.display = "none";
+          video.style.zIndex = "20";
+          if (overlay) overlay.style.opacity = "0";
+        });
+        video.addEventListener("seeked", () => {
+          setTimeout(() => {
+            if (video.paused) {
+              playBtn.style.display = "flex";
+              video.style.zIndex = "0";
+              if (overlay) overlay.style.opacity = "1";
+            }
+          }, 150);
+        });
+      }
+    }
+  });
+</script>

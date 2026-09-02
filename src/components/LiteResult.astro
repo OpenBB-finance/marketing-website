@@ -1,0 +1,79 @@
+---
+import Button from "./Button.astro";
+import SvgIcon from "./SvgIcon.astro";
+
+interface Action {
+  text: string;
+  href: string;
+  external?: boolean;
+}
+
+interface Props {
+  icon: string;
+  tone?: "success" | "error";
+  title: string;
+  description: string;
+  primary: Action;
+  secondary?: Action;
+}
+
+const {
+  icon,
+  tone = "success",
+  title,
+  description,
+  primary,
+  secondary,
+} = Astro.props;
+
+const toneClasses =
+  tone === "success"
+    ? "bg-light-blue-50 text-light-blue-600"
+    : "bg-warning-100 text-warning-600";
+
+const ext = (a: Action) =>
+  a.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+---
+
+<section class="bg-white w-full flex items-center min-h-[70vh]" data-lite-result>
+  <div class="page-container w-full">
+    <div class="mx-auto max-w-xl text-center flex flex-col items-center py-20 lg:py-28">
+      <div class={`flex items-center justify-center w-16 h-16 rounded-full mb-8 ${toneClasses}`}>
+        <SvgIcon name={icon} class="w-8 h-8" />
+      </div>
+      <h1 class="text-title-s-medium md:text-title-m-medium font-manrope text-dark-800 text-balance">
+        {title}
+      </h1>
+      <p class="body-md-regular md:body-lg-regular text-dark-400 mt-5 max-w-md text-pretty">
+        {description}
+      </p>
+
+      <slot />
+
+      <div class="mt-10 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+        <Button variant="accent" size="lg" href={primary.href} {...ext(primary)} class="w-full sm:w-auto">
+          {primary.text}
+        </Button>
+        {secondary && (
+          <Button variant="outlined" size="lg" href={secondary.href} {...ext(secondary)} class="w-full sm:w-auto">
+            {secondary.text}
+          </Button>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    [data-lite-result] > .page-container > div {
+      animation: lite-result-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  }
+  @keyframes lite-result-rise {
+    from {
+      opacity: 0.001;
+      transform: translateY(8px);
+    }
+  }
+</style>

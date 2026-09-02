@@ -1,0 +1,59 @@
+---
+import Button from "../components/Button.astro";
+import CtaLight from "../components/CtaLight.astro";
+import HeroSimple from "../components/HeroSimple.astro";
+import SvgIcon from "../components/SvgIcon.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Contact | OpenBB"
+  description="Get in touch with the team whether you want to discuss partnerships, apply for a job, get support or just discuss finance."
+  keywords="contact, email, location, partnerships, support, community"
+  navLight
+>
+  <main class="bg-white">
+    <HeroSimple
+      title={"Get in touch"}
+      description={"Have questions or need more information?\nReach out, and our team will be in touch."}
+    />
+
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-auto justify-items-center">
+          <div class="bg-grey-50 rounded-lg p-6 lg:p-8 space-y-5 max-w-lg">
+            <div class="flex items-center gap-3">
+              <div class="flex size-10 items-center justify-center rounded-lg bg-light-blue-600 text-white shrink-0">
+                <SvgIcon name="users-2" class="h-5 w-5" />
+              </div>
+              <h3 class="text-dark-600 text-title-xs-regular">Community</h3>
+            </div>
+            <p class="text-dark-400 body-sm-regular md:body-md-regular">
+              Interact with a community of over 15,000 members on our Discord group.
+            </p>
+            <a href="https://openbb.co/discord" target="_blank" rel="noopener noreferrer">
+              <Button variant="secondary">Join Discord</Button>
+            </a>
+          </div>
+
+          <div class="bg-grey-50 rounded-lg p-6 lg:p-8 space-y-5 max-w-lg">
+            <div class="flex items-center gap-3">
+              <div class="flex size-10 items-center justify-center rounded-lg bg-light-blue-600 text-white shrink-0">
+                <SvgIcon name="mail" class="h-5 w-5" />
+              </div>
+              <h3 class="text-dark-600 text-title-xs-regular">Partners & Support</h3>
+            </div>
+            <p class="text-dark-400 body-sm-regular md:body-md-regular">
+              For partnerships or support, reach out with any inquiry you may have to get started.
+            </p>
+            <a href="mailto:hello@openbb.co?subject=[Partners/Support]">
+              <Button variant="secondary">Send email</Button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CtaLight />
+  </main>
+</Layout>

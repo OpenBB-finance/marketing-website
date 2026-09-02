@@ -1,0 +1,41 @@
+---
+import LiteResult from "../../components/LiteResult.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+  title="Payment successful | OpenBB Lite"
+  description="Your OpenBB Lite payment was successful. Setup instructions are on the way to your inbox."
+  navLight
+>
+  <meta slot="head" name="robots" content="noindex" />
+
+  <LiteResult
+    icon="tick-circle"
+    tone="success"
+    title="Payment successful"
+    description="We're setting up your OpenBB Lite access. You'll get an email with your download and setup instructions within a few minutes."
+    primary={{ text: "Back to home", href: "/" }}
+    secondary={{ text: "Contact support", href: "/contact" }}
+  >
+    <p class="body-sm-regular text-grey-500 mt-6 max-w-md">
+      Didn't get it? Check your spam folder, or contact us and we'll help.
+    </p>
+    <p data-session-ref class="body-xs-regular text-grey-400 mt-3 hidden">
+      Reference: <span data-session-id class="font-mono"></span>
+    </p>
+  </LiteResult>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const sessionId = new URLSearchParams(window.location.search).get("session_id");
+    if (!sessionId) return;
+    const wrap = document.querySelector("[data-session-ref]");
+    const target = document.querySelector("[data-session-id]");
+    if (wrap && target) {
+      target.textContent = sessionId;
+      wrap.classList.remove("hidden");
+    }
+  });
+</script>

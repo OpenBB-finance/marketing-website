@@ -1,0 +1,663 @@
+---
+import CtaLight from "../../components/CtaLight.astro";
+import { categoryRatios, featuredVideo, videos } from "../../data/videos";
+import Layout from "../../layouts/Layout.astro";
+
+// Helper to slugify a string consistently
+const toSlug = (s: string) =>
+  s
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
+const categoryOrder = ["All", "Developer Series", "Snowflake Native App", "Presentations"];
+const categories = ["All", ...categoryOrder.filter((c) =>
+  c !== "All" && videos.some((v) => v.category === c)
+)];
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+const VIDEOS_PER_PAGE = 6;
+const gridVideos = [...videos].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+
+export async function getStaticPaths() {
+  const categoryOrder = ["All", "Developer Series", "Snowflake Native App", "Presentations"];
+
+  const toSlug = (s: string) =>
+    s
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+
+  const paths = [];
+
+  // 1. Root /videos
+  paths.push({
+    params: { path: undefined },
+    props: { activeCategory: null, activeVideo: null },
+  });
+
+  // 2. Category tabs, e.g. /videos/snowflake-native-app
+  for (const cat of categoryOrder) {
+    const catSlug = toSlug(cat);
+    paths.push({
+      params: { path: catSlug },
+      props: { activeCategory: catSlug, activeVideo: null },
+    });
+
+    // 3. Specific videos, e.g. /videos/snowflake-native-app/employment-data-monitor
+    const categoryVideos = videos.filter((v) => v.category === cat);
+    for (const v of categoryVideos) {
+      const videoSlug = toSlug(v.title);
+      paths.push({
+        params: { path: `${catSlug}/${videoSlug}` },
+        props: { activeCategory: catSlug, activeVideo: v.id },
+      });
+    }
+  }
+
+  // 4. Featured video
+  const featuredVideoSlug = toSlug(featuredVideo.title);
+  const featuredVideoCatSlug = toSlug(featuredVideo.category);
+  paths.push({
+    params: { path: `${featuredVideoSlug}` },
+    props: { activeCategory: featuredVideoCatSlug, activeVideo: featuredVideo.id },
+  });
+
+  return paths;
+}
+
+const { activeCategory, activeVideo } = Astro.props;
+const allVideos = [featuredVideo, ...videos];
+
+// Find active video details if any
+const activeVideoObj = activeVideo ? allVideos.find((v) => v.id === activeVideo) : null;
+
+// Determine title and description based on static props for SEO
+const pageTitle = activeVideoObj
+  ? `${activeVideoObj.title} | OpenBB Video Demos`
+  : activeCategory
+    ? `${activeCategory === "snowflake-native-app" ? "Snowflake Native App" : "Developer Series"} Demos | OpenBB`
+    : "Video Demos | OpenBB";
+
+const pageDescription = activeVideoObj
+  ? activeVideoObj.description
+  : "Watch OpenBB demos, tutorials, and use-case walkthroughs.";
+
+const initialIframeSrc = activeVideoObj
+  ? `https://www.youtube.com/embed/${activeVideoObj.id}?autoplay=1&rel=0${activeVideoObj.start ? `&start=${activeVideoObj.start}` : ""}`
+  : "";
+
+const initialRatio = activeVideoObj
+  ? (categoryRatios[activeVideoObj.category] || "56.25%")
+  : "56.25%";
+
+const clientVideos = allVideos.map((v) => ({
+  id: v.id,
+  title: v.title,
+  slug: toSlug(v.title),
+  category: toSlug(v.category),
+  start: v.start ?? 0,
+  ratio: categoryRatios[v.category] || "56.25%",
+}));
+
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  keywords="openbb videos, demos, tutorials, video demos, use cases, walkthrough"
+  navLight
+>
+  <div class="bg-white">
+    <!-- ── Hero ──────────────────────────────────────────────────────────── -->
+    <section class="bg-white w-full" data-video-hero>
+      <div class="page-container">
+        <div class="flex flex-col items-center pt-24 pb-12 lg:pt-32 lg:pb-16 text-center">
+          <p
+            class="text-sm font-medium leading-[22px] tracking-[0.1em] text-light-blue-600 uppercase mb-4 opacity-0 translate-y-4 transition-all duration-700"
+            data-hero-el
+          >
+            Demos, tutorials &amp; presentations
+          </p>
+          <h1
+            class="text-title-s-medium md:text-[56px] md:font-medium md:font-manrope md:leading-[120%] text-dark-800 opacity-0 translate-y-4 transition-all duration-700"
+            data-hero-el
+          >
+            OpenBB Videos
+          </h1>
+        </div>
+
+        <!-- Featured video -->
+        <div
+          class="bg-grey-50 rounded-lg p-5 md:p-10 mb-16 lg:mb-24 opacity-0 translate-y-4 transition-all duration-700"
+          data-hero-el
+        >
+          <div class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12">
+            <!-- Embed -->
+            <div class="lg:w-1/2">
+              <div
+                class="relative w-full rounded-md overflow-hidden bg-dark-800 cursor-pointer group video-wrapper"
+                style={`padding-bottom: ${categoryRatios[featuredVideo.category] || "56.25%"}`}
+                data-video-thumb
+                data-video-id={featuredVideo.id}
+                data-video-start={featuredVideo.start ?? 0}
+                data-video-ratio={categoryRatios[featuredVideo.category] || "56.25%"}
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${featuredVideo.id}/maxresdefault.jpg`}
+                  alt={featuredVideo.title}
+                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <!-- Play button overlay -->
+                <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                  <div class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center backdrop-blur-sm shadow-light-3 group-hover:scale-110 transition-transform">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="ml-1">
+                      <path d="M5 3L19 12L5 21V3Z" fill="var(--color-dark-800)" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Info -->
+            <div class="lg:w-1/2 space-y-4 flex flex-col justify-center">
+              <h2 class="text-title-xs-medium md:text-title-s-medium text-dark-800">
+                {featuredVideo.title}
+              </h2>
+              <p class="body-md-regular text-dark-400">
+                {featuredVideo.description}
+              </p>
+              <p class="body-xs-regular text-grey-500">
+                {formatDate(featuredVideo.date)} · {featuredVideo.duration}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-container"><div class="w-full h-px bg-grey-200"></div></div>
+    </section>
+
+    <!-- ── Search & Filters ───────────────────────────────────────────────── -->
+    <section id="videos-section" class="page-container py-10 lg:py-16">
+      <!-- Search -->
+      <div class="relative">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-grey-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input
+          type="text"
+          id="video-search"
+          data-search-input
+          placeholder="Search videos"
+          class="w-full border border-grey-200 rounded-md bg-white pl-10 pr-10 py-2.5 body-sm-regular text-grey-900 placeholder-grey-400 focus:outline-none focus:border-grey-300"
+        />
+        <button
+          type="button"
+          data-search-clear
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-grey-400 hover:text-grey-600 hidden"
+          aria-label="Clear search"
+        >
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Category tabs -->
+      <nav class="mt-8 flex flex-wrap gap-6 border-b border-grey-200" data-category-tabs aria-label="Filter by category">
+        {categories.map((cat) => {
+          const catSlug = toSlug(cat);
+          const isActive = activeCategory ? activeCategory === catSlug : catSlug === toSlug(categories[0]);
+          return (
+            <button
+              type="button"
+              data-tab-value={catSlug}
+              class:list={[
+                "whitespace-nowrap pb-3 body-sm-medium transition-colors border-b-2 -mb-px cursor-pointer",
+                isActive
+                  ? "text-light-blue-600 border-light-blue-600"
+                  : "text-dark-400 border-transparent hover:text-dark-600",
+              ]}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </nav>
+    </section>
+
+    <!-- ── Video Grid ─────────────────────────────────────────────────────── -->
+    <section class="page-container pb-10 lg:pb-16">
+      <div data-videos-grid class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {gridVideos.map((video) => {
+          const videoSlug = toSlug(video.title);
+          return (
+            <div
+              data-video-card
+              data-video-id={video.id}
+              data-video-slug={videoSlug}
+              data-video-category={toSlug(video.category)}
+              data-video-title={video.title.toLowerCase()}
+              class="flex flex-col gap-3 group"
+            >
+              <!-- Thumbnail / embed trigger -->
+              <div
+                class="relative w-full rounded-md overflow-hidden bg-dark-800 cursor-pointer aspect-video"
+                data-video-thumb
+                data-video-id={video.id}
+                data-video-start={video.start ?? 0}
+                data-video-title-attr={video.title}
+                data-video-ratio={categoryRatios[video.category] || "56.25%"}
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                  alt={video.title}
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  width="1280"
+                  height="720"
+                  loading="lazy"
+                />
+                <!-- Play button overlay -->
+                <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors duration-200">
+                  <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
+                    <svg class="w-5 h-5 text-dark-800 ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Meta -->
+              <div class="flex items-center gap-2 mt-1">
+                <span class="body-xs-regular text-grey-500">{formatDate(video.date)}</span>
+                <span class="body-xs-regular text-grey-400">·</span>
+                <span class="body-xs-regular text-grey-500">{video.duration}</span>
+              </div>
+
+              <h3 class="body-md-bold text-dark-600 group-hover:text-light-blue-600 transition-colors leading-snug">
+                {video.title}
+              </h3>
+              <p class="body-sm-regular text-dark-400 line-clamp-2">{video.description}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      <p data-no-results class="hidden py-8 text-center body-lg-bold text-dark-400">
+        No videos found
+      </p>
+
+      <!-- Pagination -->
+      <nav
+        data-pagination
+        class="mt-10 lg:mt-20 mb-10 lg:mb-0 mx-auto flex w-full max-w-md justify-center gap-4 rounded-md px-4 py-2.5 bg-white shadow-sm border border-grey-100"
+        aria-label="Video pagination"
+      ></nav>
+
+      <p data-video-count class="mt-6 text-center body-sm-regular text-dark-400"></p>
+    </section>
+
+    <CtaLight />
+  </div>
+
+  <!-- ── Video Modal ────────────────────────────────────────────────────────── -->
+  <div
+    id="video-modal"
+    class:list={[
+      "fixed inset-0 z-[200] flex items-center justify-center bg-black/80 transition-opacity duration-300",
+      activeVideoObj ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+    ]}
+    aria-modal="true"
+    role="dialog"
+  >
+    <div class="relative w-full max-w-4xl mx-4">
+      <button
+        id="video-modal-close"
+        class="absolute -top-10 right-0 text-white/80 hover:text-white transition-colors"
+        aria-label="Close video"
+      >
+        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+      <div class="video-wrapper" style={`padding-bottom: ${initialRatio}`}>
+        <iframe
+          id="video-modal-iframe"
+          src={initialIframeSrc}
+          title="Video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<!-- ── Hero animation ──────────────────────────────────────────────────────── -->
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const hero = document.querySelector("[data-video-hero]");
+    if (hero) {
+      const els = Array.from(hero.querySelectorAll("[data-hero-el]")) as HTMLElement[];
+      setTimeout(() => {
+        els.forEach((el, i) => {
+          setTimeout(() => {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          }, i * 180);
+        });
+      }, 300);
+    }
+  });
+</script>
+
+<!-- ── Unified filtering, routing, and pagination ────────────────────────── -->
+<script define:vars={{ VIDEOS_PER_PAGE, firstCategory: toSlug(categories[0]), initialCategory: activeCategory, initialVideoId: activeVideo, clientVideos }}>
+  document.addEventListener("astro:page-load", () => {
+    const cards = Array.from(document.querySelectorAll("[data-video-card]"));
+    if (!cards.length) return;
+
+    const grid = document.querySelector("[data-videos-grid]");
+    const noResults = document.querySelector("[data-no-results]");
+    const pagination = document.querySelector("[data-pagination]");
+    const videoCount = document.querySelector("[data-video-count]");
+    const tabs = Array.from(document.querySelectorAll("[data-tab-value]"));
+    const searchInput = document.querySelector("[data-search-input]");
+    const searchClear = document.querySelector("[data-search-clear]");
+    const modal = document.getElementById("video-modal");
+    const iframe = document.getElementById("video-modal-iframe");
+    const closeBtn = document.getElementById("video-modal-close");
+
+    if (!grid || !pagination || !searchInput || !searchClear || !modal || !iframe || !closeBtn) return;
+
+    let currentCategory = initialCategory || firstCategory;
+    let currentSearch = "";
+    let currentPage = 1;
+    let currentVideoId = initialVideoId || null;
+
+    // Open/close body scroll setup if modal loaded open on server
+    if (currentVideoId) {
+      document.body.style.overflow = "hidden";
+    }
+
+    function setActiveTab(value) {
+      tabs.forEach((tab) => {
+        const isActive = tab.getAttribute("data-tab-value") === value;
+        tab.classList.toggle("text-light-blue-600", isActive);
+        tab.classList.toggle("border-light-blue-600", isActive);
+        tab.classList.toggle("text-dark-400", !isActive);
+        tab.classList.toggle("border-transparent", !isActive);
+      });
+    }
+
+    function toggleClear() {
+      searchClear.classList.toggle("hidden", !searchInput.value);
+    }
+
+    function getVisible() {
+      return cards.filter((card) => {
+        const cat = card.getAttribute("data-video-category");
+        const title = card.getAttribute("data-video-title");
+        if (currentCategory !== "all" && cat !== currentCategory) return false;
+        if (currentSearch && !title?.includes(currentSearch.toLowerCase())) return false;
+        return true;
+      });
+    }
+
+    function render() {
+      const visible = getVisible();
+      const totalPages = Math.max(1, Math.ceil(visible.length / VIDEOS_PER_PAGE));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const start = (currentPage - 1) * VIDEOS_PER_PAGE;
+      const end = start + VIDEOS_PER_PAGE;
+
+      cards.forEach((c) => (c.style.display = "none"));
+      visible.forEach((c, i) => {
+        c.style.display = i >= start && i < end ? "" : "none";
+      });
+
+      noResults.classList.toggle("hidden", visible.length > 0);
+      grid.classList.toggle("hidden", visible.length === 0);
+      renderPagination(totalPages);
+      videoCount.textContent = visible.length + " videos found";
+    }
+
+    function renderPagination(totalPages) {
+      if (totalPages <= 1) { pagination.style.display = "none"; return; }
+      pagination.style.display = "";
+
+      const half = 2;
+      let rs = Math.max(1, currentPage - half);
+      let re = Math.min(totalPages, rs + 4);
+      if (re - rs < 4) rs = Math.max(1, re - 4);
+
+      let html = `<button data-page-prev class="w-8 h-8 flex items-center justify-center text-light-blue-600 hover:bg-grey-100 rounded-sm disabled:text-grey-400 disabled:cursor-not-allowed" ${currentPage <= 1 ? "disabled" : ""} aria-label="Previous page"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>`;
+      for (let i = rs; i <= re; i++) {
+        const active = i === currentPage;
+        html += `<button data-page-num="${i}" class="w-8 h-8 flex items-center justify-center rounded-sm body-xs-bold ${active ? "bg-light-blue-600 text-white" : "bg-transparent text-grey-900 hover:bg-grey-100"}">${i}</button>`;
+      }
+      html += `<button data-page-next class="w-8 h-8 flex items-center justify-center text-light-blue-600 hover:bg-grey-100 rounded-sm disabled:text-grey-400 disabled:cursor-not-allowed" ${currentPage >= totalPages ? "disabled" : ""} aria-label="Next page"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>`;
+
+      pagination.innerHTML = html;
+      const scrollToSection = () => document.getElementById("videos-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      pagination.querySelector("[data-page-prev]")?.addEventListener("click", () => { currentPage--; render(); scrollToSection(); });
+      pagination.querySelector("[data-page-next]")?.addEventListener("click", () => { currentPage++; render(); scrollToSection(); });
+      pagination.querySelectorAll("[data-page-num]").forEach((btn) => {
+        btn.addEventListener("click", () => { currentPage = parseInt(btn.getAttribute("data-page-num"), 10); render(); scrollToSection(); });
+      });
+    }
+
+    // Modal manipulation functions
+    function openModal(videoId, start, ratio) {
+      const startParam = start && start > 0 ? `&start=${start}` : "";
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0${startParam}`;
+      const wrapper = modal.querySelector(".video-wrapper");
+      if (wrapper && ratio) wrapper.style.paddingBottom = ratio;
+      modal.classList.remove("opacity-0", "pointer-events-none");
+      modal.classList.add("opacity-100", "pointer-events-auto");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      modal.classList.remove("opacity-100", "pointer-events-auto");
+      modal.classList.add("opacity-0", "pointer-events-none");
+      iframe.src = "";
+      document.body.style.overflow = "";
+    }
+
+    // Helper to update the browser URL path dynamically
+    function updateUrlPath(category, videoSlug = null) {
+      let newPath = `/videos`;
+      const isFeatured = videoSlug && videoSlug === clientVideos[0].slug;
+      if (isFeatured) {
+        newPath += `/${videoSlug}`;
+      } else {
+        if (category && category !== "all") {
+          newPath += `/${category}`;
+        }
+        if (videoSlug) {
+          newPath += `/${videoSlug}`;
+        }
+      }
+
+      // Update browser title
+      if (videoSlug) {
+        const video = clientVideos.find((v) => v.slug === videoSlug);
+        if (video) {
+          document.title = `${video.title} | OpenBB Video Demos`;
+        }
+      } else {
+        if (category === "all") {
+          document.title = "Video Demos | OpenBB";
+        } else {
+          const catName = category === "snowflake-native-app" ? "Snowflake Native App" : "Developer Series";
+          document.title = `${catName} Demos | OpenBB`;
+        }
+      }
+
+      window.history.pushState({}, "", newPath);
+    }
+
+    // Parse path to route state
+    function handleUrlNavigation() {
+      const segments = window.location.pathname.split("/").filter(Boolean);
+      // segments: e.g. ["videos"] or ["videos", "snowflake-native-app"] or ["videos", "snowflake-native-app", "employment-data-monitor"]
+
+      let categorySlug = firstCategory;
+      let videoSlug = null;
+
+      if (segments.length >= 2) {
+        const seg1 = segments[1];
+        if (seg1 === clientVideos[0].slug) {
+          videoSlug = seg1;
+          categorySlug = clientVideos[0].category;
+        } else {
+          categorySlug = seg1;
+        }
+      }
+      if (segments.length >= 3) {
+        videoSlug = segments[2];
+      }
+
+      currentCategory = categorySlug;
+      setActiveTab(currentCategory);
+
+      if (videoSlug) {
+        const video = clientVideos.find((v) => v.slug === videoSlug || v.id === videoSlug);
+        if (video) {
+          currentVideoId = video.id;
+          openModal(video.id, video.start, video.ratio);
+
+          // Update page title
+          document.title = `${video.title} | OpenBB Video Demos`;
+
+          // Paginate to the page containing this video
+          const visible = getVisible();
+          const index = visible.findIndex((v) => v.id === video.id);
+          if (index !== -1) {
+            currentPage = Math.floor(index / VIDEOS_PER_PAGE) + 1;
+          }
+        }
+      } else {
+        if (currentVideoId) {
+          closeModal();
+          currentVideoId = null;
+        }
+
+        const catName = currentCategory === "snowflake-native-app" ? "Snowflake Native App" : "Developer Series";
+        document.title = `${catName} Demos | OpenBB`;
+      }
+
+      render();
+    }
+
+    // Connect Tab Events
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const newCategory = tab.getAttribute("data-tab-value");
+        if (newCategory === currentCategory) return;
+        currentCategory = newCategory;
+        currentPage = 1;
+        setActiveTab(currentCategory);
+        updateUrlPath(currentCategory);
+        render();
+      });
+    });
+
+    // Connect Search Input
+    let searchTimeout;
+    searchInput.addEventListener("input", () => {
+      clearTimeout(searchTimeout);
+      toggleClear();
+      searchTimeout = setTimeout(() => {
+        currentSearch = searchInput.value;
+        currentPage = 1;
+        render();
+      }, 200);
+    });
+
+    searchClear.addEventListener("click", () => {
+      searchInput.value = "";
+      currentSearch = "";
+      currentPage = 1;
+      toggleClear();
+      render();
+    });
+
+    // Connect Card/Thumbnail Clicks
+    document.querySelectorAll("[data-video-thumb]").forEach((thumb) => {
+      thumb.addEventListener("click", () => {
+        const id = thumb.getAttribute("data-video-id");
+        const video = clientVideos.find((v) => v.id === id);
+        if (video) {
+          currentVideoId = video.id;
+          openModal(video.id, video.start, video.ratio);
+          updateUrlPath(video.category, video.slug);
+        }
+      });
+    });
+
+    // Connect Modal Close
+    function handleClose() {
+      closeModal();
+      currentVideoId = null;
+      currentCategory = "all";
+      setActiveTab("all");
+      updateUrlPath("all");
+      render();
+    }
+
+    closeBtn.addEventListener("click", handleClose);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) handleClose();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && currentVideoId) handleClose();
+    });
+
+    // Browser History popstate setup
+    window.addEventListener("popstate", () => {
+      handleUrlNavigation();
+    });
+
+    // Initial state routing matching the load conditions
+    handleUrlNavigation();
+  });
+</script>
+
+<style is:global>
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 55.4167%; /* 3840:2128 Aspect Ratio */
+    height: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: black;
+    display: block;
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+  }
+</style>

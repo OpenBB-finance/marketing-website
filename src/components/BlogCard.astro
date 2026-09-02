@@ -1,0 +1,45 @@
+---
+import { formatDate } from "../lib/directus";
+
+interface Props {
+  title: string;
+  imgUrl: string;
+  url: string;
+  date: string;
+  timeToRead?: number;
+  type?: string;
+}
+
+const { title, imgUrl, url, date, timeToRead, type } = Astro.props;
+
+const formattedDate = formatDate(new Date(date));
+const ttr = timeToRead ? `${timeToRead} MIN` : "";
+const subtitle = [formattedDate, ttr].filter(Boolean).join(" — ");
+---
+
+<a
+  href={url}
+  class="group flex flex-col space-y-5 lg:space-y-8 sm:max-w-[370px]"
+  data-post-type={type}
+>
+  <img
+    loading="lazy"
+    class="h-[234px] lg:h-[240px] w-full object-cover rounded-md"
+    width="312"
+    height="173"
+    alt={title}
+    src={imgUrl}
+  />
+  <div class="flex-1 space-y-4">
+    <div class="text-dark-400 body-sm-regular uppercase tracking-[0.1em]">
+      {subtitle}
+    </div>
+    <h3 class="body-lg-bold text-dark-600">{title}</h3>
+  </div>
+  <div class="flex items-center gap-1 body-sm-medium text-dark-600 group-hover:gap-2 transition-all">
+    Read more
+    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+    </svg>
+  </div>
+</a>

@@ -1,0 +1,243 @@
+---
+import Button from "../components/Button.astro";
+import CtaLight from "../components/CtaLight.astro";
+import FadeIn from "../components/FadeIn.astro";
+import HeroProductLight from "../components/HeroProductLight.astro";
+import SvgIcon from "../components/SvgIcon.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Security | OpenBB"
+  description="OpenBB is committed to maintaining the highest standards of security to protect your data and privacy."
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroProductLight
+      title={"Secure. Compliant.\nBuilt for enterprise."}
+      description={"A safe environment for your data, AI, and workflows, ensuring\nenterprise-grade security, compliance and control."}
+      buttonText="Visit Trust Center"
+      buttonLink="https://trust.openbb.co"
+      imageSrc="https://openbb-cms.directus.app/assets/929b7383-0930-47e3-8cac-553f7fac1f99.png"
+      imageAlt="Security"
+    />
+
+    <!-- Feature cards — alternating 2-col layout -->
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        {
+          [
+            {
+              title: "Compliance & Data Protection",
+              text: "OpenBB Workspace operates on SOC 2 Type II attested infrastructure, enforcing strict controls over security, availability, and confidentiality. Data encryption uses TLS 1.3 in transit and AES-256 at rest across all deployment models. The platform adheres to a zero-data-training policy: user data, including prompts and proprietary files, is never ingested into model training pipelines or used to improve underlying AI systems.",
+              image:
+                "https://openbb-cms.directus.app/assets/ba646794-e464-46b7-9dab-023a4b9073fd.png",
+              imageAlt: "SOC2 Type II",
+            },
+            {
+              title: "Access Controls & Authentication",
+              text: "In the Pro tier granular RBAC are enforced with role-based permissions for dashboards, data connectors, and AI agents. MFA enforcement can be enabled for all user sessions. Authentication integrates with enterprise identity providers via SAML/OIDC, supporting Azure AD, Google Workspace, and custom IDPs through SSO configurations managed at build time or runtime.",
+              image:
+                "https://openbb-cms.directus.app/assets/b04741d1-8d89-4b0e-a162-6f2f8bfba414.png",
+              imageAlt: "Access Controls & Authentication",
+            },
+            {
+              title: "Secure Deployment Options",
+              text: "In the Pro tier OpenBB Workspace supports client-managed deployments via Helm charts on Kubernetes or Docker Compose, enabling VPC, private cloud, or on-premise hosting. The architecture allows white-labeling and OEM integration, with Terraform code for infrastructure provisioning. Security policies are configurable to meet specific regulatory requirements, including network segmentation and secret management.",
+              image:
+                "https://openbb-cms.directus.app/assets/6798715c-3217-4034-bd89-1697d411a8e6.png",
+              imageAlt: "Secure Deployment Options",
+            },
+            {
+              title: "Compliance Oversight",
+              text: "Audit logs capture all critical user actions and system events, with centralized logging in managed deployments. OTEL integration enables forwarding logs to existing enterprise monitoring systems. Continuous compliance is maintained through regular third-party penetration testing and automated security scanning across the source code, containerized microservices and infrastructure.",
+              image:
+                "https://openbb-cms.directus.app/assets/2bfc5ccf-9141-4a58-ad5f-f29046d63d2c.png",
+              imageAlt: "Compliance Oversight",
+            },
+          ].map((card, i) => (
+            <Fragment>
+              {/* Mobile */}
+              <div class:list={["md:hidden overflow-hidden", i < 3 && "mb-12"]}>
+                <img
+                  src={card.image}
+                  alt={card.imageAlt}
+                  class="w-full object-cover"
+                  loading="lazy"
+                />
+                <div class="pt-6 pb-8 space-y-4">
+                  <h2 class="text-dark-600 text-title-xs-regular md:text-title-m-regular">
+                    {card.title}
+                  </h2>
+                  <p class="text-dark-400 body-md-regular">{card.text}</p>
+                </div>
+              </div>
+
+              {/* Desktop — alternating: odd = text left / image right, even = image left / text right */}
+              <FadeIn class="hidden md:block">
+                <div
+                  class:list={[
+                    "grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center",
+                    i > 0 && "mt-20 lg:mt-28",
+                  ]}
+                >
+                  <div class:list={["space-y-6", i % 2 !== 0 && "lg:order-2"]}>
+                    <h2 class="text-dark-600 text-title-m-regular">
+                      {card.title}
+                    </h2>
+                    <p class="text-dark-400 body-lg-regular">{card.text}</p>
+                  </div>
+                  <div
+                    class:list={[
+                      "flex justify-center lg:justify-end",
+                      i % 2 !== 0 && "lg:order-1 lg:!justify-start",
+                    ]}
+                  >
+                    <img
+                      src={card.image}
+                      alt={card.imageAlt}
+                      class="w-full max-w-md lg:max-w-lg object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </FadeIn>
+            </Fragment>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- "When your proprietary data..." — dark background -->
+    <FadeIn>
+      <section class="py-16 lg:py-32 bg-dark-850">
+        <div class="page-container">
+          <h2
+            class="text-white text-title-s-regular md:text-title-xl-regular text-left mb-6 lg:mb-8"
+          >
+            When your proprietary data is<br class="hidden sm:inline" /> involved,
+            it can go two ways...
+          </h2>
+          <div class="mb-12 lg:mb-16">
+            <Button variant="primary" href="/products/workspace">
+              Learn more about Workspace
+            </Button>
+          </div>
+          <img
+            src="https://openbb-cms.directus.app/assets/3e63abea-36ef-4bbd-acd2-58d917fefbb3.webp"
+            alt="OpenBB Data Privacy Comparison - Without OpenBB vs With OpenBB"
+            class="w-full rounded-lg md:rounded-2xl"
+            loading="lazy"
+          />
+        </div>
+      </section>
+    </FadeIn>
+
+    <!-- Security icons -->
+    <section class="py-16 lg:py-32">
+      <FadeIn>
+        <div class="page-container">
+          <div
+            class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-24 gap-y-10 md:gap-y-4"
+          >
+            {
+              [
+                { icon: "sheild-tick", label: "SOC2 II compliant" },
+                { icon: "monitor", label: "On-prem or VPC" },
+                { icon: "lock-closed", label: "No data leakage" },
+                { icon: "star-06", label: "Run AI models locally" },
+              ].map((item, i) => (
+                <div class="flex flex-col items-center gap-4 relative">
+                  <div class="bg-light-blue-600 p-4 flex items-center justify-center rounded-md">
+                    <SvgIcon name={item.icon} class="h-10 w-10 text-white" />
+                  </div>
+                  <h3 class="text-grey-600 pt-4 body-md-regular md:body-xl-regular text-center">
+                    {item.label}
+                  </h3>
+                  {i < 3 && (
+                    <div class="hidden md:block absolute top-1/2 -right-4 h-[60%] w-px bg-grey-300 -translate-y-1/2" />
+                  )}
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </FadeIn>
+    </section>
+
+    <!-- Security is built into OpenBB -->
+    <section class="py-16 lg:py-32 bg-white">
+      <FadeIn>
+        <div class="page-container">
+          <!-- Mobile -->
+          <div
+            class="md:hidden w-full border border-dark-400 bg-dark-800 relative overflow-hidden rounded-lg"
+          >
+            <div class="absolute inset-0 z-0">
+              <img
+                src="https://openbb-cms.directus.app/assets/e9fa5693-42d6-47ca-9a8c-19a4c252f638.webp"
+                alt="Security Background"
+                class="w-full h-full object-cover opacity-80"
+                loading="lazy"
+              />
+            </div>
+            <div class="relative z-10 px-4 sm:px-6">
+              <div class="flex flex-col items-center text-center gap-6 py-12">
+                <h2 class="text-white text-title-s-regular">
+                  Security is built<br /> into OpenBB
+                </h2>
+                <p class="text-grey-100 body-lg-regular">
+                  From day one, we've made your protection our priority. Explore
+                  how we secure our platform, our users, and your data.
+                </p>
+                <Button
+                  variant="primary"
+                  href="https://trust.openbb.co/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-full"
+                >
+                  See Security Portal
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Desktop -->
+          <div
+            class="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 items-center"
+          >
+            <div class="space-y-6 max-w-[480px] order-2 lg:order-1">
+              <h2 class="text-dark-600 text-title-xs-regular">
+                Security is built into OpenBB
+              </h2>
+              <p class="text-dark-400 body-lg-regular">
+                From day one, we've made your protection our priority. Explore
+                how we secure our platform, our users, and your data.
+              </p>
+              <Button
+                variant="secondary"
+                size="lg"
+                href="https://trust.openbb.co/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                See Security Portal
+              </Button>
+            </div>
+            <div class="flex justify-center lg:justify-end order-1 lg:order-2">
+              <img
+                src="https://openbb-cms.directus.app/assets/1279ae44-8f1e-449c-bd66-3aaff2013e05.png"
+                alt="Security team collaboration"
+                class="w-full max-w-md lg:max-w-lg rounded-lg"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </FadeIn>
+    </section>
+
+    <CtaLight />
+  </main>
+</Layout>

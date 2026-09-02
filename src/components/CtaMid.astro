@@ -1,0 +1,41 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  class?: string;
+}
+
+const {
+  title = "Start building with the free tier",
+  subtitle = "The Community Edition is free for individuals. No sales call required. Scale when you’re ready.",
+  buttonText = "Start now",
+  buttonLink = "https://pro.openbb.co/register",
+  class: className = "",
+} = Astro.props;
+---
+
+<section class={className}>
+  <div class="page-container">
+    <div class="bg-grey-50 shadow-light-1 p-6 border border-grey-100 rounded-lg md:rounded-2xl sm:p-10">
+      <div class="flex flex-col md:flex-row items-center md:items-start md:justify-between gap-6 text-center md:text-left">
+        <div class="flex flex-col gap-6 md:gap-2">
+          <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600">
+            {title}
+          </h2>
+          <p class="text-dark-400 md:text-dark-600 body-md-regular md:body-lg-regular">
+            {subtitle}
+          </p>
+        </div>
+        <div class="w-full md:w-auto md:self-end">
+          <Button variant="accent" size="lg" href={buttonLink} target="_blank" rel="noopener noreferrer" class="w-full md:w-auto">
+            {buttonText}
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

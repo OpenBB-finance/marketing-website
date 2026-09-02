@@ -1,0 +1,359 @@
+---
+import Button from "../../components/Button.astro";
+import CtaLight from "../../components/CtaLight.astro";
+import FadeIn from "../../components/FadeIn.astro";
+import HeroProductLight from "../../components/HeroProductLight.astro";
+import SvgIcon from "../../components/SvgIcon.astro";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+  title="Open Data Platform | OpenBB"
+  description="Connect your data pipelines to dashboards, copilots, and validation with OpenBB's Open Data Platform. Standardize, surface, and extend your workflows."
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroProductLight
+      title={"Open Data Platform\nby OpenBB"}
+      description="The open-source toolset that helps engineers build standardized data integrations that analysts consume through multiple interfaces, locally and securely."
+      buttonText="Download from GitHub"
+      buttonLink="https://github.com/OpenBB-finance/OpenBB/releases/tag/ODP?utm_source=website&utm_medium=odp"
+      imageSrc="https://openbb-cms.directus.app/assets/3a127e05-f7c4-437f-a9e8-a6dcc85f534d.png"
+      imageAlt="OpenBB Open Data Platform"
+    />
+
+    <!-- Consume everywhere -->
+    <FadeIn>
+      <section class="py-16 lg:pt-32 lg:pb-20">
+        <div class="page-container">
+          <h2
+            class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-10 md:mb-20 text-center md:text-left"
+          >
+            Data engineers connect once,<br class="hidden md:block" />
+            analysts consume<span class="text-light-blue-600"> everywhere</span>.
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Data integration framework -->
+            <div
+              class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon name="git-odp" class="w-5 h-5 text-white" />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Data integration framework
+                </h3>
+              </div>
+              <div class="flex flex-col gap-3 md:pl-[52px]">
+                {
+                  [
+                    "Serve multiple applications at once",
+                    "Expose scattered data in a standardized way",
+                    "Avoid vendor lock-in and duplicated dev work",
+                  ].map((item) => (
+                    <div class="flex gap-2 items-start">
+                      <SvgIcon
+                        name="tick-odp"
+                        class="w-[22px] h-[22px] text-dark-600 shrink-0 mt-0.5"
+                      />
+                      <p class="body-md-regular text-dark-400">{item}</p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Open source values -->
+            <div
+              class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon name="shield-odp" class="w-5 h-5 text-white" />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Open source values
+                </h3>
+              </div>
+              <div class="flex flex-col gap-3 md:pl-[52px]">
+                {
+                  [
+                    "Local-first approach keeps credentials secure",
+                    "Easy security audits and compliance verification",
+                    "No telemetry, no collection of usage data",
+                  ].map((item) => (
+                    <div class="flex gap-2 items-start">
+                      <SvgIcon
+                        name="tick-odp"
+                        class="w-[22px] h-[22px] text-dark-600 shrink-0 mt-0.5"
+                      />
+                      <p class="body-md-regular text-dark-400">{item}</p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Multiple consumption layers -->
+            <div
+              class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon name="layers-odp" class="w-5 h-5 text-white" />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Multiple consumption layers
+                </h3>
+              </div>
+              <div class="flex flex-col gap-3 md:pl-[52px]">
+                {
+                  [
+                    "Python environment for quants and engineers",
+                    "OpenBB Workspace and Excel for analysts",
+                    "MCP servers for copilots and AI agents",
+                  ].map((item) => (
+                    <div class="flex gap-2 items-start">
+                      <SvgIcon
+                        name="tick-odp"
+                        class="w-[22px] h-[22px] text-dark-600 shrink-0 mt-0.5"
+                      />
+                      <p class="body-md-regular text-dark-400">{item}</p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Growing ecosystem -->
+            <div
+              class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0"
+                >
+                  <SvgIcon name="trend-odp" class="w-5 h-5 text-white" />
+                </div>
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Growing ecosystem
+                </h3>
+              </div>
+              <div class="flex flex-col gap-3 md:pl-[52px]">
+                {
+                  [
+                    "Desktop app",
+                    "Python package",
+                    "Open source and private data extensions",
+                  ].map((item) => (
+                    <div class="flex gap-2 items-start">
+                      <SvgIcon
+                        name="tick-odp"
+                        class="w-[22px] h-[22px] text-dark-600 shrink-0 mt-0.5"
+                      />
+                      <p class="body-md-regular text-dark-400">{item}</p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <!-- Workspace integration -->
+    <section class="py-16 lg:pt-32 lg:pb-20 bg-dark-850">
+      <FadeIn>
+        <div class="page-container">
+          <div class="mb-8 md:mb-12">
+            <h2
+              class="text-title-s-regular md:text-title-xl-regular text-white mb-6"
+            >
+              Complete your financial analysis<br class="hidden md:block" /> workflow
+              with our Workspace
+            </h2>
+            <p
+              class="body-md-regular lg:body-lg-regular text-grey-100 mb-6 lg:max-w-[640px]"
+            >
+              While ODP works independently, pairing it with the OpenBB
+              Workspace creates the ideal setup: use ODP as your integration
+              framework and the Workspace as your AI-powered analysis interface
+              for full audibility.
+            </p>
+            <Button
+              variant="primary"
+              href="/products/workspace"
+              class="w-full md:w-auto text-center"
+            >
+              Learn more about Workspace
+            </Button>
+          </div>
+          <div class="w-full">
+            <img
+              src="https://openbb-cms.directus.app/assets/24203a29-e8cd-4276-8108-e333af046512.png?quality=100"
+              alt="Complete your financial analysis workflow with our Workspace"
+              class="w-full md:hidden rounded-lg"
+              loading="lazy"
+            />
+            <img
+              src="https://openbb-cms.directus.app/assets/a1987116-b202-4f33-83fe-de694d43de3e.webp"
+              alt="Complete your financial analysis workflow with our Workspace"
+              class="hidden md:block w-full rounded-2xl"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </FadeIn>
+    </section>
+
+    <!-- Data destinations -->
+    <section class="pt-0 pb-20 lg:pt-20 lg:pb-32 bg-dark-850">
+      <div class="page-container">
+        <h2
+          class="text-title-s-regular md:text-title-xl-regular text-white mb-12 md:mb-16 text-center"
+        >
+          Get your data<br />
+          where it needs to be
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-6">
+          {
+            [
+              { icon: "workspace-odp", mobileIcon: "odp-workspace-mob", label: "OpenBB Workspace", sub: "via local backend" },
+              { icon: "data-flow-odp", mobileIcon: "odp-ai-mob", label: "Any AI agent", sub: "via MCP servers" },
+              { icon: "devicon-plain-jupyter-wordmark", mobileIcon: "odp-jupter-mob", label: "Jupyter notebook", sub: "via python SDK" },
+              { icon: "excel-odp", mobileIcon: "odp-excel-mob", label: "Excel", sub: "via OpenBB Add-in" },
+              { icon: "gear-odp", mobileIcon: "odp-other-mob", label: "Any other app", sub: "via local REST APIs" },
+            ].map((item) => (
+              <div class="flex flex-col items-center text-center gap-4">
+                <div class="w-10 h-10 md:w-20 md:h-20 bg-light-blue-600 rounded-sm md:rounded-xl flex items-center justify-center shrink-0 overflow-hidden">
+                  <SvgIcon name={item.mobileIcon} class="w-5 h-5 text-white md:hidden" />
+                  <SvgIcon name={item.icon} class="hidden md:block w-10 h-10 text-white" />
+                </div>
+                <div class="flex flex-col gap-1">
+                  <p class="body-md-medium md:body-xl-medium text-white">{item.label}</p>
+                  <p class="body-sm-regular text-grey-300">{item.sub}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- How organizations use ODP -->
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <h2
+            class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-10 md:mb-20 text-center md:text-left"
+          >
+            How organizations<br class="md:hidden" /> use ODP
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {
+              [
+                {
+                  image:
+                    "https://openbb-cms.directus.app/assets/dbd5a686-ce39-4161-b8a8-67884b3e0f6b.webp",
+                  title: "To access unified public data",
+                  text: "Access consolidated financial and economic datasets like FRED, IMF, BLS, Congress, FOMC, etc. with a few clicks.",
+                },
+                {
+                  image:
+                    "https://openbb-cms.directus.app/assets/19bc095f-d65a-414f-85f7-9e370a89363b.webp",
+                  title: "To boost AI adoption with MCP servers",
+                  text: "MCP connects your integrated data to any AI agent (Claude, OpenBB Copilot, etc.) without custom engineering.",
+                },
+                {
+                  image:
+                    "https://openbb-cms.directus.app/assets/b9b873ed-ac42-4c8c-a8f9-984565ecaf02.webp",
+                  title: "To reduce maintenance overhead",
+                  text: "Use ODP to centralize the storage and management of API keys across multiple data sources, locally and securely.",
+                },
+              ].map((card) => (
+                <div class="border border-grey-300 shadow-light-1 overflow-hidden flex flex-col rounded-lg">
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    class="w-full h-[220px] object-contain object-top md:object-cover md:object-center"
+                    loading="lazy"
+                  />
+                  <div class="px-3 py-4 md:px-3 md:py-4 flex flex-col gap-4 flex-1">
+                    <h3 class="body-lg-bold md:body-lg-bold text-dark-600">{card.title}</h3>
+                    <p class="body-md-regular text-dark-400">{card.text}</p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <!-- AGPL License -->
+    <FadeIn>
+      <section class="pt-0 pb-16 lg:pt-20 lg:pb-32">
+        <div class="page-container">
+          <div class="flex flex-col md:flex-row gap-10 md:gap-20 items-center">
+            <!-- Mobile image -->
+            <div class="w-full md:hidden">
+              <div
+                class="bg-dark-800 shadow-light-1 h-[240px] w-full max-w-[360px] mx-auto flex items-center justify-center overflow-hidden rounded-lg"
+              >
+                <img
+                  src="https://openbb-cms.directus.app/assets/66022976-f037-44bb-9cd1-6361b931703f.png"
+                  alt="OpenBB Github"
+                  class="w-[312px] h-auto object-contain"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <div class="w-full md:w-1/2 flex flex-col gap-10">
+              <div class="flex flex-col gap-4">
+                <p class="body-lg-bold text-dark-600">
+                  Open Source, AGPL License
+                </p>
+                <p class="body-md-regular text-dark-400">
+                  ODP is licensed under AGPL, keeping it open and free for
+                  research, development, and internal business use. You can
+                  integrate proprietary datasets and create private extensions
+                  without disclosure requirements.
+                </p>
+              </div>
+              <div class="flex flex-col gap-4">
+                <p class="body-lg-bold text-dark-600">Commercial Flexibility</p>
+                <p class="body-md-regular text-dark-400">
+                  Need to distribute modified versions or provide network-based
+                  services? <a href="/contact" class="text-light-blue-600"
+                    >Contact us</a
+                  > to learn the commercial licensing options available.
+                </p>
+              </div>
+            </div>
+
+            <!-- Desktop image -->
+            <div class="w-full md:w-1/2 hidden shadow-light-1 md:block rounded-lg overflow-hidden">
+              <img
+                src="https://openbb-cms.directus.app/assets/66022976-f037-44bb-9cd1-6361b931703f.png"
+                alt="OpenBB Github"
+                class="w-full md:w-[600px]"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <CtaLight />
+  </main>
+</Layout>

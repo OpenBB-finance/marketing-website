@@ -1,0 +1,303 @@
+---
+import ArrowLink from "../../components/ArrowLink.astro";
+import ContactModal from "../../components/ContactModal.astro";
+import CtaLight from "../../components/CtaLight.astro";
+import FadeIn from "../../components/FadeIn.astro";
+import HeroProductLight from "../../components/HeroProductLight.astro";
+import SvgIcon from "../../components/SvgIcon.astro";
+import TestimonialCard from "../../components/TestimonialCard.astro";
+import { FORMBRICKS } from "../../data/contact";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+  title="Snowflake | OpenBB"
+  description="Build custom apps for data visualization and AI-powered analysis. Your trusted Snowflake environment, now on a sleek high-performance analytics workspace."
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroProductLight
+      title={"The first truly\nSnowflake Native\nanalytics Workspace"}
+      description={"OpenBB Workspace runs inside your Snowflake environment, launched from Snowsight, connected to your data, and powered by Snowflake Cortex AI. No external services, no data leaving your environment."}
+      buttonText="Get app from Marketplace"
+      buttonLink="https://openbb.link/O69ul6R"
+      imageSrc="https://openbb-cms.directus.app/assets/4d958645-3d9f-4ceb-a3d6-a0ab1a3caa94.png"
+      imageAlt="OpenBB Workspace on Snowflake"
+    />
+
+    <!-- Video section -->
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <h2
+            class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-10 md:mb-20 text-center"
+          >
+            Bring data, BI analytics, and AI together<br class="hidden md:inline" />
+            in one single environment.
+          </h2>
+          <div
+            class="relative w-full max-w-5xl mx-auto aspect-video bg-dark-800 flex items-center justify-center rounded-lg md:rounded-xl overflow-hidden"
+            data-video-container
+          >
+            <video
+              class="w-full h-full object-cover"
+              loop
+              playsinline
+              poster="https://openbb-cms.directus.app/assets/a35d5a70-3c64-4064-822b-1dfceb753f97"
+              preload="metadata"
+              data-video
+            >
+              <source
+                src="https://openbb-cms.directus.app/assets/198ff3f6-b841-4bca-96f3-4c84da20f55a"
+                type="video/mp4"
+              />
+            </video>
+            <div
+              class="absolute inset-0 bg-black/30 transition-opacity duration-300 pointer-events-none"
+              data-video-overlay
+            ></div>
+            <button
+              type="button"
+              class="absolute inset-0 flex items-center justify-center cursor-pointer bg-transparent border-none pointer-events-none"
+              aria-label="Play video"
+              data-play-btn
+            >
+              <svg
+                class="w-12 h-12 md:w-[86px] md:h-[86px] pointer-events-auto transition-transform duration-200 hover:scale-110 drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
+                viewBox="0 0 86 86"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M34.1927 57.9023V28.0536L57.695 42.9779L34.1927 57.9023ZM43 0C19.2905 0 0 19.2905 0 43C0 66.7095 19.2905 86 43 86C66.7095 86 86 66.7095 86 43C86 19.2905 66.7095 0 43 0Z"
+                  fill="white"
+                  fill-opacity="0.7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <!-- Features -->
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <h2
+            class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-10 md:mb-20 text-center md:text-left"
+          >
+            <span class="text-light-blue-600">Accelerate</span> research without an AI team<br class="hidden md:inline" /> or extra engineering work
+          </h2>
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center"
+          >
+            {
+              [
+                {
+                  icon: "data-snowflake",
+                  title: "The frontend for<br />investment analytics",
+                  text: "Transform Snowflake data into reusable analytical widgets and apps that you can visualize, interact with, share, and compute further with Python.",
+                },
+                {
+                  icon: "ai-snowflake",
+                  title: "AI that works on your<br />data, not around it",
+                  text: "Leverage AI agents powered by Cortex AI to automate research, build analytical views, track sentiment, generate custom indicators and draft reports.",
+                },
+                {
+                  icon: "check-snowflake",
+                  title: "The shortest path to production",
+                  text: "Install directly from the Marketplace and enjoy full product access from day one. You can pay per seat now and scale later. No minimum seats and no sales calls.",
+                },
+              ].map((card) => (
+                <div
+                  class="bg-grey-50 rounded-lg p-6 md:p-8 flex flex-col gap-5 w-full"
+                  data-feature-stagger
+                >
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-light-blue-600 rounded-lg flex items-center justify-center shrink-0">
+                      <SvgIcon name={card.icon} class="w-4 h-4 text-white" />
+                    </div>
+                    <h3 class="body-lg-bold md:body-xl-bold text-dark-600" set:html={card.title} />
+                  </div>
+                  <p class="body-md-regular text-dark-400">{card.text}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <!-- Testimonial -->
+    <FadeIn>
+      <TestimonialCard
+        image="https://openbb-cms.directus.app/assets/f35afdab-8c81-4583-af7f-608dbd7bf054.png"
+        headline="One of the most impressive development teams I've ever worked with."
+        quote="OpenBB brings together brilliant minds with an extraordinary product. Their agile teams truly listen, act, and deliver, making them one of the most impressive development teams I've ever worked with."
+        author="Pete Petersen, CTO"
+        company="Causeway Capital Management"
+        sectionTitle="Trusted by financial institutions"
+      />
+    </FadeIn>
+
+    <!-- Learn more -->
+    <FadeIn>
+      <section class="py-16 lg:py-32">
+        <div class="page-container">
+          <h2
+            class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-10 md:mb-20 text-center md:text-left"
+          >
+            Learn more about OpenBB on Snowflake
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+              class="border border-grey-300 shadow-light-1 overflow-hidden flex flex-col rounded-lg"
+            >
+              <img
+                src="https://openbb-cms.directus.app/assets/5b3bd278-9958-4b76-8f11-3a03a6d000c2"
+                alt="Snowflake Public Data Demos"
+                class="w-full h-[220px] object-contain object-top md:object-cover md:object-center"
+                loading="lazy"
+              />
+              <div class="px-4 py-4 md:p-4 flex flex-col gap-4 flex-1">
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Snowflake Public Data Demos
+                </h3>
+                <p class="body-lg-regular text-dark-400">
+                  See real applications built using Snowflake public data and OpenBB.
+                </p>
+                <ArrowLink
+                  label="Watch series"
+                  href="https://www.youtube.com/playlist?list=PLXcRIKcHAUP7CMZNGWaMyRk3ahY766mCr"
+                  class="text-dark-600 hover:text-light-blue-600 transition-colors mt-auto"
+                />
+              </div>
+            </div>
+
+            <div
+              class="border border-grey-300 shadow-light-1 overflow-hidden flex flex-col rounded-lg"
+            >
+              <img
+                src="https://openbb-cms.directus.app/assets/fec1ce53-a595-4c02-9bf5-7f08fb5c8a15.png"
+                alt="Solutions Overview"
+                class="w-full h-[220px] object-contain object-top md:object-cover md:object-center"
+                loading="lazy"
+              />
+              <div class="px-4 py-4 md:p-4 flex flex-col gap-4 flex-1">
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Solutions Overview
+                </h3>
+                <p class="body-lg-regular text-dark-400">
+                  Explore 10+ workflow examples built on OpenBB.
+                </p>
+                <ArrowLink
+                  label="Learn more"
+                  href="/solutions/app-showcase"
+                  class="text-dark-600 hover:text-light-blue-600 transition-colors mt-auto"
+                />
+              </div>
+            </div>
+
+            <div
+              class="border border-grey-300 shadow-light-1 overflow-hidden flex flex-col rounded-lg"
+            >
+              <img
+                src="https://openbb-cms.directus.app/assets/5777a898-8a01-4974-8658-c3f225345cde.png"
+                alt="Schedule a Demo"
+                class="w-full h-[220px] object-contain object-top md:object-cover md:object-center"
+                loading="lazy"
+              />
+              <div class="px-4 py-4 md:p-4 flex flex-col gap-4 flex-1">
+                <h3 class="body-lg-bold md:body-xl-bold text-dark-600">
+                  Schedule a Demo
+                </h3>
+                <p class="body-lg-regular text-dark-400">
+                  Talk to our team about your specific use case.
+                </p>
+                <button
+                  type="button"
+                  data-open-modal="contact"
+                  class="inline-flex items-center gap-2 body-md-regular text-dark-600 hover:text-light-blue-600 transition-colors mt-auto cursor-pointer text-left"
+                >
+                  Contact us
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </FadeIn>
+
+    <CtaLight
+      title="Ready to start with OpenBB on Snowflake?"
+      description=""
+      buttonText="Get app from Marketplace"
+      buttonHref="https://openbb.link/O69ul6R"
+    />
+  </main>
+
+  <ContactModal
+    iframeSrc={FORMBRICKS.general}
+    title="Contact Sales"
+  />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const container = document.querySelector("[data-video-container]");
+    if (container) {
+      const video = container.querySelector<HTMLVideoElement>("[data-video]");
+      const playBtn =
+        container.querySelector<HTMLButtonElement>("[data-play-btn]");
+      const overlay =
+        container.querySelector<HTMLElement>("[data-video-overlay]");
+      if (video && playBtn) {
+        playBtn.addEventListener("click", () => {
+          video.play();
+          video.controls = true;
+          video.style.position = "relative";
+          video.style.zIndex = "20";
+          playBtn.style.display = "none";
+          if (overlay) overlay.style.opacity = "0";
+        });
+        video.addEventListener("pause", () => {
+          setTimeout(() => {
+            if (!video.seeking && video.paused) {
+              playBtn.style.display = "flex";
+              video.style.zIndex = "0";
+              if (overlay) overlay.style.opacity = "1";
+            }
+          }, 150);
+        });
+        video.addEventListener("play", () => {
+          playBtn.style.display = "none";
+          video.style.zIndex = "20";
+          if (overlay) overlay.style.opacity = "0";
+        });
+        video.addEventListener("seeked", () => {
+          setTimeout(() => {
+            if (video.paused) {
+              playBtn.style.display = "flex";
+              video.style.zIndex = "0";
+              if (overlay) overlay.style.opacity = "1";
+            }
+          }, 150);
+        });
+      }
+    }
+  });
+</script>

@@ -1,0 +1,1299 @@
+---
+import { featuredVideo } from "../data/videos";
+import {
+  calculateTimeToRead,
+  directusAssetUrl,
+  formatDate,
+  getPublishedPosts,
+} from "../lib/directus";
+import Button from "./Button.astro";
+import SvgIcon from "./SvgIcon.astro";
+
+const productCommercialItems = [
+  { label: "OpenBB Workspace", url: "/products/workspace" },
+  { label: "Snowflake Native App", url: "/products/snowflake" },
+  { label: "Security", url: "/security" },
+];
+
+const productOpenSourceItems = [
+  { label: "Open Data Platform (ODP)", url: "/products/odp" },
+];
+
+const solutionAudienceItems = [
+  { label: "Buy-Side", url: "/buy-side" },
+  { label: "AI Vendor", url: "/ai-vendor" },
+];
+
+const resourceItems = [
+  { label: "Blog", url: "/blog" },
+  { label: "Videos", url: "/videos" },
+  { label: "About", url: "/company/about" },
+  { label: "Documentation", url: "https://docs.openbb.co/", external: true },
+];
+
+const comparisonItems = [
+  { label: "Streamlit", url: "/comparison/streamlit" },
+  { label: "Tableau", url: "/comparison/tableau" },
+  { label: "Power BI", url: "/comparison/power-bi" },
+];
+
+type NavPost = {
+  title: string;
+  url: string;
+  date: string;
+  timeToRead: number;
+  imgUrl: string;
+  cta?: string;
+};
+let navPosts: NavPost[] = [];
+let solutionPosts: NavPost[] = [];
+let resourcePosts: NavPost[] = [];
+const solutionSlugs = [
+  "introducing-the-openbb-app-marketplace",
+  "introducing-workspace-mcp",
+];
+const imageOverrides: Record<string, string> = {
+  "openbb-launches-openbb-workspace-as-a-snowflake-native-app-on-snowflake-marketplace":
+    "9e630beb-c59c-4cc5-a702-e186a0c0db87",
+  "quantly-openbb-bringing-multi-step-research-workflows-into-openbb":
+    "789cf660-e25c-4761-a687-737bdc3c3437",
+  "bring-proprietary-tools-into-openbb-workspace-with-the-new-html-widget":
+    "5a0188c9-30a2-432b-9af0-ddab167f853d",
+  "open-portfolio-a-suite-for-asset-managers-on-openbb":
+    "e90b818a-1e12-4372-bf45-80faab989a1a",
+  "openbb-the-interface-that-makes-mcp-work-for-financial-workflows":
+    "6fda9740-b80a-4bda-8fea-b841fa765dee",
+};
+try {
+  const allPosts = await getPublishedPosts();
+  const toNavPost = (p: (typeof allPosts)[0]): NavPost => ({
+    title: p.title,
+    url: `/blog/${p.slug}`,
+    date: formatDate(new Date(p.publishDate)),
+    timeToRead: calculateTimeToRead(p.body),
+    imgUrl: imageOverrides[p.slug]
+      ? directusAssetUrl(imageOverrides[p.slug])
+      : directusAssetUrl(p.cover),
+  });
+  const toSlug = (s: string) => s.toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-");
+  
+  const liteMatch = allPosts.find((p) => p.slug === "introducing-openbb-workspace-lite-for-small-investment-teams" || p.title.toLowerCase().includes("lite"));
+  
+  const videoPost: NavPost = {
+    title: featuredVideo.title,
+    url: `/videos/${toSlug(featuredVideo.title)}`,
+    date: formatDate(new Date(featuredVideo.date)),
+    timeToRead: Number.parseInt(featuredVideo.duration, 10) || 12,
+    imgUrl: `https://img.youtube.com/vi/${featuredVideo.id}/maxresdefault.jpg`,
+    cta: "Watch demo"
+  };
+
+  navPosts = [];
+  if (liteMatch) navPosts.push(toNavPost(liteMatch));
+  navPosts.push(videoPost);
+  solutionPosts = solutionSlugs
+    .map((slug) => allPosts.find((p) => p.slug === slug))
+    .filter((p): p is (typeof allPosts)[0] => p !== undefined)
+    .map(toNavPost);
+  resourcePosts = [videoPost];
+} catch {}
+---
+
+<div class="fixed top-0 left-0 right-0 z-50" data-navbar>
+  <nav
+    class="hidden lg:flex items-center justify-between w-full px-[120px] py-4 transition-[transform,background-color,backdrop-filter] duration-300"
+    data-desktop-nav
+  >
+    <a
+      href="/"
+      class="flex-shrink-0 max-w-[200px] transition-colors duration-300"
+      data-nav-item
+      data-nav-logo
+    >
+      <svg
+        viewBox="0 0 126 34"
+        width="126"
+        height="34"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-labelledby="openbb-logo-desktop"
+      >
+        <title id="openbb-logo-desktop">OpenBB</title>
+        <g fill="currentColor">
+          <path
+            d="M60.707 1.416h-9.285v4.25h9.285v1.42h-7.854v4.25h9.283V1.423h-1.428l-.001-.007Zm0 7.793v.707H54.28V8.5h6.427v.709Zm0-5.668v.71h-7.854V2.831h7.855l-.001.71ZM69.99 11.333h2.852V7.087H64.99V5.671h9.285V1.42H63.562v9.913h6.428Zm-5-7.791v-.709h7.852V4.25H64.99v-.709Zm2.858 6.375H64.99V8.5h6.438v1.417h-3.58ZM63.563 0h-1.428v1.416h1.428V0ZM78.519 22.72v8.459l-.712-.704-.71-.706-.71-.704-.71-.706-.712-.704-.712-.705-.71-.704-.71-.706-.71-.706-.712-.704-.71-.704-.711-.705h-1.422V33.998h1.422V24.834l.711.706.71.706.711.704.71.705.712.704.71.706.71.704.712.706.71.704.712.705.71.706.71.704.71.704h.712V22.721H78.52ZM101.402 26.95h-1.421v-4.23h-8.528V34h11.374v-7.057h-1.422l-.003.007Zm-8.528-.71v-2.11h5.685v2.82h-5.685v-.71Zm8.528 2.82v3.528h-8.528v-4.227h8.528v.699ZM124.986 26.95h-2.131v-4.23h-8.529V34h11.37v-7.057l-.71.007Zm-9.239-.71v-2.11h5.687v2.82h-5.687v-.71Zm8.53 2.82v3.528h-8.53v-4.227h8.53v.699ZM55.732 22.72H45.78v11.278H57.15V32.59H47.204v-2.821H55.728v-1.41h-8.524V24.13H57.15V22.721h-1.418ZM9.95 22.72H.003V34h11.372V22.72H9.95Zm0 2.116v7.754H1.423v-8.46H9.95v.706ZM32.855 22.721h-9.949v11.28h1.422V29.77h9.948v-7.057h-1.421v.008Zm0 2.116v3.528h-8.527v-4.234h8.527v.706Z"
+          ></path>
+        </g>
+      </svg>
+    </a>
+    <div class="flex-1"></div>
+    <div class="flex items-center gap-6">
+      <div data-dropdown data-dropdown-mega>
+        <button
+          type="button"
+          class="flex items-center gap-1 py-1 px-3 rounded-full body-sm-regular transition-[background-color,color] duration-200 cursor-pointer"
+          data-nav-item
+          data-dropdown-trigger
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Product
+          <svg
+            class="w-4 h-4 transition-transform duration-200"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
+          >
+        </button>
+        <div
+          class="absolute left-0 right-0 top-full z-50 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.2)] opacity-0 invisible transition-[opacity,visibility] duration-200"
+          data-dropdown-panel
+        >
+          <div class="max-w-[1440px] mx-auto px-[80px] xl:px-[180px] py-[60px]">
+            <div class="flex items-start justify-between">
+              <div class="w-[280px] shrink-0">
+                <span class="text-lg font-bold text-dark-600 block mb-6"
+                  >Product</span
+                >
+                <div class="flex flex-col gap-6">
+                  <span
+                    class="text-[10px] font-semibold uppercase tracking-[0.1em] text-light-blue-700"
+                    >Commercial</span
+                  >
+                  {
+                    productCommercialItems.map((item) => (
+                      <a
+                        href={item.url}
+                        class="text-sm text-dark-400 hover:text-[#069] transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    ))
+                  }
+                  <div class="border-t border-grey-200"></div>
+                  <span
+                    class="text-[10px] font-semibold uppercase tracking-[0.1em] text-light-blue-700"
+                    >Open Source</span
+                  >
+                  {
+                    productOpenSourceItems.map((item) => (
+                      <a
+                        href={item.url}
+                        class="text-sm text-dark-400 hover:text-[#069] transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    ))
+                  }
+                </div>
+              </div>
+              <div class="flex gap-[120px]">
+                {
+                  navPosts.map((post) => (
+                    <a
+                      href={post.url}
+                      class="flex flex-col gap-4 group w-[280px] shrink-0"
+                    >
+                      <img
+                        src={post.imgUrl}
+                        alt={post.title}
+                        class="w-[280px] h-[186px] object-cover rounded-md"
+                        loading="lazy"
+                      />
+                      <span class="text-dark-400 text-[10px] uppercase tracking-[0.1em]">
+                        {post.date} — {post.timeToRead} MIN
+                      </span>
+                      <span class="body-xs-bold text-dark-600 line-clamp-2">
+                        {post.title}
+                      </span>
+                      <span class="inline-flex items-center gap-2 text-xs font-medium text-dark-800 group-hover:gap-3 transition-all">
+                        {post.cta || "Read post"}
+                        <svg
+                          class="w-3 h-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m9 18 6-6-6-6"
+                          />
+                        </svg>
+                      </span>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-dropdown data-dropdown-mega>
+        <button
+          type="button"
+          class="flex items-center gap-1 py-1 px-3 rounded-full body-sm-regular transition-[background-color,color] duration-200 cursor-pointer"
+          data-nav-item
+          data-dropdown-trigger
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Solutions
+          <svg
+            class="w-4 h-4 transition-transform duration-200"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
+          >
+        </button>
+        <div
+          class="absolute left-0 right-0 top-full z-50 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.2)] opacity-0 invisible transition-[opacity,visibility] duration-200"
+          data-dropdown-panel
+        >
+          <div class="max-w-[1440px] mx-auto px-[80px] xl:px-[180px] py-[60px]">
+            <div class="flex items-start justify-between">
+              <div class="w-[280px] shrink-0">
+                <span class="text-lg font-bold text-dark-600 block mb-6"
+                  >Solutions</span
+                >
+                <div class="flex flex-col gap-6">
+                  <a
+                    href="/solutions/app-showcase"
+                    class="text-sm text-dark-400 hover:text-[#069] transition-colors"
+                    >App Showcase</a
+                  >
+                  <a
+                    href="/solutions/marketplace"
+                    class="text-sm text-dark-400 hover:text-[#069] transition-colors"
+                    >App Marketplace</a
+                  >
+                  <div class="border-t border-grey-200"></div>
+                  <span
+                    class="text-[10px] font-semibold uppercase tracking-[0.1em] text-light-blue-700"
+                    >By audience</span
+                  >
+                  {
+                    solutionAudienceItems.map((item) => (
+                      <a
+                        href={item.url}
+                        class="text-sm text-dark-400 hover:text-[#069] transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    ))
+                  }
+                </div>
+              </div>
+              <div class="flex gap-[120px]">
+                {
+                  solutionPosts.map((post) => (
+                    <a
+                      href={post.url}
+                      class="flex flex-col gap-4 group w-[280px] shrink-0"
+                    >
+                      <img
+                        src={post.imgUrl}
+                        alt={post.title}
+                        class="w-[280px] h-[186px] object-cover rounded-md"
+                        loading="lazy"
+                      />
+                      <span class="text-dark-400 text-[10px] uppercase tracking-[0.1em]">
+                        {post.date} — {post.timeToRead} MIN
+                      </span>
+                      <span class="body-xs-bold text-dark-600 line-clamp-2">
+                        {post.title}
+                      </span>
+                      <span class="inline-flex items-center gap-2 text-xs font-medium text-dark-800 group-hover:gap-3 transition-all">
+                        {post.cta || "Read post"}
+                        <svg
+                          class="w-3 h-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m9 18 6-6-6-6"
+                          />
+                        </svg>
+                      </span>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-dropdown data-dropdown-mega>
+        <button
+          type="button"
+          class="flex items-center gap-1 py-1 px-3 rounded-full body-sm-regular transition-[background-color,color] duration-200 cursor-pointer"
+          data-nav-item
+          data-dropdown-trigger
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Resources
+          <svg
+            class="w-4 h-4 transition-transform duration-200"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
+          >
+        </button>
+        <div
+          class="absolute left-0 right-0 top-full z-50 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.2)] opacity-0 invisible transition-[opacity,visibility] duration-200"
+          data-dropdown-panel
+        >
+          <div class="max-w-[1440px] mx-auto px-[80px] xl:px-[180px] py-[60px]">
+            <div class="flex items-start justify-between">
+              <div class="flex gap-[80px]">
+                <div class="w-[280px] shrink-0">
+                  <span class="text-lg font-bold text-dark-600 block mb-6"
+                    >Resources</span
+                  >
+                  <div class="flex flex-col gap-6">
+                    {
+                      resourceItems.map((item) => (
+                        <a
+                          href={item.url}
+                          class="inline-flex items-center gap-1 text-sm text-dark-400 hover:text-[#069] transition-colors"
+                          target={item.external ? "_blank" : undefined}
+                          rel={
+                            item.external ? "noopener noreferrer" : undefined
+                          }
+                        >
+                          {item.label}
+                          {item.external && (
+                            <SvgIcon name="external-nav" class="w-3 h-3" />
+                          )}
+                        </a>
+                      ))
+                    }
+                  </div>
+                </div>
+                <div class="w-[280px] shrink-0">
+                  <span class="text-lg font-bold text-dark-600 block mb-6"
+                    >Comparison</span
+                  >
+                  <div class="flex flex-col gap-6">
+                    {
+                      comparisonItems.map((item) => (
+                        <a
+                          href={item.url}
+                          class="text-sm text-dark-400 hover:text-[#069] transition-colors"
+                        >
+                          {item.label}
+                        </a>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+              {
+                resourcePosts.map((post) => (
+                  <a
+                    href={post.url}
+                    class="flex flex-col gap-4 group w-[280px] shrink-0"
+                  >
+                    <img
+                      src={post.imgUrl}
+                      alt={post.title}
+                      class="w-[280px] h-[186px] object-cover rounded-md"
+                      loading="lazy"
+                    />
+                    <span class="text-dark-400 text-[10px] uppercase tracking-[0.1em]">
+                      {post.date} — {post.timeToRead} MIN
+                    </span>
+                    <span class="body-xs-bold text-dark-600 line-clamp-2">
+                      {post.title}
+                    </span>
+                    <span class="inline-flex items-center gap-2 text-xs font-medium text-dark-800 group-hover:gap-3 transition-all">
+                      {post.cta || "Read post"}
+                      <svg
+                        class="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m9 18 6-6-6-6"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a
+        href="/pricing"
+        class="py-2 body-sm-regular transition-colors duration-300 cursor-pointer"
+        data-nav-item>Pricing</a
+      >
+    </div>
+    <div class="flex-1"></div>
+    <div class="flex items-center gap-4">
+      <button data-partner-trigger class="BB-Button inline-flex items-center justify-center gap-2 rounded-sm font-normal ring-offset-white focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none transition cursor-pointer body-sm-medium h-10 px-4 nav-partner-btn whitespace-nowrap">
+        Become a Partner
+      </button>
+      <a
+        href="https://pro.openbb.co/login"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cursor-pointer"
+      >
+        <Button variant="accent" class="whitespace-nowrap">Go to Workspace</Button>
+      </a>
+    </div>
+  </nav>
+
+  <nav
+    class="lg:hidden flex items-center h-14 px-6 bg-white"
+    data-mobile-header
+  >
+    <a href="/" aria-label="Home" class="text-dark-600">
+      <SvgIcon name="minimal-logo-icon" class="h-6 w-12" />
+    </a>
+    <div class="flex-1"></div>
+    <button
+      type="button"
+      class="p-1 text-dark-600 cursor-pointer"
+      data-hamburger
+      aria-label="Toggle menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      <svg
+        class="w-6 h-6"
+        data-hamburger-icon="open"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        ><line x1="3" y1="6" x2="21" y2="6"></line><line
+          x1="3"
+          y1="12"
+          x2="21"
+          y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg
+      >
+      <svg
+        class="w-6 h-6 hidden"
+        data-hamburger-icon="close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        ><line x1="18" y1="6" x2="6" y2="18"></line><line
+          x1="6"
+          y1="6"
+          x2="18"
+          y2="18"></line></svg
+      >
+    </button>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    class="lg:hidden fixed inset-x-0 top-14 bottom-0 bg-white z-50 transition-[opacity,visibility] duration-300 opacity-0 invisible"
+    data-mobile-menu
+  >
+    <div class="flex flex-col h-full">
+      <div
+        class="flex-1 min-h-0 overflow-y-auto overscroll-contain px-6 divide-y divide-grey-200"
+        style="-webkit-overflow-scrolling:touch"
+      >
+        <div data-mobile-accordion>
+          <button
+            type="button"
+            class="w-full py-8 text-left flex items-center justify-between body-lg-regular text-dark-600 cursor-pointer"
+            data-mobile-accordion-trigger
+          >
+            Product
+            <svg
+              class="w-5 h-5 text-dark-400 transition-transform duration-200"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
+            >
+          </button>
+          <div
+            class="hidden border-t border-light-blue-600 pt-4 pb-2"
+            data-mobile-accordion-content
+          >
+            <span
+              class="body-xs-regular text-dark-400 uppercase tracking-[0.1em] mb-3 px-2 block"
+              >Commercial</span
+            >
+            <div class="space-y-1">
+              {
+                productCommercialItems.map((item) => (
+                  <a
+                    href={item.url}
+                    class="block py-3 px-2 body-sm-bold text-dark-600 hover:bg-grey-50 rounded transition-colors"
+                    data-mobile-link
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+            <span
+              class="body-xs-regular text-dark-400 uppercase tracking-[0.1em] mb-3 mt-6 px-2 block"
+              >Open Source</span
+            >
+            <div class="space-y-1">
+              {
+                productOpenSourceItems.map((item) => (
+                  <a
+                    href={item.url}
+                    class="block py-3 px-2 body-sm-bold text-dark-600 hover:bg-grey-50 rounded transition-colors"
+                    data-mobile-link
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <div data-mobile-accordion>
+          <button
+            type="button"
+            class="w-full py-8 text-left flex items-center justify-between body-lg-regular text-dark-600 cursor-pointer"
+            data-mobile-accordion-trigger
+          >
+            Solutions
+            <svg
+              class="w-5 h-5 text-dark-400 transition-transform duration-200"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
+            >
+          </button>
+          <div
+            class="hidden border-t border-light-blue-600 pt-4 pb-2"
+            data-mobile-accordion-content
+          >
+            <div class="space-y-1">
+              <a
+                href="/solutions/app-showcase"
+                class="block py-3 px-2 body-sm-bold text-dark-600 hover:bg-grey-50 rounded transition-colors"
+                data-mobile-link>App Showcase</a
+              >
+              <a
+                href="/solutions/marketplace"
+                class="block py-3 px-2 body-sm-bold text-dark-600 hover:bg-grey-50 rounded transition-colors"
+                data-mobile-link>App Marketplace</a
+              >
+              {
+                solutionAudienceItems.map((item) => (
+                  <a
+                    href={item.url}
+                    class="block py-3 px-2 body-sm-bold text-dark-600 hover:bg-grey-50 rounded transition-colors"
+                    data-mobile-link
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <div data-mobile-accordion>
+          <button
+            type="button"
+            class="w-full py-8 text-left flex items-center justify-between body-lg-regular text-dark-600 cursor-pointer"
+            data-mobile-accordion-trigger
+          >
+            Resources
+            <svg
+              class="w-5 h-5 text-dark-400 transition-transform duration-200"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
+            >
+          </button>
+          <div
+            class="hidden border-t border-light-blue-600 pt-4 pb-2"
+            data-mobile-accordion-content
+          >
+            <span
+              class="body-xs-regular text-dark-400 uppercase tracking-[0.1em] mb-3 px-2 block"
+              >Resources</span
+            >
+            <div class="space-y-1">
+              {
+                resourceItems.map((item) => (
+                  <a
+                    href={item.url}
+                    class="flex items-center gap-1 py-3 px-2 body-sm-bold text-dark-600 hover:bg-grey-50 rounded transition-colors"
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noopener noreferrer" : undefined}
+                    data-mobile-link
+                  >
+                    {item.label}
+                    {item.external && (
+                      <SvgIcon
+                        name="external-nav"
+                        class="w-3 h-3 text-dark-400"
+                      />
+                    )}
+                  </a>
+                ))
+              }
+            </div>
+            <span
+              class="body-xs-regular text-dark-400 uppercase tracking-[0.1em] mb-3 mt-6 px-2 block"
+              >Comparison</span
+            >
+            <div class="space-y-1">
+              {
+                comparisonItems.map((item) => (
+                  <a
+                    href={item.url}
+                    class="block py-3 px-2 body-sm-bold text-dark-600 hover:bg-grey-50 rounded transition-colors"
+                    data-mobile-link
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="/pricing"
+          class="block py-8 body-lg-regular text-dark-600 hover:text-dark-400 transition-colors"
+          data-mobile-link>Pricing</a
+        >
+      </div>
+      <div
+        class="shrink-0 px-6 pt-4 pb-4 flex flex-col gap-3 border-t border-grey-200"
+      >
+        <div data-partner-trigger class="w-full cursor-pointer">
+          <Button variant="outlined" class="w-full pointer-events-none">Become a Partner</Button>
+        </div>
+        <a
+          href="https://pro.openbb.co/login"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-mobile-link
+        >
+          <Button variant="accent" class="w-full">Go to Workspace</Button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  id="partner-modal"
+  class="fixed inset-0 z-[100] hidden flex-col items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none"
+>
+  <div
+    id="partner-modal-bg"
+    class="absolute inset-0 bg-black/50 backdrop-blur-sm cursor-pointer"
+  ></div>
+  <div class="relative w-full max-w-xl bg-white rounded-xl shadow-2xl overflow-hidden z-10 transition-transform duration-300 scale-95 flex flex-col" id="partner-modal-content">
+    <div class="flex justify-end p-4 pb-0 shrink-0">
+      <button
+        id="partner-modal-close"
+        class="text-grey-400 hover:text-grey-900 transition-colors bg-white rounded-full"
+        aria-label="Close modal"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="relative w-full h-[650px] max-h-[80dvh]">
+      <iframe
+        src="https://app.formbricks.com/s/cms3erjhmnwz901shu03176vk?embed=true"
+        frameborder="0" class="absolute inset-0 w-full h-full border-0">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  [data-desktop-nav] {
+    --nav-text: #fff;
+    --nav-text-hover: var(--color-grey-300);
+    --nav-login: var(--color-grey-300);
+    --nav-login-hover: #fff;
+  }
+  body[data-nav-light] [data-desktop-nav] {
+    --nav-text: var(--color-grey-900);
+    --nav-text-hover: var(--color-grey-600);
+    --nav-login: var(--color-grey-700);
+    --nav-login-hover: var(--color-grey-900);
+  }
+  [data-desktop-nav] [data-nav-item] {
+    color: var(--nav-text);
+    cursor: pointer;
+  }
+  [data-desktop-nav] [data-nav-item]:hover {
+    color: var(--nav-text-hover);
+  }
+  [data-dropdown-panel]::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 20px;
+  }
+  [data-desktop-nav] [data-nav-login] {
+    color: var(--nav-login);
+  }
+  [data-desktop-nav] [data-nav-login]:hover {
+    color: var(--nav-login-hover);
+  }
+  
+  [data-desktop-nav] .nav-partner-btn {
+    background-color: var(--color-grey-50);
+    color: var(--color-grey-900);
+    border: 1px solid transparent;
+  }
+  [data-desktop-nav] .nav-partner-btn:hover {
+    background-color: var(--color-grey-200);
+  }
+  
+  body[data-nav-light] [data-desktop-nav] .nav-partner-btn {
+    background-color: transparent;
+    color: var(--color-grey-700);
+    border: 1px solid var(--color-grey-300);
+  }
+  body[data-nav-light] [data-desktop-nav] .nav-partner-btn:hover {
+    border-color: var(--color-grey-600);
+    color: var(--color-grey-850);
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const navbar = document.querySelector("[data-navbar]") as HTMLElement;
+    if (!navbar) return;
+
+    const ac = new AbortController();
+    const { signal } = ac;
+
+    const desktopNav = navbar.querySelector(
+      "[data-desktop-nav]",
+    ) as HTMLElement;
+    const mobileMenu = navbar.querySelector(
+      "[data-mobile-menu]",
+    ) as HTMLElement;
+    const hamburger = navbar.querySelector("[data-hamburger]") as HTMLElement;
+    const iconOpen = navbar.querySelector(
+      '[data-hamburger-icon="open"]',
+    ) as HTMLElement;
+    const iconClose = navbar.querySelector(
+      '[data-hamburger-icon="close"]',
+    ) as HTMLElement;
+
+    let lastScrollY = 0;
+    let navVisible = true;
+    let mobileOpen = false;
+
+    const alwaysLight = document.body.hasAttribute("data-nav-light");
+
+    function getLuminance(bg: string): number | null {
+      if (!bg || bg === "transparent" || bg === "rgba(0, 0, 0, 0)") return null;
+      const match = bg.match(/\d+/g);
+      if (!match || match.length < 3) return null;
+      const [r, g, b] = match.map(Number);
+      return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    }
+
+    function isOverLightSection(): boolean {
+      if (alwaysLight) return true;
+      const navRect = desktopNav.getBoundingClientRect();
+      const probeY = navRect.top + navRect.height / 2;
+      const probeX = window.innerWidth / 2;
+      desktopNav.style.pointerEvents = "none";
+      const el = document.elementFromPoint(probeX, probeY);
+      desktopNav.style.pointerEvents = "";
+      if (!el) return false;
+
+      let current: Element | null = el;
+      while (current && current !== document.documentElement) {
+        if (current instanceof HTMLElement && current.dataset.navTheme) {
+          return current.dataset.navTheme === "light";
+        }
+        const lum = getLuminance(getComputedStyle(current).backgroundColor);
+        if (lum !== null) return lum > 0.5;
+        current = current.parentElement;
+      }
+      return false;
+    }
+
+    function updateDesktop() {
+      const y = window.scrollY;
+      const overLight = isOverLightSection();
+
+      if (y > 20) {
+        desktopNav.style.backgroundColor = overLight
+          ? "rgba(255,255,255,0.7)"
+          : "rgba(33,33,38,0.3)";
+        desktopNav.style.backdropFilter = "blur(12px)";
+      } else {
+        desktopNav.style.backgroundColor = "transparent";
+        desktopNav.style.backdropFilter = "none";
+      }
+
+      desktopNav.style.setProperty(
+        "--nav-text",
+        overLight ? "var(--color-grey-900)" : "#fff",
+      );
+      desktopNav.style.setProperty(
+        "--nav-text-hover",
+        overLight ? "var(--color-grey-600)" : "var(--color-grey-300)",
+      );
+      desktopNav.style.setProperty(
+        "--nav-login",
+        overLight ? "var(--color-grey-700)" : "var(--color-grey-300)",
+      );
+      desktopNav.style.setProperty(
+        "--nav-login-hover",
+        overLight ? "var(--color-grey-900)" : "#fff",
+      );
+
+      if (y > 600 && y > lastScrollY && navVisible) {
+        navVisible = false;
+        desktopNav.style.transform = "translateY(-100%)";
+      } else if ((y < lastScrollY || y < 600) && !navVisible) {
+        navVisible = true;
+        desktopNav.style.transform = "translateY(0)";
+      }
+
+      lastScrollY = y;
+    }
+
+    function setDropdownNavStyle(open: boolean) {
+      if (open) {
+        const overLight = isOverLightSection();
+        desktopNav.style.backdropFilter = "none";
+        if (overLight) {
+          desktopNav.style.backgroundColor = "#fff";
+          desktopNav.style.setProperty("--nav-text", "var(--color-grey-900)");
+          desktopNav.style.setProperty(
+            "--nav-text-hover",
+            "var(--color-grey-600)",
+          );
+          desktopNav.style.setProperty("--nav-login", "var(--color-grey-700)");
+          desktopNav.style.setProperty(
+            "--nav-login-hover",
+            "var(--color-grey-900)",
+          );
+        } else {
+          desktopNav.style.backgroundColor = "var(--color-dark-800)";
+          desktopNav.style.setProperty("--nav-text", "#fff");
+          desktopNav.style.setProperty(
+            "--nav-text-hover",
+            "var(--color-grey-300)",
+          );
+          desktopNav.style.setProperty("--nav-login", "var(--color-grey-300)");
+          desktopNav.style.setProperty("--nav-login-hover", "#fff");
+        }
+      } else {
+        updateDesktop();
+      }
+    }
+
+    const dropdowns = navbar.querySelectorAll("[data-dropdown]");
+    let anyDropdownOpen = false;
+
+    interface DropdownCtx {
+      dd: Element;
+      trigger: HTMLElement;
+      panel: HTMLElement;
+      chevron: SVGElement;
+      openTimer: ReturnType<typeof setTimeout> | null;
+      closeTimer: ReturnType<typeof setTimeout> | null;
+      doOpen: () => void;
+      doClose: () => void;
+    }
+
+    const ddContexts: DropdownCtx[] = [];
+
+    dropdowns.forEach((dd) => {
+      const trigger = dd.querySelector(
+        "[data-dropdown-trigger]",
+      ) as HTMLElement;
+      const panel = dd.querySelector("[data-dropdown-panel]") as HTMLElement;
+      const chevron = dd.querySelector(
+        "[data-dropdown-trigger] svg",
+      ) as SVGElement;
+
+      const ctx: DropdownCtx = {
+        dd,
+        trigger,
+        panel,
+        chevron,
+        openTimer: null,
+        closeTimer: null,
+        doOpen() {
+          if (ctx.openTimer) {
+            clearTimeout(ctx.openTimer);
+            ctx.openTimer = null;
+          }
+          if (ctx.closeTimer) {
+            clearTimeout(ctx.closeTimer);
+            ctx.closeTimer = null;
+          }
+
+          ddContexts.forEach((other) => {
+            if (other !== ctx) {
+              if (other.openTimer) {
+                clearTimeout(other.openTimer);
+                other.openTimer = null;
+              }
+              if (other.closeTimer) {
+                clearTimeout(other.closeTimer);
+                other.closeTimer = null;
+              }
+              other.panel.classList.add("opacity-0", "invisible");
+              other.panel.classList.remove("opacity-100", "visible");
+              other.chevron?.classList.remove("rotate-180");
+              other.trigger.style.removeProperty("background-color");
+              other.trigger.style.removeProperty("color");
+              other.trigger.setAttribute("aria-expanded", "false");
+            }
+          });
+
+          panel.classList.remove("opacity-0", "invisible");
+          panel.classList.add("opacity-100", "visible");
+          chevron?.classList.add("rotate-180");
+          trigger.style.backgroundColor = "var(--color-light-blue-600)";
+          trigger.style.color = "#fff";
+          trigger.setAttribute("aria-expanded", "true");
+          anyDropdownOpen = true;
+          setDropdownNavStyle(true);
+        },
+        doClose() {
+          if (ctx.openTimer) {
+            clearTimeout(ctx.openTimer);
+            ctx.openTimer = null;
+          }
+          if (ctx.closeTimer) {
+            clearTimeout(ctx.closeTimer);
+            ctx.closeTimer = null;
+          }
+
+          panel.classList.add("opacity-0", "invisible");
+          panel.classList.remove("opacity-100", "visible");
+          chevron?.classList.remove("rotate-180");
+          trigger.style.removeProperty("background-color");
+          trigger.style.removeProperty("color");
+          trigger.setAttribute("aria-expanded", "false");
+
+          const stillOpen = ddContexts.some((c) =>
+            c.panel.classList.contains("visible"),
+          );
+          if (!stillOpen) {
+            anyDropdownOpen = false;
+            setDropdownNavStyle(false);
+          }
+        },
+      };
+
+      dd.addEventListener("mouseenter", () => {
+        if (ctx.closeTimer) {
+          clearTimeout(ctx.closeTimer);
+          ctx.closeTimer = null;
+        }
+
+        if (anyDropdownOpen) {
+          ctx.doOpen();
+        } else {
+          ctx.openTimer = setTimeout(() => {
+            ctx.openTimer = null;
+            ctx.doOpen();
+          }, 80);
+        }
+      });
+
+      dd.addEventListener("mouseleave", () => {
+        if (ctx.openTimer) {
+          clearTimeout(ctx.openTimer);
+          ctx.openTimer = null;
+        }
+        ctx.closeTimer = setTimeout(() => {
+          ctx.closeTimer = null;
+          ctx.doClose();
+        }, 200);
+      });
+
+      panel.addEventListener("mouseenter", () => {
+        if (ctx.openTimer) {
+          clearTimeout(ctx.openTimer);
+          ctx.openTimer = null;
+        }
+        if (ctx.closeTimer) {
+          clearTimeout(ctx.closeTimer);
+          ctx.closeTimer = null;
+        }
+      });
+
+      panel.addEventListener("mouseleave", () => {
+        if (ctx.openTimer) {
+          clearTimeout(ctx.openTimer);
+          ctx.openTimer = null;
+        }
+        ctx.closeTimer = setTimeout(() => {
+          ctx.closeTimer = null;
+          ctx.doClose();
+        }, 200);
+      });
+
+      trigger.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          const isOpen = panel.classList.contains("visible");
+          if (isOpen) {
+            ctx.doClose();
+          } else {
+            ctx.doOpen();
+          }
+        }
+      });
+
+      ddContexts.push(ctx);
+    });
+
+    function closeAllDropdowns() {
+      ddContexts.forEach((ctx) => {
+        if (ctx.openTimer) {
+          clearTimeout(ctx.openTimer);
+          ctx.openTimer = null;
+        }
+        if (ctx.closeTimer) {
+          clearTimeout(ctx.closeTimer);
+          ctx.closeTimer = null;
+        }
+        ctx.panel.classList.add("opacity-0", "invisible");
+        ctx.panel.classList.remove("opacity-100", "visible");
+        ctx.chevron?.classList.remove("rotate-180");
+        ctx.trigger.style.removeProperty("background-color");
+        ctx.trigger.style.removeProperty("color");
+        ctx.trigger.setAttribute("aria-expanded", "false");
+      });
+      anyDropdownOpen = false;
+      setDropdownNavStyle(false);
+    }
+
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        if (e.key === "Escape" && anyDropdownOpen) {
+          closeAllDropdowns();
+        }
+      },
+      { signal },
+    );
+
+    let scrollTicking = false;
+    let prevScrollY = window.scrollY;
+    window.addEventListener(
+      "scroll",
+      () => {
+        const delta = Math.abs(window.scrollY - prevScrollY);
+        prevScrollY = window.scrollY;
+        if (delta > 5 && anyDropdownOpen) closeAllDropdowns();
+        if (!scrollTicking) {
+          scrollTicking = true;
+          requestAnimationFrame(() => {
+            updateDesktop();
+            scrollTicking = false;
+          });
+        }
+      },
+      { signal, passive: true },
+    );
+
+    window.addEventListener(
+      "resize",
+      () => {
+        if (!scrollTicking) {
+          scrollTicking = true;
+          requestAnimationFrame(() => {
+            updateDesktop();
+            scrollTicking = false;
+          });
+        }
+      },
+      { signal, passive: true },
+    );
+
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+        if (e.clientY < 100 && !navVisible) {
+          navVisible = true;
+          desktopNav.style.transform = "translateY(0)";
+        }
+      },
+      { signal },
+    );
+
+    hamburger.addEventListener("click", () => {
+      mobileOpen = !mobileOpen;
+      mobileMenu.classList.toggle("opacity-0", !mobileOpen);
+      mobileMenu.classList.toggle("invisible", !mobileOpen);
+      mobileMenu.classList.toggle("opacity-100", mobileOpen);
+      mobileMenu.classList.toggle("visible", mobileOpen);
+      iconOpen.classList.toggle("hidden", mobileOpen);
+      iconClose.classList.toggle("hidden", !mobileOpen);
+      hamburger.setAttribute("aria-expanded", String(mobileOpen));
+      if (mobileOpen) {
+        document.body.style.position = "fixed";
+        document.body.style.width = "100%";
+        document.body.style.top = `-${window.scrollY}px`;
+      } else {
+        const scrollY = Math.abs(parseInt(document.body.style.top || "0"));
+        document.body.style.position = "";
+        document.body.style.width = "";
+        document.body.style.top = "";
+        window.scrollTo(0, scrollY);
+      }
+    });
+
+    navbar.querySelectorAll("[data-mobile-accordion]").forEach((acc) => {
+      const trigger = acc.querySelector(
+        "[data-mobile-accordion-trigger]",
+      ) as HTMLElement;
+      const content = acc.querySelector(
+        "[data-mobile-accordion-content]",
+      ) as HTMLElement;
+      trigger.addEventListener("click", () => {
+        const open = !content.classList.contains("hidden");
+        content.classList.toggle("hidden");
+        trigger.querySelector("svg")?.classList.toggle("rotate-180", !open);
+      });
+    });
+
+    mobileMenu.querySelectorAll("[data-mobile-link]").forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileOpen = false;
+        mobileMenu.classList.add("opacity-0", "invisible");
+        mobileMenu.classList.remove("opacity-100", "visible");
+        iconOpen.classList.remove("hidden");
+        iconClose.classList.add("hidden");
+        const scrollY = Math.abs(parseInt(document.body.style.top || "0"));
+        document.body.style.position = "";
+        document.body.style.width = "";
+        document.body.style.top = "";
+        window.scrollTo(0, scrollY);
+      });
+    });
+
+    // Partner Modal Logic
+    const partnerModal = document.getElementById("partner-modal");
+    const partnerModalBg = document.getElementById("partner-modal-bg");
+    const partnerModalClose = document.getElementById("partner-modal-close");
+    const partnerModalContent = document.getElementById("partner-modal-content");
+    const partnerTriggers = document.querySelectorAll("[data-partner-trigger]");
+
+    const openPartnerModal = () => {
+      if (!partnerModal) return;
+      if (mobileOpen) {
+        mobileOpen = false;
+        mobileMenu.classList.add("opacity-0", "invisible");
+        mobileMenu.classList.remove("opacity-100", "visible");
+        iconOpen.classList.remove("hidden");
+        iconClose.classList.add("hidden");
+        hamburger.setAttribute("aria-expanded", "false");
+        document.body.style.position = "";
+        document.body.style.width = "";
+        document.body.style.top = "";
+      }
+      partnerModal.classList.remove("hidden");
+      partnerModal.classList.add("flex");
+      requestAnimationFrame(() => {
+        partnerModal.classList.remove("opacity-0", "pointer-events-none");
+        if (partnerModalContent) {
+          partnerModalContent.classList.remove("scale-95");
+          partnerModalContent.classList.add("scale-100");
+        }
+      });
+      document.body.style.overflow = "hidden";
+    };
+
+    const closePartnerModal = () => {
+      if (!partnerModal) return;
+      partnerModal.classList.add("opacity-0", "pointer-events-none");
+      if (partnerModalContent) {
+        partnerModalContent.classList.remove("scale-100");
+        partnerModalContent.classList.add("scale-95");
+      }
+      setTimeout(() => {
+        partnerModal.classList.remove("flex");
+        partnerModal.classList.add("hidden");
+      }, 300);
+      document.body.style.overflow = "";
+    };
+
+    partnerTriggers.forEach(btn => btn.addEventListener("click", openPartnerModal));
+    if (partnerModalClose) partnerModalClose.addEventListener("click", closePartnerModal);
+    if (partnerModalBg) partnerModalBg.addEventListener("click", closePartnerModal);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && partnerModal && !partnerModal.classList.contains("hidden")) {
+        closePartnerModal();
+      }
+    });
+
+    updateDesktop();
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        ac.abort();
+        ddContexts.forEach((ctx) => {
+          if (ctx.openTimer) clearTimeout(ctx.openTimer);
+          if (ctx.closeTimer) clearTimeout(ctx.closeTimer);
+        });
+        if (mobileOpen) {
+          document.body.style.position = "";
+          document.body.style.width = "";
+          document.body.style.top = "";
+        }
+      },
+      { once: true },
+    );
+  });
+</script>

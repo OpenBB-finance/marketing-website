@@ -1,0 +1,137 @@
+---
+interface Image {
+  id: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  images: Image[];
+  directusUrl: string;
+}
+
+const { images = [], directusUrl } = Astro.props;
+---
+
+{images && images.length > 0 && (
+  <div class="image-carousel-container not-prose my-8 relative group select-none">
+    <div class="carousel-wrapper relative overflow-hidden">
+      <div class="carousel-track flex transition-transform duration-500 ease-out" id="carouselTrack">
+        {images.map((image, index) => (
+          <div class="carousel-slide flex-shrink-0 w-full relative flex flex-col items-center justify-center overflow-hidden" data-slide-index={index}>
+            <!-- Main Image -->
+            <div class="relative z-10 w-full h-full flex items-center justify-center min-h-[300px] md:min-h-[500px]">
+              <img 
+                src={`${directusUrl}/assets/${image.id}?width=1600&quality=85`} 
+                alt={image.title || `Gallery image ${index + 1}`}
+                class="max-w-full max-h-[70vh] w-auto h-auto object-contain transition-transform duration-500"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button 
+        class="absolute left-6 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-dark-600 w-10 h-10 flex items-center justify-center rounded-full shadow-light-3 transition-all duration-300 transform hover:scale-110 active:scale-95 z-20 border border-grey-200 opacity-80 hover:opacity-100"
+        id="prevBtn"
+        aria-label="Previous image"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m15 18-6-6 6-6" /></svg>
+      </button>
+      <button 
+        class="absolute right-6 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-dark-600 w-10 h-10 flex items-center justify-center rounded-full shadow-light-3 transition-all duration-300 transform hover:scale-110 active:scale-95 z-20 border border-grey-200 opacity-80 hover:opacity-100"
+        id="nextBtn"
+        aria-label="Next image"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m9 18 6-6-6-6" /></svg>
+      </button>
+    </div>
+
+    <!-- External Captions Area -->
+    <div class="mt-4 min-h-[60px]">
+      {images.map((image, index) => (
+        <div class={`carousel-caption ${index === 0 ? 'block' : 'hidden'} transition-all duration-500`} data-caption-index={index}>
+          {image.title && <h3 class="body-lg-bold text-dark-600 mb-1.5">{image.title}</h3>}
+          {image.description && <p class="body-sm-regular text-dark-400 leading-relaxed max-w-3xl">{image.description}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .carousel-track {
+    will-change: transform;
+  }
+</style>
+
+<script>
+  function setupCarousel() {
+    const containers = document.querySelectorAll('.image-carousel-container');
+    
+    containers.forEach(container => {
+      const track = container.querySelector('#carouselTrack') as HTMLElement;
+      const slides = container.querySelectorAll('.carousel-slide');
+      const prevBtn = container.querySelector('#prevBtn');
+      const nextBtn = container.querySelector('#nextBtn');
+      const currentIndexEl = container.querySelector('#currentIndex');
+      const progressBar = container.querySelector('#progressBar') as HTMLElement;
+      const captions = container.querySelectorAll('.carousel-caption');
+      
+      if (!track || slides.length === 0) return;
+
+      let current = 0;
+      const total = slides.length;
+
+      function update() {
+        // Move track
+        track.style.transform = `translateX(-${current * 100}%)`;
+        
+        // Update Counter
+        if (currentIndexEl) currentIndexEl.textContent = (current + 1).toString();
+        
+        // Update Progress Bar
+        if (progressBar) progressBar.style.width = `${((current + 1) / total) * 100}%`;
+        
+        // Update Captions
+        captions.forEach((cap, i) => {
+          if (i === current) {
+            cap.classList.remove('hidden');
+            cap.classList.add('block', 'animate-fade-in');
+          } else {
+            cap.classList.add('hidden');
+            cap.classList.remove('block', 'animate-fade-in');
+          }
+        });
+      }
+
+      prevBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        current = (current - 1 + total) % total;
+        update();
+      });
+
+      nextBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        current = (current + 1) % total;
+        update();
+      });
+
+      // Swipe support
+      let startX = 0;
+      container.addEventListener('touchstart', (e: any) => { startX = e.touches[0].clientX; }, { passive: true });
+      container.addEventListener('touchend', (e: any) => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) current = (current + 1) % total;
+          else current = (current - 1 + total) % total;
+          update();
+        }
+      }, { passive: true });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupCarousel);
+</script>

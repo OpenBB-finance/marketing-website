@@ -1,0 +1,76 @@
+---
+const testimonial = {
+  image:
+    "https://openbb-cms.directus.app/assets/f35afdab-8c81-4583-af7f-608dbd7bf054.png",
+  headline:
+    "One of the most impressive development teams I've ever worked with.",
+  quote:
+    "OpenBB brings together brilliant minds with an extraordinary product. Their agile teams truly listen, act, and deliver, making them one of the most impressive development teams I've ever worked with.",
+  author: "Pete Petersen, CTO",
+  company: "Causeway Capital Management",
+};
+---
+
+<section class="py-16 md:py-32">
+  <div class="page-container">
+    <div class="mx-auto">
+      <h2
+        class="text-dark-600 text-title-s-regular md:text-title-xl-regular mb-8 md:mb-20"
+      >
+        What investment teams say about OpenBB
+      </h2>
+      <div
+        class="bg-white border border-grey-300 shadow-light-1 overflow-hidden rounded-lg md:rounded-2xl"
+      >
+        <!-- Mobile -->
+        <div class="flex flex-col md:hidden">
+          <div class="w-full">
+            <img
+              src={testimonial.image}
+              alt={testimonial.company}
+              class="w-full h-[248px] object-cover"
+              width="375"
+              height="248"
+              loading="lazy"
+            />
+          </div>
+          <div class="px-5 py-5 flex flex-col gap-5">
+            <p class="text-dark-400 body-md-bold">
+              "{testimonial.quote}"
+            </p>
+            <div>
+              <p class="text-dark-50 body-xs-bold">{testimonial.author}</p>
+              <p class="text-grey-500 body-xs-regular">{testimonial.company}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop -->
+        <div class="hidden md:flex">
+          <div class="w-1/3">
+            <img
+              src={testimonial.image}
+              alt={testimonial.company}
+              class="w-full h-full object-cover"
+              width="400"
+              height="300"
+              loading="lazy"
+            />
+          </div>
+          <div class="w-2/3 px-8 py-10 flex flex-col justify-center">
+            <h3 class="text-dark-600 text-title-s-bold mb-6">
+              "{testimonial.headline}"
+            </h3>
+            <p class="text-dark-400 body-md-regular mb-6">
+              {testimonial.quote}
+            </p>
+            <div>
+              <p class="text-dark-50 body-xs-bold">{testimonial.author}</p>
+              <p class="text-grey-500 body-xs-regular">{testimonial.company}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

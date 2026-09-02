@@ -1,0 +1,421 @@
+---
+import BlogCard from "../../components/BlogCard.astro";
+import CtaLight from "../../components/CtaLight.astro";
+import ImageCarousel from "../../components/ImageCarousel.astro";
+import Layout from "../../layouts/Layout.astro";
+import {
+  calculateTimeToRead,
+  directusAssetUrl,
+  formatDate,
+  getPublishedPosts,
+} from "../../lib/directus";
+import { parseMarkdown } from "../../lib/marked";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post, allPosts: posts },
+  }));
+}
+
+const { post, allPosts } = Astro.props;
+
+// Extract headings (h2 / h3) from markdown body for the Overview panel
+function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/[\s_-]+/g, "-");
+}
+
+interface Heading {
+  level: number;
+  text: string;
+  id: string;
+}
+
+const headings: Heading[] = [];
+const headingRegex = /^(#{2,3})\s+(.+)$/gm;
+let match: RegExpExecArray | null;
+const idCounters: Record<string, number> = {};
+while ((match = headingRegex.exec(post.body ?? "")) !== null) {
+  const level = match[1].length;
+  const raw = match[2].replace(/\*+|`/g, "").trim();
+  const base = slugifyHeading(raw);
+  idCounters[base] = (idCounters[base] ?? 0) + 1;
+  const id = idCounters[base] > 1 ? `${base}-${idCounters[base]}` : base;
+  headings.push({ level, text: raw, id });
+}
+
+// Decode HTML entities so slugs match the ones built from raw markdown
+function decodeEntities(str: string): string {
+  return str
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number.parseInt(code, 10)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCharCode(Number.parseInt(hex, 16)))
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'");
+}
+
+// Inject IDs into heading tags in the rendered HTML
+let bodyHtml = parseMarkdown(post.body);
+const idInjected: Record<string, number> = {};
+bodyHtml = bodyHtml.replace(
+  /<(h[23])([^>]*)>(.*?)<\/\1>/gs,
+  (_, tag, attrs, inner) => {
+    const clean = decodeEntities(inner.replace(/<[^>]+>/g, "")).replace(/\*+|`/g, "").trim();
+    const base = slugifyHeading(clean);
+    idInjected[base] = (idInjected[base] ?? 0) + 1;
+    const id = idInjected[base] > 1 ? `${base}-${idInjected[base]}` : base;
+    return `<${tag}${attrs} id="${id}">${inner}</${tag}>`;
+  }
+);
+
+const timeToRead = calculateTimeToRead(post.body);
+const coverUrl = directusAssetUrl(post.cover);
+const dateStr = formatDate(new Date(post.publishDate ?? "2015-10-20"));
+const permalink = `https://openbb.co/blog/${post.slug}`;
+
+const twitterText = encodeURIComponent(`"${post.title}" by @openbb_finance`);
+const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(permalink)}&text=${twitterText}`;
+const linkedinUrl = `https://linkedin.com/sharing/share-offsite/?mini=true&url=${encodeURIComponent(permalink)}`;
+
+const relatedPosts = allPosts
+  .filter((p) => p.slug !== post.slug)
+  .slice(0, 3)
+  .map((p) => ({
+    title: p.title,
+    url: `/blog/${p.slug}`,
+    imgUrl: directusAssetUrl(p.cover),
+    date: p.publishDate,
+    timeToRead: calculateTimeToRead(p.body),
+    type: p.type,
+  }));
+
+const authorImgUrl = post.authorImgUrl
+  ? directusAssetUrl(post.authorImgUrl)
+  : null;
+const authorImgUrl2 = post.authorImgUrl2
+  ? directusAssetUrl(post.authorImgUrl2)
+  : null;
+const authorImgUrl3 = post.authorImgUrl3
+  ? directusAssetUrl(post.authorImgUrl3)
+  : null;
+
+const images = (post.gallery ?? []).map((item: any) => ({
+  id: item.directus_files_id?.id || item.directus_files_id,
+  title: item.directus_files_id?.title || "",
+  description: item.directus_files_id?.description || "",
+}));
+
+const postOgImage = directusAssetUrl(post.cover);
+
+const publishIso = new Date(post.publishDate ?? "2015-10-20").toISOString();
+const modifiedIso = post.date_updated
+  ? new Date(post.date_updated).toISOString()
+  : publishIso;
+
+const authors = [post.authorName, post.authorName2, post.authorName3]
+  .filter(Boolean)
+  .map((name) => ({ "@type": "Person" as const, name }));
+
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.title,
+  description: post.excerpt ?? post.title,
+  image: postOgImage,
+  datePublished: publishIso,
+  dateModified: modifiedIso,
+  author: authors.length === 1 ? authors[0] : authors,
+  publisher: {
+    "@type": "Organization",
+    name: "OpenBB",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://openbb.co/assets/images/ogimages/Homepage.png",
+    },
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": permalink,
+  },
+};
+---
+
+<Layout
+  title={`${post.title} | OpenBB`}
+  description={post.excerpt ?? post.title}
+  ogImage={postOgImage}
+  ogType="article"
+  schema={blogPostingSchema}
+  navLight
+>
+  <div class="bg-white min-h-screen">
+    <div class="mx-auto px-5 lg:px-0 lg:w-[90%] 2xl:w-[80%]">
+      <div class="flex flex-col lg:flex-row lg:gap-6 xl:gap-12 pt-8 lg:pt-32">
+        <!-- Sidebar -->
+        <div class="lg:w-[200px] lg:shrink-0">
+          <div class="max-w-[220px] lg:pt-40" data-blog-sidebar-sticky>
+            <a href="/blog" class="inline-flex items-center gap-2 text-dark-600 body-sm-regular hover:text-dark-800 transition-colors">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+              Back to blog
+            </a>
+
+            <!-- Author(s) -->
+            {post.authorName && authorImgUrl && (
+              <div class="mt-8 mb-4">
+                <div class="flex items-center gap-4">
+                  <div class="flex -space-x-4">
+                    <img src={authorImgUrl} alt={post.authorName} class="h-14 w-14 rounded-full border-[1.5px] border-white object-cover" />
+                    {post.authorName2 && authorImgUrl2 && (
+                      <img src={authorImgUrl2} alt={post.authorName2} class="h-14 w-14 rounded-full border-[1.5px] border-white object-cover" />
+                    )}
+                    {post.authorName3 && authorImgUrl3 && (
+                      <img src={authorImgUrl3} alt={post.authorName3} class="h-14 w-14 rounded-full border-[1.5px] border-white object-cover" />
+                    )}
+                  </div>
+                  {!post.authorName2 && (
+                    <div>
+                      <p class="text-grey-500 text-xs mb-1">Author</p>
+                      <p class="text-grey-500 body-sm-regular whitespace-nowrap">{post.authorName}</p>
+                    </div>
+                  )}
+                </div>
+                {post.authorName2 && (
+                  <div class="mt-2">
+                    <p class="text-grey-500 text-xs mb-1">Authors</p>
+                    <p class="text-grey-500 body-sm-regular">
+                      {[post.authorName, post.authorName2, post.authorName3].filter(Boolean).join(", ")}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <!-- Share -->
+            <p class="text-dark-50 mt-8 hidden uppercase tracking-widest lg:block body-xs-regular">SHARE</p>
+            <div class="mt-3 hidden gap-3 lg:flex">
+              <a href={twitterUrl} target="_blank" rel="noreferrer noopener" class="flex h-8 w-8 items-center justify-center rounded border border-grey-200 hover:bg-grey-100 transition-colors" aria-label="Share on Twitter">
+                <svg class="h-4 w-4 text-dark-600" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href={linkedinUrl} target="_blank" rel="noreferrer noopener" class="flex h-8 w-8 items-center justify-center rounded border border-grey-200 hover:bg-grey-100 transition-colors" aria-label="Share on LinkedIn">
+                <svg class="h-4 w-4 text-dark-600" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              <button data-copy-link class="flex h-8 w-8 items-center justify-center rounded border border-grey-200 hover:bg-grey-100 transition-colors cursor-pointer" aria-label="Copy link">
+                <svg class="h-4 w-4 text-dark-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 min-w-0 lg:max-w-3xl lg:mx-auto">
+          <div class="flex justify-center">
+            <img class="rounded mb-8 w-full" loading="eager" src={coverUrl} alt={post.title} />
+          </div>
+          <p class="mb-6 font-normal uppercase tracking-widest text-dark-50 body-sm-regular">
+            <time datetime={publishIso}>{dateStr}</time> — {timeToRead} MIN
+          </p>
+          <h1 class="text-title-xs-bold md:text-title-m-bold text-dark-600">{post.title}</h1>
+          
+          <article class="mt-8 prose prose-lg !w-full max-w-none prose-a:text-light-blue-600 [&_:not(pre)>code]:bg-grey-100 [&_:not(pre)>code]:rounded-sm [&_:not(pre)>code]:px-1 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:rounded-none prose-img:rounded prose-img:mt-8 prose-img:mb-2 prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:text-grey-500 prose-figcaption:mt-3 [&_iframe]:w-full [&_iframe]:h-auto [&_iframe]:aspect-video [&_iframe]:rounded [&_iframe]:my-8">
+            {bodyHtml.includes("[gallery]") || bodyHtml.includes("<p>[gallery]</p>") ? (
+              <>
+                <Fragment set:html={bodyHtml.split(/<p>\[gallery\]<\/p>|\[gallery\]/)[0]} />
+                <ImageCarousel directusUrl="https://openbb-cms.directus.app" images={images} />
+                <Fragment set:html={bodyHtml.split(/<p>\[gallery\]<\/p>|\[gallery\]/)[1]} />
+              </>
+            ) : (
+              <>
+                <ImageCarousel directusUrl="https://openbb-cms.directus.app" images={images} />
+                <Fragment set:html={bodyHtml} />
+              </>
+            )}
+          </article>
+        </div>
+
+        <!-- Overview sidebar (right) -->
+        <div class="hidden lg:block lg:w-[240px] lg:shrink-0">
+          {headings.length > 0 && (
+            <div class="max-w-[240px] pt-40" data-blog-overview-sticky>
+              <p class="body-xs-bold uppercase tracking-widest text-dark-50 mb-4">Overview</p>
+              <nav aria-label="Article overview">
+                <ul class="border-l border-grey-200 space-y-1" id="overview-list">
+                  {headings.map((h) => (
+                    <li>
+                      <a
+                        href={`#${h.id}`}
+                        data-overview-link={h.id}
+                        class={[
+                          "block body-sm-regular text-dark-100 hover:text-dark-600 transition-colors leading-snug py-1.5 border-l-2 border-transparent -ml-px",
+                          h.level === 3 ? "pl-6" : "pl-4",
+                        ].join(" ")}
+                      >
+                        {h.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Related posts -->
+    {relatedPosts.length > 0 && (
+      <section class="bg-white py-16">
+        <div class="page-container">
+          <h2 class="text-title-xs-bold md:text-title-s-bold text-dark-600 mb-10">Recommended For You</h2>
+          <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-16">
+            {relatedPosts.map((p) => (
+              <BlogCard
+                title={p.title}
+                imgUrl={p.imgUrl}
+                url={p.url}
+                date={p.date}
+                timeToRead={p.timeToRead}
+                type={p.type}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <CtaLight />
+  </div>
+</Layout>
+
+<script>
+  import mediumZoom from "medium-zoom";
+
+  document.addEventListener("astro:page-load", () => {
+    mediumZoom("article.prose img", {
+      margin: 24,
+      background: "rgba(0, 0, 0, 0.85)",
+    });
+
+    document.querySelectorAll<HTMLVideoElement>("article.prose video").forEach((v) => v.load());
+
+    document.querySelector("[data-copy-link]")?.addEventListener("click", () => {
+      navigator.clipboard.writeText(window.location.href);
+      const btn = document.querySelector("[data-copy-link]");
+      if (btn) {
+        btn.innerHTML = `<svg class="h-4 w-4 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+        setTimeout(() => {
+          btn.innerHTML = `<svg class="h-4 w-4 text-dark-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
+        }, 2000);
+      }
+    });
+
+    // ── Sticky helpers (shared) ──────────────────────────────────────────────
+    function makeStickyPanel(panelEl: HTMLElement) {
+      const ac = new AbortController();
+      const { signal } = ac;
+      const wrapper = panelEl.parentElement!;
+      const flex = wrapper.parentElement!;
+      const topGap = 24;
+      let startY = 0;
+
+      const calcStart = () => { startY = wrapper.getBoundingClientRect().top + window.scrollY; };
+      calcStart();
+
+      const update = () => {
+        const h = panelEl.offsetHeight;
+        const stopY = flex.offsetTop + flex.offsetHeight - h - topGap;
+        if (window.scrollY > stopY) {
+          panelEl.style.position = "relative";
+          panelEl.style.top = (stopY - startY + topGap) + "px";
+          panelEl.style.width = "";
+        } else if (window.scrollY > startY - topGap) {
+          panelEl.style.position = "fixed";
+          panelEl.style.top = topGap + "px";
+          panelEl.style.width = wrapper.offsetWidth + "px";
+        } else {
+          panelEl.style.position = "";
+          panelEl.style.top = "";
+          panelEl.style.width = "";
+        }
+      };
+
+      window.addEventListener("scroll", update, { signal, passive: true });
+      window.addEventListener("resize", () => { calcStart(); update(); }, { signal, passive: true });
+      update();
+      document.addEventListener("astro:before-swap", () => ac.abort(), { once: true });
+    }
+
+    // Left sidebar
+    const sidebarEl = document.querySelector("[data-blog-sidebar-sticky]") as HTMLElement | null;
+    if (sidebarEl && window.innerWidth >= 1024) makeStickyPanel(sidebarEl);
+
+    // ── Overview panel (right) ───────────────────────────────────────────────
+    const overviewEl = document.querySelector("[data-blog-overview-sticky]") as HTMLElement | null;
+    if (overviewEl && window.innerWidth >= 1024) {
+      makeStickyPanel(overviewEl);
+
+      // Scroll-spy: highlight active heading
+      const links = Array.from(
+        document.querySelectorAll<HTMLAnchorElement>("[data-overview-link]"),
+      );
+
+      const setActive = (id: string) => {
+        links.forEach((a) => {
+          const active = a.dataset.overviewLink === id;
+          a.classList.toggle("!text-light-blue-600", active);
+          a.classList.toggle("!border-light-blue-600", active);
+          a.classList.toggle("!font-medium", active);
+        });
+      };
+
+      const headingEls = links
+        .map((a) => document.getElementById(a.dataset.overviewLink!))
+        .filter(Boolean) as HTMLElement[];
+
+      if (headingEls.length > 0) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            const visible = entries.filter((e) => e.isIntersecting);
+            if (visible.length > 0) {
+              setActive(visible[0].target.id);
+            }
+          },
+          { rootMargin: "0px 0px -70% 0px", threshold: 0 },
+        );
+        headingEls.forEach((el) => io.observe(el));
+        document.addEventListener("astro:before-swap", () => io.disconnect(), { once: true });
+
+        // Highlight first heading by default
+        setActive(headingEls[0].id);
+      }
+
+      // Offset anchor scrolling to clear the fixed navbar
+      links.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const id = link.dataset.overviewLink;
+          if (!id) return;
+          const target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          const navbar = document.querySelector("[data-navbar]") as HTMLElement | null;
+          const navH = navbar ? navbar.offsetHeight : 80;
+          const extraGap = 24; // comfortable breathing room below navbar
+          const top = target.getBoundingClientRect().top + window.scrollY - navH - extraGap;
+          window.scrollTo({ top, behavior: "smooth" });
+        });
+      });
+    }
+  });
+</script>

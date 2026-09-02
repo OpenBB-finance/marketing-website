@@ -1,0 +1,60 @@
+---
+import HeroSimple from "../components/HeroSimple.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Sitemap | OpenBB"
+  description="Contains all the links to the pages on the OpenBB website."
+  keywords="sitemap, company, resources, products, legal"
+  navLight
+>
+  <main class="bg-white">
+    <HeroSimple
+      title="Sitemap"
+      description="Find all the links to the pages on the OpenBB website."
+    />
+
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-14">
+          <div class="flex flex-col gap-3">
+            <h3 class="body-lg-medium text-light-blue-600 mb-1">Product</h3>
+            <a href="/products/workspace" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">OpenBB Workspace</a>
+            <a href="/products/snowflake" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Snowflake</a>
+            <a href="/products/odp" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Open Data Platform</a>
+            <a href="/security" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Security</a>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h3 class="body-lg-medium text-light-blue-600 mb-1">Use Cases</h3>
+            <a href="/buy-side" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Buy-Side</a>
+            <a href="/ai-vendor" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">AI Vendor</a>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h3 class="body-lg-medium text-light-blue-600 mb-1">Resources</h3>
+            <a href="/blog" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Blog</a>
+            <a href="/company/about" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">About</a>
+            <a href="https://docs.openbb.co/" target="_blank" rel="noopener noreferrer" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Documentation</a>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h3 class="body-lg-medium text-light-blue-600 mb-1">Company</h3>
+            <a href="/pricing" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Pricing</a>
+            <a href="/solutions/app-showcase" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">App Showcase</a>
+            <a href="/company/open" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Open Startup</a>
+            <a href="/contact" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Contact</a>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <h3 class="body-lg-medium text-light-blue-600 mb-1">Legal</h3>
+            <a href="/legal/privacy-policy" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Privacy Policy</a>
+            <a href="/legal/terms-of-service" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Terms of Service</a>
+            <a href="https://www.openbb.design" target="_blank" rel="noopener noreferrer" class="body-md-regular text-dark-400 hover:text-dark-800 transition-colors">Brand Book</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

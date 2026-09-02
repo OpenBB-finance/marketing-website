@@ -1,0 +1,54 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  hideButton?: boolean;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+const {
+  title,
+  description,
+  hideButton = false,
+  buttonText = "Start now",
+  buttonLink = "https://pro.openbb.co/register",
+} = Astro.props;
+
+const titleLines = title.split("\n");
+const descriptionLines = description.split("\n");
+---
+
+<section class="py-16 md:py-16 bg-dark-800 overflow-hidden w-full">
+  <div class="page-container">
+    <div class="px-0 py-10 lg:px-20 lg:py-20">
+      <div class="text-center mx-auto">
+        <h2 class="text-title-s-medium md:text-[64px] md:font-medium md:font-manrope md:leading-[110%] md:tracking-[-1%] text-white mb-6 max-w-[1000px] mx-auto">
+          {titleLines.map((line, i) => (
+            <Fragment>
+              {i > 0 && <span class="hidden md:inline"><br /></span>}
+              {line}
+            </Fragment>
+          ))}
+        </h2>
+        <p class="body-md-regular md:body-lg-regular text-grey-100 mb-8 max-w-4xl mx-auto">
+          {descriptionLines.map((line, i) => (
+            <Fragment>
+              {i > 0 && <span class="hidden md:inline"><br /></span>}
+              {line}
+            </Fragment>
+          ))}
+        </p>
+        {!hideButton && (
+          <div class="flex items-center justify-center">
+            <Button variant="primary" href={buttonLink} target="_blank" rel="noopener noreferrer" class="w-full md:w-auto">
+              {buttonText}
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

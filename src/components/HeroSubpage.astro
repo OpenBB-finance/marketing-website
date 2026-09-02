@@ -1,0 +1,76 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  buttonText?: string;
+  buttonHref?: string;
+  iconSrc?: string;
+  iconAlt?: string;
+}
+
+const {
+  title,
+  description,
+  buttonText = "Start now",
+  buttonHref = "https://pro.openbb.co/register",
+  iconSrc,
+  iconAlt = "",
+} = Astro.props;
+
+const titleLines = title.split("\n");
+const descriptionLines = description.split("\n");
+---
+
+<section class="py-16 md:py-20 lg:py-24 bg-dark-800 overflow-hidden w-full">
+  <div class="page-container">
+    <div class="text-center mx-auto max-w-[800px]">
+      {iconSrc && (
+        <div class="flex items-center justify-center mb-[-8px]">
+          <img
+            data-hero-icon
+            src={iconSrc}
+            alt={iconAlt}
+            class="w-[120px] lg:w-[180px] opacity-0 transition-opacity duration-500"
+            width="180"
+            height="180"
+            fetchpriority="high"
+          />
+        </div>
+      )}
+      <h1 class="text-title-s-medium lg:text-[64px] font-medium font-manrope leading-[1.2] tracking-[0.02em] text-white mb-6">
+        {titleLines.map((line, i) => (
+          <Fragment>
+            {i > 0 && <br />}
+            {line}
+          </Fragment>
+        ))}
+      </h1>
+      <p class="body-md-regular lg:body-lg-regular text-grey-100 mb-10 max-w-[800px] mx-auto">
+        {descriptionLines.map((line, i) => (
+          <Fragment>
+            {i > 0 && <span class="hidden md:inline"><br /></span>}
+            {line}
+          </Fragment>
+        ))}
+      </p>
+      <div class="flex items-center justify-center">
+        <Button variant="primary" href={buttonHref} target="_blank" rel="noopener noreferrer">
+          {buttonText}
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const icon = document.querySelector<HTMLImageElement>("[data-hero-icon]");
+    if (icon) {
+      const show = () => { icon.style.opacity = "1"; };
+      if (icon.complete) show();
+      else icon.addEventListener("load", show);
+    }
+  });
+</script>

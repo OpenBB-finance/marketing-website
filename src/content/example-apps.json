@@ -1,0 +1,614 @@
+{
+  "monetary-central-bank-policy": [
+    {
+      "title": "FOMC Meetings",
+      "description": "Track upcoming and historical Federal Open Market Committee meetings alongside rate decisions and press releases. This helps analysts understand central bank positioning and sentiment shifts over time. It can be extended with overlays of asset price movements around each meeting and integrates with FedWatch-style tools to monitor rate probabilities.",
+      "image": "https://openbb-cms.directus.app/assets/04a248e4-313f-42cb-be32-5666d88f8f27.png",
+      "imageAlt": "FOMC Meetings Screenshot",
+      "github": {
+        "description": "This app is open source. You can run it yourself and integrate it into the OpenBB Workspace.",
+        "url": "https://github.com/OpenBB-finance/OpenBB"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "The FOMC provides official schedules, policy statements, meeting minutes, and economic projections.",
+        "image": "https://openbb-cms.directus.app/assets/d4ce09d1-1f3d-4020-8947-27fd1a771a2c.png"
+      }
+    },
+    {
+      "title": "FED Net Liquidity",
+      "description": "The dashboard analyzes the Fed's impact on market liquidity through a composite of the balance sheet, TGA, and RRP, using a \"net liquidity\" metric to gauge support or drain on risk assets. It also tracks income tax receipts from the Monthly Treasury Statement to assess government cash inflows and reserve effects, helping anticipate short-term liquidity shifts. Together, these tools offer a real-time view of systemic liquidity trends critical to equity and crypto market behavior.",
+      "image": "https://openbb-cms.directus.app/assets/59935955-2849-4054-88d9-f2e3a4f726f2.png",
+      "imageAlt": "FED Net Liquidity"
+    },
+    {
+      "title": "IMF Reserve Asset Dashboard",
+      "description": "Explore the composition of official reserve assets across countries using International Monetary Fund (IMF) data. This includes holdings of foreign exchange, gold, Special Drawing Rights (SDRs), and other reserve positions. The dashboard helps users compare central bank strategies, assess currency diversification, and monitor macroeconomic resilience. It's particularly valuable for understanding a country's external buffer in times of stress - and can be used to anticipate shifts in global capital flows or monetary alignment.",
+      "image": "https://openbb-cms.directus.app/assets/459c3913-dbd5-41f5-9959-ca1c2299817b.png",
+      "imageAlt": "IMF Dashboard",
+      "github": {
+        "title": "GitHub",
+        "description": "This app is open source. You can run it yourself and integrate it into the OpenBB Workspace.",
+        "icon": "github",
+        "url": "https://github.com/OpenBB-finance/OpenBB"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "IMF supplies global financial statistics, including official reserve assets, currency compositions, balance of payments, and economic forecasts.",
+        "icon": "bar-chart",
+        "image": "https://openbb-cms.directus.app/assets/5f0a6419-492f-4860-8b3d-d8fe9e323961.png"
+      }
+    },
+    {
+      "title": "Congress Bills Tracking & Analysis",
+      "description": "Visualize legislative momentum by tracking US congressional bills relevant to markets, such as those related to taxation, stimulus, or regulation. Users can filter by topic, chamber, and progress, and assess potential market implications. The dashboard uses data from official government feeds and legislative APIs.",
+      "image": "https://openbb-cms.directus.app/assets/6ed6f0b5-e7fd-48dd-97c1-101ebce82966.png",
+      "imageAlt": "Congress Bills Tracking",
+      "github": {
+        "description": "This app is open source. You can run it yourself and integrate it into the OpenBB Workspace.",
+        "url": "https://github.com/andrewkenreich/congress"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "image": "https://openbb-cms.directus.app/assets/4b4c0252-edf2-46fc-8cb1-708a4edc3bc4.png"
+      }
+    }
+  ],
+  "economic-indicators-surveys": [
+    {
+      "title": "FRED Visualizer",
+      "description": "Interact with hundreds of macroeconomic indicators from the St. Louis Fed's FRED (Federal Reserve Economic Data) database, including inflation, labor, growth, and financial market signals. Users can customize timelines, overlays, and comparisons, making it easy to build narratives around economic cycles or regime changes.",
+      "image": "https://openbb-cms.directus.app/assets/c477fbbb-6a08-4697-97f8-67abc7d63696.png",
+      "imageAlt": "FRED Visualizer",
+      "github": {
+        "description": "This app is open source. You can run it yourself and integrate it into the OpenBB Workspace.",
+        "url": "https://github.com/OpenBB-finance/OpenBB"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "Real-time FRED economic indicators with customizable visualizations and historical data.",
+        "image": "https://openbb-cms.directus.app/assets/bf0b3826-139a-4c18-9848-9bda4a059dcc.png"
+      }
+    },
+    {
+      "title": "BLS Statistics & Surveys",
+      "description": "The Bureau of Labor Statistics (BLS) provides U.S. economic data on employment, unemployment, wages, and productivity. Key datasets include the Consumer Price Index (CPI) for inflation, Producer Price Index (PPI) for wholesale prices, and Employment Situation Report for job market trends. It tracks wages (CES, QCEW), job openings (JOLTS), productivity (BLS Productivity), and workplace injuries (SOll). Industry and regional data are also available. The dashboard supports slicing by region, category, or demographic - ideal for understanding consumer health, wage trends, and inflation pressures.",
+      "image": "https://openbb-cms.directus.app/assets/c8b71489-c7e9-49bf-b35f-cbe0ed3fb174.png",
+      "imageAlt": "BLS Statistics",
+      "github": {
+        "description": "This app is open source. You can run it yourself and integrate it into the OpenBB Workspace.",
+        "url": "https://github.com/OpenBB-finance/OpenBB"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "BLS (Bureau of Labor Statistics) provides authoritative data on employment, wages, inflation, productivity, and labor force demographics.",
+        "icon": "bar-chart",
+        "image": "https://openbb-cms.directus.app/assets/3ec2dd7a-6243-4785-b2db-e44ffe72876b.png"
+      }
+    },
+    {
+      "title": "GDP Forecast Trends & CPI Scenarios",
+      "description": "Track how institutional and official GDP and inflation forecasts have shifted over time. Scenario modeling allows users to test different policy outcomes and evaluate risk under alternative assumptions. This enables structured macro scenario planning and stress testing.",
+      "image": "https://openbb-cms.directus.app/assets/7b49c0e1-4d32-4af2-98a6-49259547580e.png",
+      "imageAlt": "GDP Forecast Trends & CPI Scenarios",
+      "quote": {
+        "text": "This dashboard has become an essential part of how we communicate complex macro trends. It helps make scenario planning and risk assessment intuitive and data-driven. Adding new or emerging macro trends is just a couple of clicks away\u2014not a full dev cycle or hours in Excel just to get a basic understanding.",
+        "author": "Caique",
+        "title": "Macro / Data Scientist"
+      }
+    }
+  ],
+  "derivatives-market-structure": [
+    {
+      "title": "Volatility Surface Model",
+      "description": "Visualize the full implied volatility surface across strikes and maturities for equity or index options. Traders can assess skew, smile patterns, and volatility dislocations to inform hedging strategies, volatility arbitrage, or event-driven trades. This model offers clarity into how markets are pricing risk across time horizons. Data sourced from CME.",
+      "image": "https://openbb-cms.directus.app/assets/58864c89-1f09-468d-a490-16b03c04e8e3.png",
+      "imageAlt": "Volatility Surface Model",
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "CME provides real-time and historical futures market data, including pricing, volume, open interest, and curve structures across asset classes.",
+        "image": "https://openbb-cms.directus.app/assets/5d0af8f0-21ec-40a9-8aee-d17455bb331b.png"
+      }
+    },
+    {
+      "title": "Futures Dashboard",
+      "description": "Monitor live and historical futures data across major markets, including curves, open interest, and volume analytics. The dashboard supports curve structure analysis (backwardation/contango), allowing for informed decisions in commodity, macro, and volatility strategies. Analysts can use it to detect speculative flows and hedging behavior.",
+      "image": "https://openbb-cms.directus.app/assets/3f737c7d-737a-49f9-8418-f3968c8112ac.png",
+      "imageAlt": "Futures Dashboard",
+      "quote": {
+        "text": "OpenBB proves that the future of financial analysis isn’t locked behind one-size-fits-all terminals. By integrating Databento’s real-time market data with their workspace, they’re showing what modern financial tools should look like.",
+        "author": "Christina Qi",
+        "title": "CEO",
+        "company": "Databento"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "Databento delivers low-latency, high-resolution market data across equities, options, futures, and more.",
+        "image": "https://openbb-cms.directus.app/assets/78af5120-913b-465b-b61a-5f0729d4d4e4.png"
+      }
+    },
+    {
+      "title": "DTCC Settlement & Currency Swap Data",
+      "description": "Explore DTCC transaction-level data with a focus on settlement activity and cross-currency swaps. By analyzing volumes, clearing trends, and counterparty behavior, users can surface early signals of stress, dislocations, or institutional demand shifts. This dashboard enhances macro surveillance and systemic risk analysis.",
+      "image": "https://openbb-cms.directus.app/assets/01950115-0e0c-44cd-ae9c-a225c689f3cc.png",
+      "imageAlt": "DTCC Settlement & Currency Swap Data",
+      "github": {
+        "description": "This app is open source. You can run it yourself and integrate it into the OpenBB Workspace.",
+        "url": "https://github.com/OpenBB-finance/OpenBB"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "DTCC provides post-trade data including settlement activity, trade volumes, and transaction-level insights.",
+        "image": "https://openbb-cms.directus.app/assets/fa63cc26-4b4c-448c-88a3-4e4197bcdef1.png"
+      }
+    },
+    {
+      "title": "Vector Strength Histogram",
+      "description": "VecViz analyzes historical price data to generate hundreds of support/resistance trajectories, scoring each based on alignment, frequency, and proximity to current price. The Vector Strength Histogram visualizes where future price levels are most statistically supported, helping users identify high-confidence zones and forecast potential price outcomes. Additional overlays include forward price percentiles, option value ranges, and model-derived risk metrics\u2014offering a complete, pattern-informed view of market expectations.",
+      "image": "https://openbb-cms.directus.app/assets/2a9f9f73-decb-4760-87cb-bb4b8bcabf4c.png",
+      "imageAlt": "Polymarket Prediction Dashboard",
+      "quote": {
+        "text": "OpenBB has a platform where proprietary models and data can be deployed safely but also in the context of OpenBB's apps, other externally sourced apps and an AI Copilot. In the OpenBB context the risk and opportunity insights a VecViz user can glean from spending time with the Vector Strength Histogram can be further refined and vetted with ease. OpenBB really takes the VecViz experience to the next level. It will accelerate investment idea generation.",
+        "author": "Rodger Coyne",
+        "title": "VecViz",
+        "company": "Founder"
+      },
+      "blog": {
+        "title": "Tour of some of the VecViz dashboards currently available for OpenBB, with use case examples that utilize OpenBB's Copilot to draw insights from VecViz widgets, both in isolation and in combination with complementary OpenBB widgets.",
+        "url": "https://www.youtube.com/watch?v=rBMG-Kx7aAg",
+        "label": "Demo",
+        "buttonText": "Watch now"
+      }
+    }
+  ],
+  "forecasting-sentiment-intelligence": [
+    {
+      "title": "SEC Filings Keyword Forecasting",
+      "description": "Use natural language processing to surface emerging themes, risks, and narratives from SEC filings over time - through DataMule package. Analysts can anticipate regulation, strategic shifts, or macro themes before they become consensus - by using Nixtla TimeGEN-1 to forecast consumer confidence or others.",
+      "image": "https://openbb-cms.directus.app/assets/dee4aa0d-f515-44ec-9130-349b365025a3.png",
+      "imageAlt": "SEC Filings Keyword Forecasting",
+      "github": {
+        "description": "This app is open source. You can run it yourself and integrate it into the OpenBB Workspace.",
+        "url": "https://github.com/DidierRLopes/openbb-datamule-indicators"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "SEC offers structured access to corporate filings - including 10-Ks, 10-Qs, 8-Ks, and proxy statements.",
+        "image": "https://openbb-cms.directus.app/assets/c288ee13-f3c0-4d90-96f2-65ef1cfd503d.png"
+      }
+    },
+    {
+      "title": "Polymarket Prediction Dashboard",
+      "description": "Leverage decentralized prediction market data from Polymarket to assess probabilities for key events like elections, interest rate decisions, or macroeconomic prints. Offers a crowd-sourced forecasting layer for scenario planning. It enriches research with market-based expectations outside traditional polling.",
+      "image": "https://openbb-cms.directus.app/assets/c7020a45-b3b2-48ac-bf65-85942924cca4.png",
+      "imageAlt": "Polymarket Prediction Dashboard",
+      "quote": {
+        "text": "Prediction markets reveal sentiment, but the alpha comes from cross-referencing it with traditional and crypto data. OpenBB Workspace lets me pull Polymarket feeds alongside equity and crypto signals. One dashboard, AI-powered analysis across all three data streams, improving my workflow significantly.",
+        "author": "Jose Donato",
+        "title": "Software Engineer",
+        "company": "OpenBB"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "Polymarket offers real-time, crowd-sourced probabilities on events like elections, economics, geopolitics, and tech trends.",
+        "image": "https://openbb-cms.directus.app/assets/0d942265-7c5f-48bb-b8cf-663c7d446157.png"
+      }
+    }
+  ],
+  "portfolio-analytics-reporting": [
+    {
+      "title": "Portfolio Performance & Exposure",
+      "description": "Track overall portfolio performance, returns by asset class, sector exposures, and risk metrics like drawdown or volatility. Portfolio managers and analysts can generate clear summaries for internal reviews or external stakeholder reporting. Ideal for institutions to utilize on top of their preferred broker.",
+      "image": "https://openbb-cms.directus.app/assets/b09fcd0e-cb8f-4071-91e5-d765b6e59c36.png",
+      "imageAlt": "Portfolio Performance & Exposure",
+      "github": {
+        "description": "This app is open source. You can run it yourself and integrate it into the OpenBB Workspace.",
+        "url": "https://github.com/OpenBB-finance/OpenBB"
+      },
+      "blog": {
+        "title": "Watch how OpenBB accelerates risk analysis and supports advanced, secure, and collaborative workflows.",
+        "url": "https://www.youtube.com/watch?v=77cDGi29a-c",
+        "image": "https://openbb-cms.directus.app/assets/0e89cc85-8d9b-49c1-ac9d-0a155bcee44b.png",
+        "label": "Demo",
+        "buttonText": "Watch now"
+      }
+    },
+    {
+      "title": "Institutional Ownership for ETFs",
+      "description": "Analyze institutional ETF holdings over time, identifying key allocators, turnover patterns, and concentration risk. This dashboard is useful for understanding fund flows, market sentiment, and exposure concentration at scale. It helps detect crowding risk or stealth accumulation.",
+      "image": "https://openbb-cms.directus.app/assets/fc497ac1-9e37-4985-b43e-ce16f1cb505d.png",
+      "imageAlt": "Institutional Ownership for ETFs",
+      "quote": {
+        "text": "Financial Datasets delivers real-time market data from financial exchanges and regulatory bodies like the SEC. OpenBB's clean and intuitive interface makes ingesting our data easy, providing you with critical insights to make informed investment decisions.",
+        "author": "Viratt",
+        "title": "Creator of AI Hedge Fund and Financial Datasets",
+        "company": "Financial Datasets"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "Financial Datasets aggregates and curates structured financial datasets - including macro indicators, cross-asset pricing, and alternative data.",
+        "image": "https://openbb-cms.directus.app/assets/96d97240-9a22-46c6-bbed-dae299db7627.png"
+      }
+    },
+    {
+      "title": "Performance Attribution",
+      "description": "Portfolio management and performance attribution suite for asset managers. Automate position imputation from transaction files with corporate action reconciliation. Evaluate holdings with weight, exposure, and market value calculations. Analyze performance through Brinson attribution methodology to isolate asset allocation and security selection effects. Compare returns, P&L, and risk metrics against benchmarks with AI-assisted insights from OpenBB Copilot.",
+      "image": "https://openbb-cms.directus.app/assets/6aa51e60-1026-4410-9801-1c7969545619.png",
+      "imageAlt": "Portfolio management and performance attribution suite for asset managers",
+      "blog": {
+        "title": "Open Portfolio on OpenBB: A suite for asset managers",
+        "url": "https://openbb.co/blog/open-portfolio-a-suite-for-asset-managers-on-openbb",
+        "label": "Blog",
+        "buttonText": "Read now"
+      },
+      "quote": {
+        "text": "Open Portfolio brings institutional-grade performance attribution to OpenBB. The Brinson methodology and Carino linking algorithms deliver the accuracy asset managers need, with the flexibility and transparency traditional vendors can't match.",
+        "author": "ALBERTO GALLINI",
+        "title": "ENGINEERING MANAGER AT PRIMA",
+        "company": "FORMER BLOOMBERG ENGINEER"
+      }
+    },
+    {
+      "title": "Real-Time Portfolio Analytics Grid",
+      "description": "A high-performance, interactive portfolio viewer designed for scale. This app supports real-time updates across over 10,000 positions and 200+ risk and P&L metrics, using an AG Grid in hierarchical (tree) and pivot modes. Portfolio managers can drill into nested exposures or dynamically slice and aggregate views by strategy, asset class, or region. Users can create and switch between custom layouts and tabs, enabling fast toggling between book-level overviews and detailed risk breakdowns - all in one flexible, responsive interface.",
+      "image": "https://openbb-cms.directus.app/assets/4daca549-4ca5-43b5-b9fb-f7587114b5bb.png",
+      "imageAlt": "Real-Time Portfolio Analytics Grid"
+    }
+  ],
+  "compliance-legal-operations-intelligence": [
+    {
+      "title": "Compliance Intelligence Dashboard",
+      "description": "OpenBB cuts through compliance overhead by making policy documents, audit reports, and vendor packets instantly queryable. Copilot retrieves exact evidence (page, line, context) on demand, turning multi-day review cycles into 1-2 hour sprints. No more digging. No more guesswork. Just direct answers from the source.",
+      "image": "https://openbb-cms.directus.app/assets/fa617ee8-81c8-4462-991b-925b7ee63eb4.png",
+      "imageAlt": "Compliance Intelligence Dashboard",
+      "quote": {
+        "text": "It\u2019s like having a compliance analyst who\u2019s read every page of every document and can instantly pull the exact paragraph or line that I need. I ask for MFA policies or BCP test results, and it hands me the source. That\u2019s force multiplication and operational leverage.",
+        "author": "Theodore Aptekarev",
+        "title": "CTO",
+        "company": "OpenBB"
+      },
+      "blog": {
+        "title": "See how we use the OpenBB Workspace and Copilot to automate our own security reviews and reclaim time for strategic work. Turning 250+ pages of SOC2 reports and vendor documentation into actionable summaries in minutes.",
+        "url": "https://openbb.co/blog/soc2-compliance-automation-with-openbb",
+        "label": "Blog"
+      }
+    },
+    {
+      "title": "Terms of Service Analysis",
+      "description": "Parse and track changes to vendor or counterparty terms of service. Legal and compliance teams can detect material changes to data rights, liability, or access terms at scale. It ensures visibility into shifting risk or exposure from third-party agreements.",
+      "image": "https://openbb-cms.directus.app/assets/63be0695-a3bd-426b-a235-48f398dff229.png",
+      "imageAlt": "Terms of Service Analysis"
+    },
+    {
+      "title": "Email Intelligence",
+      "description": "Connect directly to your inbox, enabling a tailored AI agent to parse, prioritize, and summarize emails across teams or departments. From vendor terms and audit notices to internal compliance requests, it surfaces the right context at the right time - automatically flagging risks, extracting action items, and reducing latency across operational workflows.",
+      "image": "https://openbb-cms.directus.app/assets/1c1cff14-d97e-47b1-9764-ef7e84444109.png",
+      "imageAlt": "Email Intelligence"
+    },
+    {
+      "title": "Product Analytics Dashboard",
+      "description": "Measure user activity, feature adoption, and engagement patterns across your product footprint. Ideal for product teams, customer success leads, or GTM teams prioritizing development and retention. It offers visibility into behavior trends and growth levers.",
+      "image": "https://openbb-cms.directus.app/assets/d73c74ff-47ea-4afb-8292-76030701b1d5.png",
+      "imageAlt": "Product Analytics Dashboard",
+      "quote": {
+        "text": "OpenBB Workspace is always opened on my laptop. At the same time, I was constantly checking our PostHog analytics to understand which users are signing up to the free tier, tracking conversion, usage patterns, etc. With an OpenBB app I have full control over the configuration of my app and the metrics that I care about.",
+        "author": "Didier Lopes",
+        "title": "Founder & CEO",
+        "company": "OpenBB"
+      }
+    }
+  ],
+  "equity-research-earnings-intelligence": [
+    {
+      "title": "Earnings Call Analysis",
+      "description": "Use generative AI to extract sentiment, recurring themes, and tone changes from earnings call transcripts across quarters or companies. Analysts can identify narrative shifts and sentiment inflections that often precede changes in guidance or market reaction. This enables a deeper understanding of management confidence and market signaling.",
+      "image": "https://openbb-cms.directus.app/assets/2804f657-6eff-45f9-af04-efeefb4e8e76.png",
+      "imageAlt": "Earnings Call Analysis",
+      "quote": {
+        "text": "The value of OpenBB boils down to control. You get to build your own workflow and decide how to tackle earnings, whether that\u2019s cranking through filings faster or extracting new edge from data no one else can connect. And since everything is contained inside your controlled infra, you don't have to worry about security, IP, or your prompts leaking.",
+        "author": "Ihsan Saracgil",
+        "title": "CPO",
+        "company": "OpenBB"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "Quartr provides access to earnings call audio, transcripts, investor presentations, and financial reports.",
+        "image": "https://openbb-cms.directus.app/assets/cb30decd-6e70-440e-8e82-d92c52cafcbd.png"
+      }
+    },
+    {
+      "title": "Sentiment Analysis for Earnings",
+      "description": "Quantify tone, conviction, and sentiment across earnings calls using proprietary models trained on financial language. This dashboard helps users link communication signals to post-earnings market reactions. It empowers analysts to detect subtle changes in messaging and confidence tone - through MarketsEQ feed.",
+      "image": "https://openbb-cms.directus.app/assets/4e3f4e46-87b2-4fd7-954d-96e4efbc793d.png",
+      "imageAlt": "Sentiment Analysis for Earnings",
+      "blog": {
+        "title": "Watch how analysts can use AI to instantly extract insights from 8-K filings, cross-reference estimates with performance data, and run advanced sentiment analysis across multiple sources.",
+        "url": "https://www.youtube.com/watch?v=6fjzzgMxt_Y",
+        "image": "https://openbb-cms.directus.app/assets/f1d00dd3-a32c-495d-b327-6e2206e01f47.png",
+        "label": "Webinar",
+        "buttonText": "Watch now"
+      },
+      "quote": {
+        "text": "Voice tone analysis is on the cutting edge of earnings call data. The ability to access this in an environment like OpenBB to extract every nuance behind the speaker is crucial in today's data driven world.",
+        "author": "Sean",
+        "title": "co-founder",
+        "company": "MarketsEQ"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "MarketSeq provides AI-parsed earnings transcripts, analyst insights, and filings for sentiment analysis, trend detection, and thematic tracking.",
+        "image": "https://openbb-cms.directus.app/assets/62606a46-6257-40b3-97c4-83edae52ecd9.png"
+      }
+    },
+    {
+      "title": "Equity Market Research Hub",
+      "description": "Access a centralized view of company financials, multiples, analyst estimates, and fundamental ratios. Whether for a single stock deep dive or cross-sector screening, this dashboard helps teams build scalable coverage without duplicating effort.",
+      "image": "https://openbb-cms.directus.app/assets/210907ee-5a51-475d-821c-434bf4b1ce22.png",
+      "imageAlt": "Equity Market Research Hub"
+    },
+    {
+      "title": "Comparison Tooling",
+      "description": "Compare public companies across any financial, operational, or valuation metric with intuitive visual tools. This dashboard enables rapid comp building and sector benchmarking to support investment decisions. It\u2019s built for fundamental screens and peer ranking.",
+      "image": "https://openbb-cms.directus.app/assets/446bd412-8147-47f8-ab1b-2af6632ee1b1.png",
+      "imageAlt": "Comparison Tooling"
+    },
+    {
+      "title": "Technical Analysis",
+      "description": "Visualize and interpret technical indicators, chart patterns, moving averages, and momentum metrics directly within interactive market charts. Traders and analysts can apply standard and custom studies to identify trend signals, support/resistance levels, or breakout setups.",
+      "image": "https://openbb-cms.directus.app/assets/e3f5983e-b007-42a7-bf4f-4a6a88474121.png",
+      "imageAlt": "Technical Analysis",
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "TradingView provides advanced charting tools and global market data for equities, forex, crypto, and indices, enabling interactive technical analysis.",
+        "image": "https://openbb-cms.directus.app/assets/e7b47e6c-6776-4cbe-b11c-fc182c686526.png"
+      }
+    }
+  ],
+  "crypto-digital-asset-intelligence": [
+    {
+      "title": "Crypto Research",
+      "description": "Conduct in-depth research on crypto assets by aggregating tokenomics, price trends, developer activity, and on-chain metrics from sources like CoinGecko, DeFiLlama, Velo Data and many others. This dashboard helps users understand risk profiles, adoption trends, and governance dynamics. It\u2019s especially valuable for identifying early-stage opportunities or monitoring protocol health.",
+      "image": "https://openbb-cms.directus.app/assets/f1fd99ac-a2a8-4586-8537-cb60a7c1decb.png",
+      "imageAlt": "Crypto Research",
+      "quote": {
+        "text": "OpenBB gives me sophisticated dashboarding and AI tools that make it easy for me to draw insights from the data we purchase as a firm.",
+        "author": "Matt Maximo,",
+        "title": "Investor in Digital Assets",
+        "company": "VanEck"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "DeFiLlama offers detailed DeFi data, including TVL, yields, chain metrics, and protocol analytics.",
+        "image": "https://openbb-cms.directus.app/assets/5eebc38f-c1b4-4395-b42c-6c1d7f4f9f14.png"
+      },
+      "github": {
+        "description": "This app is open source. You can run it yourself and integrate it into the OpenBB Workspace.",
+        "url": "https://github.com/MattMaximo/CryptoBB"
+      },
+      "blog": {
+        "title": "A step-by-step guide to building custom crypto applications with OpenBB.",
+        "url": "https://openbb.co/blog/a-step-by-step-guide-to-building-custom-crypto-applications-with-openbb",
+        "image": "https://openbb-cms.directus.app/assets/2940d198-fc44-4421-addd-c6475f1644ac.png"
+      }
+    },
+    {
+      "title": "Crypto Portfolio Allocation & Transactions",
+      "description": "Monitor wallet-based or exchange-connected crypto portfolios, including transaction history, realized/unrealized gains, and allocation breakdowns.",
+      "image": "https://openbb-cms.directus.app/assets/a720ac5e-aeaa-4aa7-9d7a-a049f4aff0d7.png",
+      "imageAlt": "Crypto Portfolio Allocation & Transactions",
+      "quote": {
+        "text": "OpenBB now supports Bittensor data analytics! This is an awesome demonstration of the extensibility and flexibility of OpenBB to provide rich investment research analytics across all asset classes",
+        "author": "JJ",
+        "title": "Founder and General Partner",
+        "company": "OSS Capital"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "Bittensor runs a decentralized ML network where miners and validators train models in subnets, earning TAO tokens based on output utility.",
+        "image": "https://openbb-cms.directus.app/assets/3d69e11a-6907-4433-80fe-3fa7559e2782.png"
+      }
+    },
+    {
+      "title": "Real-time Data Feeds",
+      "description": "Plug in real-time feeds to track asset prices, market depth, or synthetic indicators directly within the OpenBB Workspace. In this case, utilizing Pyth oracle for live data. Users can build streaming dashboards, live trading tools, or custom widgets based on up-to-the-second pricing. Even by incorporating iframe-able widgets from other applications, like TradingView.",
+      "image": "https://openbb-cms.directus.app/assets/cc6e2bcd-2b15-4f58-9d1e-e5349364ada4.png",
+      "imageAlt": "Real-time Data Feeds",
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "Pyth offers decentralized, low-latency price feeds for crypto, FX, and equities, sourced from institutional providers with on-chain transparency.",
+        "image": "https://openbb-cms.directus.app/assets/d2934d1c-2748-46bb-a035-b39ff0451010.png"
+      }
+    }
+  ],
+  "shipping-logistics-intelligence": [
+    {
+      "title": "Maritime Chokepoint Map",
+      "description": "Interact with a real-time map of global maritime chokepoints such as the Suez Canal and Strait of Hormuz. Integrates trade flow and geopolitical risk data to support scenario analysis and regional risk modeling. Ideal for forecasting supply chain disruptions and energy market shocks.",
+      "image": "https://openbb-cms.directus.app/assets/87e10447-ca30-4763-8d0d-c797786563f7.png",
+      "imageAlt": "Maritime Chokepoint Map",
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "PortWatch is an open platform designed to monitor and simulate disruptions to maritime trade flows. The platform helps policymakers and the public assess the impact of realized and future trade shocks based on real-time data sourced from the UNGP.",
+        "image": "https://openbb-cms.directus.app/assets/ee1d45fd-ed32-47c9-b6d4-359929bef8b8.png"
+      }
+    },
+    {
+      "title": "Shipping & Bunkers Pricing",
+      "description": "Track shipping fuel prices, freight indices, and route-specific congestion data to anticipate cost pressures and logistics trends. This dashboard is useful for macro traders, industrial analysts, or commodity desks. It helps incorporate transport friction into inflation or margin models.",
+      "image": "https://openbb-cms.directus.app/assets/4878cecc-3d79-4dca-8cf6-b5d865dcfee5.png",
+      "imageAlt": "Shipping & Bunkers Pricing",
+      "quote": {
+        "text": "We always had the data - bunker futures, shipping timelines, client contracts - but connecting it all in real time was the missing link. With OpenBB and an AI agent watching my inbox, I'm no longer reacting to volatility - I'm working with it.",
+        "author": "Anatoly",
+        "title": "Head of Bunker Procurement and Derivatives",
+        "company": "Pangaea Logistics Solutions"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "ICE delivers real-time and historical market data across global asset classes - including equities, commodities, fixed income, and derivatives.",
+        "image": "https://openbb-cms.directus.app/assets/6ca23cc7-e02f-4a11-b592-53eb430e41ef.png"
+      }
+    }
+  ],
+  "alternative-data": [
+    {
+      "title": "Crime Dashboard",
+      "description": "Visualize trends in financial crime and illicit finance activity, combining public datasets with geographic filters and time-series views. Supports compliance, investigative journalism, and research into market abuse patterns. It offers a novel angle on reputational and regional risk. Data from Snowflake.",
+      "image": "https://openbb-cms.directus.app/assets/f4bc32b2-bbb9-4857-af22-21d838c096cd.png",
+      "imageAlt": "Crime Dashboard",
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "Snowflake provides a scalable cloud data platform that enables secure access to financial, alternative, and proprietary datasets",
+        "image": "https://openbb-cms.directus.app/assets/db7e1ac4-db81-4e37-84b9-dd71dea4ef08.png"
+      }
+    },
+    {
+      "title": "IMDB Box Office Prediction",
+      "description": "Forecast weekend or opening week box office results using a combination of historical movie performance, genre trends, pre-release marketing, and IMDB user behavior. This dashboard enables traders, studios, or media analysts to assess entertainment sector momentum and sentiment. It brings structured predictive modeling to cultural and consumer-driven datasets.",
+      "image": "https://openbb-cms.directus.app/assets/415186e6-74fd-4ca4-8444-748391ad4841.png",
+      "imageAlt": "IMDB Box Office Prediction",
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "IMDb provides structured entertainment metadata including movie titles, genres, cast, release dates, user ratings, and basic box office figures.",
+        "image": "https://openbb-cms.directus.app/assets/79ef6967-582d-4aaf-9c9a-e82be2ccc098.png"
+      }
+    },
+    {
+      "title": "Real Estate Explorer",
+      "description": "Upload semi-structured or unstructured Excel files and automatically convert them into structured dashboards for rent, valuation, or cap rate analysis. It bridges the gap between fragmented data and institutional insight.",
+      "image": "https://openbb-cms.directus.app/assets/e8409a2f-02ff-4ed3-9220-36528880eeb2.png",
+      "imageAlt": "Real Estate Explorer",
+      "quote": {
+        "text": "This dashboard has become an essential part of how we communicate complex macro trends. It helps make scenario planning and risk assessment intuitive and data-driven. Adding new or emerging macro trends is just a couple of clicks away\u2014not a full dev cycle or hours in Excel just to get a basic understanding.",
+        "author": "Caique",
+        "title": "Macro / Data Scientist"
+      },
+      "blog": {
+        "title": "After years of working with Streamlit, Ca\u00edque Cober draws on his experience rebuilding a macro research dashboard with OpenBB, exploring how the shift from Excel and Streamlit to modular, AI-ready frameworks like OpenBB + FastAPI gave him more control and flexibility.",
+        "url": "https://openbb.co/blog/from-excel-to-agents-rebuilding-the-macro-research-workflow-for-the-ai-era",
+        "image": "https://openbb-cms.directus.app/assets/f917d42e-7b60-4acf-88ba-9d51e589da7b.png",
+        "label": "Blog"
+      }
+    },
+    {
+      "title": "Consumer Spend Signals",
+      "description": "Analyze portfolio names through Carbon Arc’s credit-card transaction data 0 directly in OpenBB. Ask Copilot to compare tickers (e.g., LOW vs HD) and get an executive summary of the last two quarters, trend direction, and plain-English takeaways on relative strength and risk. Turn consumer-spend data into decisions - without leaving your workspace.",
+      "image": "https://openbb-cms.directus.app/assets/28c4d8de-9366-4a5f-b79e-4e116086aec5.png",
+      "imageAlt": "Technical Analysis",
+      "dataHighlight": {
+        "image": "https://openbb-cms.directus.app/assets/43565fb2-a95f-481f-b603-eff3cfda560f.png"
+      }
+    }
+  ],
+  "sports": [
+    {
+      "title": "MLB Player Analytics",
+      "description": "Analyze baseball player performance using advanced stats like WAR, OBP, and slugging percentage, with tools for trend detection and peer comparison. Sports funds and bettors can identify market inefficiencies or performance breakout candidates. The dashboard enables data-driven decisions in sports trading and modeling.",
+      "image": "https://openbb-cms.directus.app/assets/a15b5668-eb62-4800-aeb8-fa291c8884a8.png",
+      "imageAlt": "MLB Player Analytics"
+    },
+    {
+      "title": "Golf Skills Dashboard",
+      "description": "Evaluate professional golfers based on strokes gained, short game accuracy, and approach metrics. Tailored for use in modeling, fantasy sports, or sponsorship evaluation. This tool brings precision to talent scouting and predictive modeling.",
+      "image": "https://openbb-cms.directus.app/assets/2d34c68b-4716-451b-8190-d3e13cfe239d.png",
+      "imageAlt": "Golf Skills Dashboard",
+      "quote": {
+        "text": "Using OpenBB Workspace I created a powerful Agent to work alongside my Golf Data App for Daily Fantasy Sports betting. It's allowed me to get deeper insights into players and craft better lineups. It's been a game changer to 10x my old workflow.",
+        "author": "Andrew",
+        "title": "Head of Product Engineering",
+        "company": "OpenBB"
+      },
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "description": "DataGolf offers structured, high-resolution golf analytics, including strokes gained metrics, player performance splits, course fit modeling, and event simulations",
+        "image": "https://openbb-cms.directus.app/assets/74587d73-d01b-45a6-862d-6fe0effaa0ad.png"
+      }
+    }
+  ],
+  "market-communication-content-creation": [
+    {
+      "title": "Market Snapshot for Newsletter",
+      "description": "Generate ready-to-share daily or weekly market overviews across major asset classes, including equities, commodities, currencies, and crypto. This app offers a sharp pre-market rundown. Review top stock moves each morning, drawn by Phil Rosen, for immediate, actionable context before U.S. markets open.",
+      "image": "https://openbb-cms.directus.app/assets/8281aed5-a55f-435c-bef0-9b9ed37ad662.png",
+      "imageAlt": "Market Snapshot for Newsletter",
+      "quote": {
+        "text": "OpenBB is the best data tool I use to build a trusted financial newsletter, more than Bloomberg, FactSet, or other providers. The founding team is fast, responsive, and innovative with AI integrations, and they\u2019ve built multiple custom solutions tailored to my team\u2019s needs. OpenBB\u2019s widgets and ease-of-use save me 10+ hours a week while providing more insights, not less.",
+        "author": "Phil Rosen",
+        "title": "Co-founder, Editor-in-Chief",
+        "company": "Opening Bell Daily"
+      },
+      "blog": {
+        "title": "OpenBB has become the backbone of my financial reporting and research.",
+        "url": "https://www.philrosen.blog/p/bloomberg-terminal-financial-reporting-openbb-journalism-media-finance-wall-street",
+        "image": "https://openbb-cms.directus.app/assets/4fd56683-a6a6-483c-aa12-0243c7bb2ec5.png"
+      }
+    },
+    {
+      "title": "Draft Investor Letter Dashboard",
+      "description": "Automate the creation of investor communications by pulling live portfolio data, performance charts, and commentary into structured formats. This helps investment teams maintain transparency and save time on reporting. It reduces manual effort while ensuring data integrity and design consistency.",
+      "image": "https://openbb-cms.directus.app/assets/a97f770b-63bf-4de4-a63e-095f802d65c7.png",
+      "imageAlt": "Draft Investor Letter Dashboard",
+      "blog": {
+        "title": "Learn how an AI agent can transform your fund's performance, macro data, news about your holding companies, and more into a draft investor letter that sounds just like your team wrote it.",
+        "url": "https://openbb.co/blog/openbb-enables-streamlined-client-advisory-ai-workflow",
+        "label": "Blog"
+      }
+    },
+    {
+      "title": "Sell-Side Reports Consumption",
+      "description": "Dive into the insights within individual sell-side research reports using AI-powered agents that can summarize, contextualize, and brainstorm implications directly from unstructured content. Users can upload any report and immediately begin asking questions, generating comparative analysis, or extracting actionable insights with minimal manual work. This transforms how research teams consume, interpret, and collaborate around institutional intelligence.",
+      "image": "https://openbb-cms.directus.app/assets/9427fb70-454d-44e3-a318-260cec03fc33.png",
+      "imageAlt": "Sell-Side Reports Consumption"
+    }
+  ],
+  "snowflake": [
+    {
+      "title": "Employment Data Monitor",
+      "description": "OpenBB powered by Snowflake Public Data can power investor-ready monitoring of key U.S. labor market releases. This demo highlights an Employment Data Monitor built on Bureau of Labor Statistics series, tracking headline payrolls, unemployment, labor force participation, wages, and earnings. These releases are closely watched by markets and policymakers, and the app packages them into a clear set of tables and charts that update as new data arrives. Beyond the headline prints, OpenBB makes it easy to extend the raw releases into custom analytics. In this walkthrough, we compute derived measures like real versus nominal earnings using your choice of inflation adjustment, and we drill down from national totals to state and industry breakdowns using SQL and Python.",
+      "image": "https://openbb-cms.directus.app/assets/b871d268-046a-4cbf-9f1b-33374b2becac",
+      "imageAlt": "Employment Data Monitor snapshot",
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "image": "https://openbb-cms.directus.app/assets/db7e1ac4-db81-4e37-84b9-dd71dea4ef08.png"
+      },
+      "blog": {
+        "title": "Watch how OpenBB powered by Snowflake Public Data enables investor-ready monitoring of key U.S. labor market releases.",
+        "url": "https://youtu.be/ssSSW4IJyoA?si=OV9sn7bHpTUG-t64",
+        "label": "Demo",
+        "buttonText": "Watch now"
+      }
+    },
+    {
+      "title": "Inflation Data Monitor",
+      "description": "OpenBB powered by Snowflake Public Data can drive production-ready monitoring of U.S. inflation releases. This demo highlights an Inflation Data Monitor built on CPI data from the Bureau of Labor Statistics and PCE data from the Bureau of Economic Analysis, tracking headline and core readings, the CPI-PCE spread, and forward-looking inflation expectations from the University of Michigan consumer survey. These releases move markets and shape policy decisions, and the app packages them into a coherent set of tables and charts that update as new data arrives. Beyond the headline prints, OpenBB makes it straightforward to replicate official calculations directly in Snowflake.",
+      "image": "https://openbb-cms.directus.app/assets/2ee7de4b-4368-43dc-bd87-5689f89441bc",
+      "imageAlt": "Inflation Data Monitor snapshot",
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "image": "https://openbb-cms.directus.app/assets/db7e1ac4-db81-4e37-84b9-dd71dea4ef08.png"
+      },
+      "blog": {
+        "title": "Watch how OpenBB powered by Snowflake Public Data enables production-ready monitoring of U.S. inflation releases.",
+        "url": "https://youtu.be/LZ_NTDg8FUk?si=zhzy_ygxA_5zPMQf",
+        "label": "Demo",
+        "buttonText": "Watch now"
+      }
+    },
+    {
+      "title": "GDP Growth Rates Monitor",
+      "description": "This demo walks through a GDP Growth Rates Monitor built on BEA NIPA data using Snowflake public data. The app tracks the Q4 2025 Advance Estimate, breaks down the full expenditure components driving the headline number, and surfaces the divergences that aggregate growth rates tend to obscure.",
+      "image": "https://openbb-cms.directus.app/assets/c0320e19-e0e5-4028-a464-e2cc37531aec",
+      "imageAlt": "GDP Growth Rates Monitor snapshot",
+      "dataHighlight": {
+        "title": "Data Highlight",
+        "image": "https://openbb-cms.directus.app/assets/db7e1ac4-db81-4e37-84b9-dd71dea4ef08.png"
+      },
+      "blog": {
+        "title": "Watch how OpenBB powered by Snowflake Public Data enables monitoring of GDP Growth Rates.",
+        "url": "https://youtu.be/sCa6gSCajLc?si=xUxP8_f2Sk2X6b-N",
+        "label": "Demo",
+        "buttonText": "Watch now"
+      }
+    }
+  ]
+}

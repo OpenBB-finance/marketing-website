@@ -1,0 +1,60 @@
+---
+interface Props {
+  image: string;
+  headline: string;
+  quote: string;
+  author: string;
+  company: string;
+  sectionTitle?: string;
+}
+
+const { image, headline, quote, author, company, sectionTitle } = Astro.props;
+---
+
+<section class="py-10 lg:py-20">
+  <div class="page-container">
+    <div class="mx-auto">
+      {sectionTitle && (
+        <h2 class="text-dark-600 text-title-s-regular md:text-title-xl-regular mb-10 md:mb-20 text-center md:text-left">
+          {sectionTitle}
+        </h2>
+      )}
+      <div class="bg-white border border-grey-300 shadow-light-1 overflow-hidden rounded-lg md:rounded-2xl">
+        <!-- Mobile -->
+        <div class="flex flex-col md:hidden">
+          <div class="w-full h-[248px]">
+            <img src={image} alt={company} class="w-full h-full object-cover" width="375" height="248" loading="lazy" />
+          </div>
+          <div class="px-5 py-5 flex flex-col gap-5">
+            <p class="text-dark-400 body-md-bold">
+              "{quote}"
+            </p>
+            <div>
+              <p class="text-dark-50 body-xs-bold">{author}</p>
+              <p class="text-grey-500 body-xs-regular">{company}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop -->
+        <div class="hidden md:flex">
+          <div class="w-1/3 min-h-full">
+            <img src={image} alt={company} class="w-full h-full object-cover block" width="400" height="300" loading="lazy" />
+          </div>
+          <div class="w-2/3 px-8 py-10 flex flex-col justify-center">
+            <h3 class="text-dark-600 text-title-s-bold mb-6">
+              "{headline}"
+            </h3>
+            <p class="text-dark-400 body-md-regular mb-6">
+              {quote}
+            </p>
+            <div>
+              <p class="text-dark-50 body-xs-bold">{author}</p>
+              <p class="text-grey-500 body-xs-regular">{company}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

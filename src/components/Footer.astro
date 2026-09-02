@@ -1,0 +1,222 @@
+---
+import { footerNav } from "../data/nav";
+import SvgIcon from "./SvgIcon.astro";
+
+const socials = [
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/company/openbb-finance",
+    icon: `<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>`,
+  },
+  {
+    name: "X",
+    url: "https://x.com/openbb_finance",
+    icon: `<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>`,
+  },
+  {
+    name: "GitHub",
+    url: "https://github.com/OpenBB-finance/OpenBBTerminal",
+    icon: `<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>`,
+  },
+  {
+    name: "Discord",
+    url: "https://discord.gg/xPHTuHCmuV",
+    icon: `<path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>`,
+  },
+  {
+    name: "YouTube",
+    url: "https://www.youtube.com/channel/UCaeFEx-W16IuxRsHlM1ywBQ",
+    icon: `<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>`,
+  },
+];
+
+const copyrightLinks = [
+  { label: "Privacy Policy", url: "/legal/privacy-policy" },
+  { label: "Terms", url: "/legal/terms-of-service" },
+  { label: "Trust Center", url: "https://trust.openbb.co/", external: true },
+  { label: "OSS Friends", url: "/oss-friends" },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-dark-800 text-white">
+  <div
+    class="page-container flex flex-col items-center gap-8 lg:gap-14 pt-12 lg:pt-16"
+  >
+    <div class="flex w-full flex-col gap-10 lg:flex-row lg:justify-between">
+      <div class="space-y-6">
+        <a
+          href="/"
+          aria-label="Home"
+          class="inline-block text-white hover:text-grey-50 transition-colors"
+        >
+          <svg
+            viewBox="0 0 126 34"
+            width="126"
+            height="34"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-labelledby="openbb-logo-footer"
+          >
+            <title id="openbb-logo-footer">OpenBB</title>
+            <g fill="currentColor">
+              <path
+                d="M60.707 1.416h-9.285v4.25h9.285v1.42h-7.854v4.25h9.283V1.423h-1.428l-.001-.007Zm0 7.793v.707H54.28V8.5h6.427v.709Zm0-5.668v.71h-7.854V2.831h7.855l-.001.71ZM69.99 11.333h2.852V7.087H64.99V5.671h9.285V1.42H63.562v9.913h6.428Zm-5-7.791v-.709h7.852V4.25H64.99v-.709Zm2.858 6.375H64.99V8.5h6.438v1.417h-3.58ZM63.563 0h-1.428v1.416h1.428V0ZM78.519 22.72v8.459l-.712-.704-.71-.706-.71-.704-.71-.706-.712-.704-.712-.705-.71-.704-.71-.706-.71-.706-.712-.704-.71-.704-.711-.705h-1.422V33.998h1.422V24.834l.711.706.71.706.711.704.71.705.712.704.71.706.71.704.712.706.71.704.712.705.71.706.71.704.71.704h.712V22.721H78.52ZM101.402 26.95h-1.421v-4.23h-8.528V34h11.374v-7.057h-1.422l-.003.007Zm-8.528-.71v-2.11h5.685v2.82h-5.685v-.71Zm8.528 2.82v3.528h-8.528v-4.227h8.528v.699ZM124.986 26.95h-2.131v-4.23h-8.529V34h11.37v-7.057l-.71.007Zm-9.239-.71v-2.11h5.687v2.82h-5.687v-.71Zm8.53 2.82v3.528h-8.53v-4.227h8.53v.699ZM55.732 22.72H45.78v11.278H57.15V32.59H47.204v-2.821H55.728v-1.41h-8.524V24.13H57.15V22.721h-1.418ZM9.95 22.72H.003V34h11.372V22.72H9.95Zm0 2.116v7.754H1.423v-8.46H9.95v.706ZM32.855 22.721h-9.949v11.28h1.422V29.77h9.948v-7.057h-1.421v.008Zm0 2.116v3.528h-8.527v-4.234h8.527v.706Z"
+              ></path>
+            </g>
+          </svg>
+        </a>
+        <!-- <div>
+          <div class="body-sm-bold mb-2">Stay up to date</div>
+          <a href="/newsletter" class="text-dark-50 body-sm-regular hover:text-white transition-colors inline-flex items-center gap-1">
+            Subscribe to newsletter
+            <SvgIcon name="chevron-right" class="w-4 h-4" />
+          </a>
+        </div> -->
+      </div>
+
+      <div class="lg:hidden space-y-4" data-footer-mobile-nav>
+        {
+          footerNav.map((group) => (
+            <div data-footer-accordion>
+              <button
+                type="button"
+                class="group flex w-full items-center justify-between py-2 body-sm-bold cursor-pointer"
+                data-footer-accordion-trigger
+              >
+                {group.label}
+                <svg
+                  class="w-5 h-5 transition-transform duration-200"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+              <div class="hidden pt-1" data-footer-accordion-content>
+                <div class="flex flex-col space-y-2">
+                  {group.links.map((link) => (
+                    <a
+                      href={link.href}
+                      class="block py-1 text-dark-50 body-sm-regular transition-colors hover:text-white"
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                    >
+                      {link.label}
+                      {link.external && (
+                        <SvgIcon
+                          name="external-nav"
+                          class="ml-2 inline-block w-3 h-3"
+                        />
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="hidden lg:flex gap-16 xl:gap-20">
+        {
+          footerNav.map((group) => (
+            <div class="flex flex-col gap-4 body-md-regular">
+              <div class="body-md-bold uppercase tracking-[0.1em]">{group.label}</div>
+              {group.links.map((link) => (
+                <>
+                  {link.divider && <hr class="border-dark-400" />}
+                  <a
+                    href={link.href}
+                    class="text-dark-50 transition-colors hover:text-white flex items-center"
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                  >
+                    {link.label}
+                    {link.external && (
+                      <SvgIcon name="external-nav" class="ml-2 w-3 h-3" />
+                    )}
+                  </a>
+                </>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="w-full">
+      <hr class="border-dark-600" />
+      <div
+        class="mt-4 flex flex-col items-center gap-6 text-dark-50 body-xs-regular lg:mt-10 lg:flex-row lg:justify-between pb-8 lg:pb-14"
+      >
+        <div class="flex-shrink-0">
+          <span
+            >{
+              `Copyright \u00A9 ${currentYear} OpenBB Inc. All rights reserved.`
+            }</span
+          >
+        </div>
+        <div class="flex flex-wrap justify-center items-center gap-x-4 gap-y-2">
+          {
+            copyrightLinks.map((link, i) => (
+              <>
+                {i > 0 && <span class="h-4 border-l border-dark-400" />}
+                <a
+                  href={link.url}
+                  class="hover:text-white transition-colors"
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                >
+                  {link.label}
+                </a>
+              </>
+            ))
+          }
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+          {
+            socials.map((social) => (
+              <a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+                class="w-8 h-8 flex items-center justify-center bg-white rounded-sm text-dark-800 hover:bg-grey-100 transition-colors"
+              >
+                <svg
+                  class="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  set:html={social.icon}
+                />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll("[data-footer-accordion]").forEach((acc) => {
+      const trigger = acc.querySelector(
+        "[data-footer-accordion-trigger]",
+      ) as HTMLElement;
+      const content = acc.querySelector(
+        "[data-footer-accordion-content]",
+      ) as HTMLElement;
+      trigger?.addEventListener("click", () => {
+        content.classList.toggle("hidden");
+        trigger.querySelector("svg")?.classList.toggle("rotate-180");
+      });
+    });
+  });
+</script>

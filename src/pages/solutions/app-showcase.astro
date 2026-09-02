@@ -1,0 +1,992 @@
+---
+import AppModal from "../../components/AppModal.astro";
+import CtaLight from "../../components/CtaLight.astro";
+import HeroSimple from "../../components/HeroSimple.astro";
+import SvgIcon from "../../components/SvgIcon.astro";
+import exampleAppsData from "../../content/example-apps.json";
+import Layout from "../../layouts/Layout.astro";
+
+interface Category {
+  id: string;
+  title: string;
+  slug: string;
+}
+
+const categories: Category[] = [
+  { id: "snowflake", title: "Snowflake Native App", slug: "snowflake" },
+  {
+    id: "monetary-central-bank-policy",
+    title: "Monetary & Central Bank Policy",
+    slug: "monetary-central-bank-policy",
+  },
+  {
+    id: "economic-indicators-surveys",
+    title: "Economic Indicators & Surveys",
+    slug: "economic-indicators-surveys",
+  },
+  {
+    id: "derivatives-market-structure",
+    title: "Derivatives & Market Structure",
+    slug: "derivatives-market-structure",
+  },
+  {
+    id: "portfolio-analytics-reporting",
+    title: "Portfolio Analytics & Reporting",
+    slug: "portfolio-analytics-reporting",
+  },
+  {
+    id: "equity-research-earnings-intelligence",
+    title: "Equity Research & Earnings Intelligence",
+    slug: "equity-research-earnings-intelligence",
+  },
+  {
+    id: "alternative-data",
+    title: "Alternative Data",
+    slug: "alternative-data",
+  },
+  {
+    id: "crypto-digital-asset-intelligence",
+    title: "Crypto & Digital Asset Intelligence",
+    slug: "crypto-digital-asset-intelligence",
+  },
+  {
+    id: "shipping-logistics-intelligence",
+    title: "Shipping & Logistics Intelligence",
+    slug: "shipping-logistics-intelligence",
+  },
+  { id: "sports", title: "Sports Analytics", slug: "sports" },
+  {
+    id: "compliance-legal-operations-intelligence",
+    title: "Compliance, Legal & Operations Intelligence",
+    slug: "compliance-legal-operations-intelligence",
+  },
+  {
+    id: "forecasting-sentiment-intelligence",
+    title: "Forecasting & Sentiment Intelligence",
+    slug: "forecasting-sentiment-intelligence",
+  },
+  {
+    id: "market-communication-content-creation",
+    title: "Market Communication & Content Creation",
+    slug: "market-communication-content-creation",
+  },
+];
+
+function isDemoEntry(entry: any): boolean {
+  const url = (entry?.url || "").toLowerCase();
+  const label = (entry?.label || "").toLowerCase();
+  return (
+    url.includes("youtube.com") ||
+    url.includes("youtu.be") ||
+    label.includes("demo") ||
+    label.includes("webinar")
+  );
+}
+
+function appHasDemo(app: any): boolean {
+  if (app?.blog) {
+    const blogs = Array.isArray(app.blog) ? app.blog : [app.blog];
+    if (blogs.some(isDemoEntry)) return true;
+  }
+  if (app?.blog2 && isDemoEntry(app.blog2)) return true;
+  return false;
+}
+
+const typedData = exampleAppsData as Record<string, any[]>;
+
+const allApps = categories.flatMap((cat) => {
+  const apps = typedData[cat.slug];
+  if (!apps || !Array.isArray(apps)) return [];
+  return apps.map((app: any) => ({
+    ...app,
+    category: cat.title,
+    categorySlug: cat.slug,
+  }));
+});
+---
+
+<Layout
+  title="App Showcase | OpenBB"
+  description="Build custom financial applications with OpenBB's scalable infrastructure. From portfolio risk analysis to economic indicators, create enterprise-ready apps that transform fragmented data and AI tools into cohesive workflows."
+  keywords="financial apps, portfolio risk, economic indicators, market data, AI workflows, enterprise applications, data integration, custom solutions"
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroSimple
+      label="app showcase"
+      title={"See what firms\nare building"}
+      description="These apps were built by our team and the firms using OpenBB. Use them as a starting point or inspiration to build something entirely your own."
+      buttonText="Start building"
+    />
+
+    <!-- Mobile Navigation Toggle -->
+    <div
+      class="lg:hidden sticky top-0 z-40 bg-grey-50 border-b border-grey-200"
+      data-mobile-cat-nav
+    >
+      <div class="px-4 sm:px-6">
+        <div class="py-4">
+          <p
+            class="text-grey-500 body-sm-regular mb-4 pb-4 border-b border-grey-300"
+          >
+            Categories
+          </p>
+          <button
+            type="button"
+            data-mobile-cat-toggle
+            class="flex items-center justify-between w-full text-left"
+          >
+            <span data-mobile-cat-label class="text-dark-600 body-md-bold">
+              {categories[0].title}
+            </span>
+            <svg
+              class="w-5 h-5 text-dark-600 transition-transform duration-200 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              data-mobile-chevron
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div
+          data-mobile-cat-dropdown
+          class="hidden border-t border-grey-200 bg-grey-50"
+        >
+          <nav class="py-2 max-h-64 overflow-y-auto">
+            {
+              categories.map((cat) => (
+                <button
+                  type="button"
+                  data-mobile-cat-btn={cat.id}
+                  class="w-full text-left px-4 py-3 transition-colors duration-200 body-md-regular text-dark-600 hover:text-light-blue-600"
+                >
+                  {cat.title}
+                </button>
+              ))
+            }
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <section>
+      <div class="flex max-w-[1440px] mx-auto pr-5 lg:pr-[80px]">
+        <!-- Desktop Sidebar -->
+        <aside class="hidden lg:block w-[360px] flex-shrink-0">
+          <div class="pt-[78px] pl-8 pr-8" data-sidebar-sticky>
+            <h3
+              class="text-grey-400 border-b border-grey-200 body-sm-regular mb-4 pb-2"
+            >
+              Categories
+            </h3>
+            <nav class="flex flex-col pb-8">
+              {
+                categories.map((cat) => (
+                  <button
+                    type="button"
+                    data-sidebar-btn={cat.id}
+                    class="w-full text-left py-2 transition-colors duration-200 body-sm-regular text-dark-600 hover:text-grey-300 cursor-pointer"
+                  >
+                    {cat.title}
+                  </button>
+                ))
+              }
+            </nav>
+          </div>
+        </aside>
+
+        <!-- Content Area -->
+        <div class="flex-1 min-w-0 py-10 md:py-16 lg:pl-10 pl-5">
+          <!-- Search -->
+          <div class="mb-8 lg:mb-10 relative">
+            <svg
+              class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-grey-400 pointer-events-none"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input
+              data-search-input
+              type="text"
+              placeholder="Search"
+              class="w-full bg-white border border-grey-200 text-dark-600 placeholder-grey-400 rounded-[4px] pl-9 pr-9 py-2 body-md-regular outline-none focus:border-light-blue-600 transition-colors"
+            />
+            <button
+              type="button"
+              data-search-clear
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-grey-400 hover:text-dark-600 hidden"
+              aria-label="Clear search"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- No Results -->
+          <div data-no-results class="hidden text-center py-12">
+            <h3 class="text-dark-400 text-title-xs-bold mb-2">No apps found</h3>
+            <p class="text-grey-600 body-sm-regular">
+              Try adjusting your search terms
+            </p>
+          </div>
+
+          <!-- Category Sections -->
+          {
+            categories.map((cat) => {
+              const apps = typedData[cat.slug];
+              if (!apps || !Array.isArray(apps) || apps.length === 0)
+                return null;
+
+              return (
+                <div data-category-section={cat.slug} class="mb-16 lg:mb-20">
+                  <h2 class="text-dark-600 body-xl-bold pb-4 border-b border-grey-200 mb-0">
+                    {cat.title}
+                  </h2>
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                    data-app-grid
+                  >
+                    {apps.map((app: any, i: number) => {
+                      const globalIndex = allApps.findIndex(
+                        (a: any) =>
+                          a.title === app.title && a.categorySlug === cat.slug,
+                      );
+                      const hasGithub = !!app.github;
+                      const hasDemo = appHasDemo(app);
+
+                      return (
+                        <button
+                          type="button"
+                          data-app-card
+                          data-app-category={cat.slug}
+                          data-app-index={globalIndex}
+                          data-app-title={app.title.toLowerCase()}
+                          data-app-desc={app.description?.toLowerCase() || ""}
+                          class="cursor-pointer group text-left border-b border-grey-200 app-card"
+                        >
+                          <div class="px-3 pt-5 pb-0">
+                            <div class="aspect-[16/10] bg-grey-50 rounded-md flex items-center justify-center p-3 overflow-hidden transition-transform duration-300 ease-out group-hover:scale-[1.02]">
+                              <img
+                                src={app.image}
+                                alt={app.imageAlt || app.title}
+                                class="w-full h-full object-contain app-img-loading"
+                                loading="lazy"
+                                decoding="async"
+                                onload="this.classList.add('app-img-loaded')"
+                              />
+                            </div>
+                          </div>
+                          <div class="px-3 pt-5 pb-5 flex items-start justify-between gap-3">
+                            <h3 class="text-dark-600 body-md-bold leading-[1.3] min-w-0 flex-1">
+                              {app.title}
+                            </h3>
+                            {(hasGithub || hasDemo) && (
+                              <div class="flex items-center gap-2 shrink-0 pt-[2px]">
+                                {hasGithub && (
+                                  <svg
+                                    class="w-5 h-5 text-dark-600"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M12.008 2C6.474 2 2 6.507 2 12.083c0 4.457 2.867 8.23 6.843 9.565.498.1.68-.217.68-.484 0-.234-.017-1.035-.017-1.87-2.784.601-3.364-1.202-3.364-1.202-.447-1.168-1.11-1.469-1.11-1.469-.911-.617.067-.617.067-.617 1.01.066 1.54 1.035 1.54 1.035.895 1.535 2.337 1.102 2.917.834.083-.651.348-1.102.63-1.352-2.22-.234-4.557-1.102-4.557-4.975 0-1.101.397-2.003 1.027-2.704-.1-.25-.447-1.285.1-2.67 0 0 .845-.268 2.75 1.034a9.622 9.622 0 0 1 2.502-.334c.845 0 1.707.117 2.502.334 1.906-1.302 2.75-1.035 2.75-1.035.548 1.386.2 2.42.1 2.671.647.701 1.028 1.603 1.028 2.704 0 3.873-2.337 4.725-4.574 4.975.365.317.68.918.68 1.87 0 1.352-.017 2.437-.017 2.77 0 .268.183.585.68.485A10.075 10.075 0 0 0 22 12.083C22.016 6.507 17.526 2 12.008 2Z"
+                                      clip-rule="evenodd"
+                                    />
+                                  </svg>
+                                )}
+                                {hasDemo && (
+                                  <SvgIcon
+                                    name="youtube-solutions"
+                                    class="w-5 h-5"
+                                  />
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+
+    <CtaLight />
+  </main>
+  <AppModal />
+</Layout>
+
+<script
+  id="showcase-apps-data"
+  type="application/json"
+  set:html={JSON.stringify(allApps)}
+/>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const dataEl = document.getElementById("showcase-apps-data");
+    if (!dataEl) return;
+
+    const ac = new AbortController();
+    const { signal } = ac;
+
+    const appsData: any[] = JSON.parse(dataEl.textContent!);
+
+    const modal = document.querySelector<HTMLElement>("[data-app-modal]")!;
+    const overlay = modal.querySelector<HTMLElement>("[data-modal-overlay]")!;
+    const prevBtn = modal.querySelector<HTMLElement>("[data-modal-prev]")!;
+    const nextBtn = modal.querySelector<HTMLElement>("[data-modal-next]")!;
+    const closeBtns = modal.querySelectorAll<HTMLElement>(
+      "[data-modal-close], [data-modal-close-desktop]",
+    );
+
+    const mCategory = modal.querySelector<HTMLElement>(
+      "[data-modal-category]",
+    )!;
+    const mCategoryDesktop = modal.querySelector<HTMLElement>(
+      "[data-modal-category-desktop]",
+    )!;
+    const mTitleMobile = modal.querySelector<HTMLElement>(
+      "[data-modal-title-mobile]",
+    )!;
+    const mTitleDesktop = modal.querySelector<HTMLElement>(
+      "[data-modal-title-desktop]",
+    )!;
+    const mLogo = modal.querySelector<HTMLImageElement>("[data-modal-logo]")!;
+    const mLogoDesktop = modal.querySelector<HTMLImageElement>(
+      "[data-modal-logo-desktop]",
+    )!;
+    const mScreenshot = modal.querySelector<HTMLImageElement>(
+      "[data-modal-screenshot]",
+    )!;
+    const mDescription = modal.querySelector<HTMLElement>(
+      "[data-modal-description]",
+    )!;
+    const mButtons = modal.querySelector<HTMLElement>("[data-modal-buttons]")!;
+    const mBtnGithub = modal.querySelector<HTMLAnchorElement>(
+      "[data-modal-btn-github]",
+    )!;
+    const mBtnBlog = modal.querySelector<HTMLAnchorElement>(
+      "[data-modal-btn-blog]",
+    )!;
+    const mBtnVideo = modal.querySelector<HTMLAnchorElement>(
+      "[data-modal-btn-video]",
+    )!;
+    const mQuote = modal.querySelector<HTMLElement>("[data-modal-quote]")!;
+    const mQuoteText = modal.querySelector<HTMLElement>(
+      "[data-modal-quote-text]",
+    )!;
+    const mQuoteAuthor = modal.querySelector<HTMLElement>(
+      "[data-modal-quote-author]",
+    )!;
+
+    // Dynamically create header buttons (app-showcase page)
+    function createHeaderBtn(
+      classes: string,
+      label: string,
+    ): HTMLAnchorElement {
+      const btn = document.createElement("a");
+      btn.target = "_blank";
+      btn.rel = "noopener noreferrer";
+      btn.className = `hidden ${classes}`;
+      btn.textContent = label;
+      return btn;
+    }
+
+    const mobileHeaderActions = modal.querySelector(".md\\:hidden [data-marketplace-btn]")?.parentElement;
+    const desktopHeaderActions = modal.querySelector(".hidden.md\\:flex [data-marketplace-btn]")?.parentElement;
+
+    const mHeaderGithubMobile = createHeaderBtn(
+      "inline-flex items-center justify-center font-bold transition-colors duration-200 rounded-sm cursor-pointer px-2 py-1 text-[10px] uppercase bg-grey-750 text-white hover:bg-grey-800",
+      "Github"
+    );
+    const mHeaderVideoMobile = createHeaderBtn(
+      "inline-flex items-center justify-center font-bold transition-colors duration-200 rounded-sm cursor-pointer px-2 py-1 text-[10px] uppercase bg-white text-dark-600 border border-grey-300 hover:bg-grey-50",
+      "Demo"
+    );
+    const mHeaderBlogMobile = createHeaderBtn(
+      "inline-flex items-center justify-center font-bold transition-colors duration-200 rounded-sm cursor-pointer px-2 py-1 text-[10px] uppercase bg-white text-dark-600 border border-grey-300 hover:bg-grey-50",
+      "Blog"
+    );
+
+    if (mobileHeaderActions) {
+      const marketplaceBtn = mobileHeaderActions.querySelector("[data-marketplace-btn]");
+      if (marketplaceBtn) {
+        marketplaceBtn.insertAdjacentElement("afterend", mHeaderVideoMobile);
+        marketplaceBtn.insertAdjacentElement("afterend", mHeaderBlogMobile);
+        marketplaceBtn.insertAdjacentElement("afterend", mHeaderGithubMobile);
+      }
+    }
+
+    const mHeaderGithubDesktop = createHeaderBtn(
+      "inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-sm cursor-pointer px-4 py-2 body-sm-medium bg-grey-750 text-white hover:bg-grey-800",
+      "See on Github"
+    );
+    const mHeaderVideoDesktop = createHeaderBtn(
+      "inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-sm cursor-pointer px-4 py-2 body-sm-medium bg-white text-dark-600 border border-grey-300 hover:bg-grey-50",
+      "Watch Demo"
+    );
+    const mHeaderBlogDesktop = createHeaderBtn(
+      "inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-sm cursor-pointer px-4 py-2 body-sm-medium bg-white text-dark-600 border border-grey-300 hover:bg-grey-50",
+      "Read Blog Post"
+    );
+
+    if (desktopHeaderActions) {
+      const marketplaceBtn = desktopHeaderActions.querySelector("[data-marketplace-btn]");
+      if (marketplaceBtn) {
+        marketplaceBtn.insertAdjacentElement("afterend", mHeaderVideoDesktop);
+        marketplaceBtn.insertAdjacentElement("afterend", mHeaderBlogDesktop);
+        marketplaceBtn.insertAdjacentElement("afterend", mHeaderGithubDesktop);
+      }
+    }
+
+    const mHeaderGithubBtns = [mHeaderGithubMobile, mHeaderGithubDesktop];
+    const mHeaderBlogBtns = [mHeaderBlogMobile, mHeaderBlogDesktop];
+    const mHeaderVideoBtns = [mHeaderVideoMobile, mHeaderVideoDesktop];
+
+    const searchInput = document.querySelector<HTMLInputElement>(
+      "[data-search-input]",
+    )!;
+    const searchClear = document.querySelector<HTMLElement>(
+      "[data-search-clear]",
+    )!;
+    const noResults = document.querySelector<HTMLElement>("[data-no-results]")!;
+    const cards = document.querySelectorAll<HTMLElement>("[data-app-card]");
+    const categorySections = document.querySelectorAll<HTMLElement>(
+      "[data-category-section]",
+    );
+    const sidebarBtns =
+      document.querySelectorAll<HTMLElement>("[data-sidebar-btn]");
+    const mobileCatToggle = document.querySelector<HTMLElement>(
+      "[data-mobile-cat-toggle]",
+    )!;
+    const mobileCatDropdown = document.querySelector<HTMLElement>(
+      "[data-mobile-cat-dropdown]",
+    )!;
+    const mobileCatLabel = document.querySelector<HTMLElement>(
+      "[data-mobile-cat-label]",
+    )!;
+    const mobileCatBtns = document.querySelectorAll<HTMLElement>(
+      "[data-mobile-cat-btn]",
+    );
+
+    let currentIndex = 0;
+    let activeSlug = "";
+    let savedScrollY = 0;
+    let savedNavbarDisplay = "";
+
+    function isDemoEntry(entry: any): boolean {
+      const url = (entry?.url || "").toLowerCase();
+      const label = (entry?.label || "").toLowerCase();
+      return (
+        url.includes("youtube.com") ||
+        url.includes("youtu.be") ||
+        label.includes("demo") ||
+        label.includes("webinar")
+      );
+    }
+
+    function getLinks(app: any) {
+      let blogUrl = "";
+      let videoUrl = "";
+      const blogs = app.blog
+        ? Array.isArray(app.blog)
+          ? app.blog
+          : [app.blog]
+        : [];
+      for (const b of blogs) {
+        if (isDemoEntry(b)) {
+          if (!videoUrl) videoUrl = b.url;
+        } else {
+          if (!blogUrl) blogUrl = b.url;
+        }
+      }
+      if (app.blog2) {
+        if (isDemoEntry(app.blog2)) {
+          if (!videoUrl) videoUrl = app.blog2.url;
+        } else {
+          if (!blogUrl) blogUrl = app.blog2.url;
+        }
+      }
+      return { blogUrl, videoUrl };
+    }
+
+    function populateModal(app: any) {
+      mCategory.textContent = app.category;
+      mCategoryDesktop.textContent = app.category;
+      mTitleMobile.textContent = app.title;
+      mTitleDesktop.textContent = app.title;
+
+      const logoSrc = app.dataHighlight?.image || "";
+      if (logoSrc) {
+        mLogo.src = logoSrc;
+        mLogo.alt = app.dataHighlight?.title || "";
+        mLogo.classList.remove("hidden");
+        mLogoDesktop.src = logoSrc;
+        mLogoDesktop.alt = app.dataHighlight?.title || "";
+        mLogoDesktop.classList.remove("hidden");
+      } else {
+        mLogo.classList.add("hidden");
+        mLogoDesktop.classList.add("hidden");
+      }
+
+      mScreenshot.src = app.image;
+      mScreenshot.alt = app.imageAlt || app.title;
+      mDescription.textContent = app.description || "";
+
+      const { blogUrl, videoUrl } = getLinks(app);
+      const githubUrl = app.github?.url || "";
+      const hasAny = false; // We hide the bottom container entirely
+
+      if (hasAny) {
+        mButtons.classList.remove("hidden");
+        mButtons.classList.add("flex");
+      } else {
+        mButtons.classList.add("hidden");
+        mButtons.classList.remove("flex");
+      }
+
+      // Hide original bottom buttons
+      mBtnGithub.classList.add("hidden");
+      mBtnGithub.classList.remove("inline-flex");
+      mBtnBlog.classList.add("hidden");
+      mBtnBlog.classList.remove("inline-flex");
+      mBtnVideo.classList.add("hidden");
+      mBtnVideo.classList.remove("inline-flex");
+
+      if (githubUrl) {
+        mHeaderGithubBtns.forEach((btn) => {
+          btn.href = githubUrl;
+          btn.classList.remove("hidden");
+          btn.classList.add("inline-flex");
+        });
+      } else {
+        mHeaderGithubBtns.forEach((btn) => {
+          btn.classList.add("hidden");
+          btn.classList.remove("inline-flex");
+        });
+      }
+
+      if (blogUrl) {
+        mHeaderBlogBtns.forEach((btn) => {
+          btn.href = blogUrl;
+          btn.classList.remove("hidden");
+          btn.classList.add("inline-flex");
+        });
+      } else {
+        mHeaderBlogBtns.forEach((btn) => {
+          btn.classList.add("hidden");
+          btn.classList.remove("inline-flex");
+        });
+      }
+
+      if (videoUrl) {
+        mHeaderVideoBtns.forEach((btn) => {
+          btn.href = videoUrl;
+          btn.classList.remove("hidden");
+          btn.classList.add("inline-flex");
+        });
+      } else {
+        mHeaderVideoBtns.forEach((btn) => {
+          btn.classList.add("hidden");
+          btn.classList.remove("inline-flex");
+        });
+      }
+
+      if (app.quote) {
+        mQuote.classList.remove("hidden");
+        mQuoteText.textContent = app.quote.text;
+        const parts = [
+          app.quote.author,
+          app.quote.title,
+          app.quote.company,
+        ].filter(Boolean);
+        mQuoteAuthor.textContent = parts.join(", ");
+      } else {
+        mQuote.classList.add("hidden");
+      }
+
+      const globalIdx = appsData.indexOf(app);
+      prevBtn.style.display = globalIdx > 0 ? "" : "none";
+      nextBtn.style.display = globalIdx < appsData.length - 1 ? "" : "none";
+    }
+
+    function toSlug(s: string) {
+      return s.toLowerCase().replace(/\s+/g, "-");
+    }
+
+    function openModal(index: number) {
+      currentIndex = index;
+      const app = appsData[index];
+      if (!app) return;
+      populateModal(app);
+      savedScrollY = window.scrollY;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${savedScrollY}px`;
+      document.body.style.width = "100%";
+      const navbar = document.querySelector<HTMLElement>("[data-navbar]");
+      if (navbar) {
+        savedNavbarDisplay = navbar.style.display;
+        navbar.style.display = "none";
+      }
+      history.replaceState(
+        null,
+        "",
+        `/solutions/app-showcase?category=${app.categorySlug}&app=${toSlug(app.title)}`,
+      );
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      const navbar = document.querySelector<HTMLElement>("[data-navbar]");
+      if (navbar) navbar.style.display = savedNavbarDisplay;
+      history.replaceState(
+        null,
+        "",
+        `/solutions/app-showcase?category=${activeSlug}`,
+      );
+      requestAnimationFrame(() => window.scrollTo(0, savedScrollY));
+    }
+
+    function navModal(dir: number) {
+      const nextIndex = currentIndex + dir;
+      if (nextIndex < 0 || nextIndex >= appsData.length) return;
+      currentIndex = nextIndex;
+      const nextApp = appsData[nextIndex];
+      populateModal(nextApp);
+      history.replaceState(
+        null,
+        "",
+        `/solutions/app-showcase?category=${nextApp.categorySlug}&app=${toSlug(nextApp.title)}`,
+      );
+      modal.querySelector(".overflow-y-auto")?.scrollTo(0, 0);
+    }
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const idx = parseInt(card.dataset.appIndex || "0", 10);
+        openModal(idx);
+      });
+    });
+
+    closeBtns.forEach((btn) => btn.addEventListener("click", closeModal));
+    overlay.addEventListener("click", closeModal);
+    prevBtn.addEventListener("click", () => navModal(-1));
+    nextBtn.addEventListener("click", () => navModal(1));
+
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        if (!modal.classList.contains("flex")) return;
+        if (e.key === "Escape") closeModal();
+        else if (e.key === "ArrowLeft") navModal(-1);
+        else if (e.key === "ArrowRight") navModal(1);
+      },
+      { signal },
+    );
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    modal.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      },
+      { passive: true },
+    );
+    modal.addEventListener(
+      "touchend",
+      (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 2)
+          navModal(dx < 0 ? 1 : -1);
+      },
+      { passive: true },
+    );
+
+    function setActiveSidebar(slug: string) {
+      activeSlug = slug;
+      sidebarBtns.forEach((btn) => {
+        const isActive = btn.dataset.sidebarBtn === slug;
+        btn.classList.toggle("text-light-blue-600", isActive);
+        btn.classList.toggle("text-dark-600", !isActive);
+      });
+      mobileCatBtns.forEach((btn) => {
+        const isActive = btn.dataset.mobileCatBtn === slug;
+        btn.classList.toggle("text-light-blue-600", isActive);
+        btn.classList.toggle("text-dark-600", !isActive);
+      });
+      const cat = appsData.find((a) => a.categorySlug === slug);
+      if (cat && mobileCatLabel) mobileCatLabel.textContent = cat.category;
+    }
+
+    function scrollToCategory(slug: string) {
+      const section = document.querySelector<HTMLElement>(
+        `[data-category-section="${slug}"]`,
+      );
+      if (section)
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    categorySections.forEach((section) => {
+      section.style.display = "";
+    });
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const slug =
+              (entry.target as HTMLElement).dataset.categorySection || "";
+            setActiveSidebar(slug);
+            break;
+          }
+        }
+      },
+      { rootMargin: "-20% 0px -60% 0px" },
+    );
+    categorySections.forEach((section) => sectionObserver.observe(section));
+
+    function handleSearch() {
+      const q = searchInput.value.toLowerCase().trim();
+      searchClear.classList.toggle("hidden", !q);
+      if (!q) {
+        categorySections.forEach((section) => {
+          section.style.display = "";
+          section
+            .querySelectorAll<HTMLElement>("[data-app-card]")
+            .forEach((c) => {
+              c.style.display = "";
+            });
+        });
+        noResults.classList.add("hidden");
+        return;
+      }
+
+      let anyVisible = false;
+      categorySections.forEach((section) => {
+        const sectionCards =
+          section.querySelectorAll<HTMLElement>("[data-app-card]");
+        let sectionVisible = false;
+        sectionCards.forEach((card) => {
+          const match =
+            card.dataset.appTitle!.includes(q) ||
+            card.dataset.appDesc!.includes(q);
+          card.style.display = match ? "" : "none";
+          if (match) sectionVisible = true;
+        });
+        section.style.display = sectionVisible ? "" : "none";
+        if (sectionVisible) anyVisible = true;
+      });
+      noResults.classList.toggle("hidden", anyVisible);
+    }
+
+    searchInput.addEventListener("input", handleSearch);
+    searchClear.addEventListener("click", () => {
+      searchInput.value = "";
+      handleSearch();
+      searchInput.focus();
+    });
+
+    sidebarBtns.forEach((btn) => {
+      btn.addEventListener("click", () =>
+        scrollToCategory(btn.dataset.sidebarBtn!),
+      );
+    });
+
+    mobileCatToggle?.addEventListener("click", () => {
+      const open = !mobileCatDropdown.classList.contains("hidden");
+      mobileCatDropdown.classList.toggle("hidden", open);
+      const chevron = mobileCatToggle.querySelector("[data-mobile-chevron]");
+      if (chevron)
+        (chevron as HTMLElement).style.transform = open ? "" : "rotate(180deg)";
+    });
+
+    mobileCatBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        mobileCatDropdown.classList.add("hidden");
+        const chevron = mobileCatToggle.querySelector("[data-mobile-chevron]");
+        if (chevron) (chevron as HTMLElement).style.transform = "";
+        scrollToCategory(btn.dataset.mobileCatBtn!);
+      });
+    });
+
+    const params = new URLSearchParams(location.search);
+    const catParam = params.get("category");
+    const appParam = params.get("app");
+
+    if (catParam) {
+      setActiveSidebar(catParam);
+      requestAnimationFrame(() => scrollToCategory(catParam));
+    } else {
+      setActiveSidebar(appsData[0]?.categorySlug || "");
+    }
+
+    if (appParam && catParam) {
+      const idx = appsData.findIndex(
+        (a) => toSlug(a.title) === appParam && a.categorySlug === catParam,
+      );
+      if (idx !== -1) openModal(idx);
+    }
+
+    const sidebarEl = document.querySelector<HTMLElement>(
+      "[data-sidebar-sticky]",
+    );
+    if (sidebarEl) {
+      const aside = sidebarEl.parentElement!;
+      const flexContainer = aside.parentElement!;
+      const topGap = 16;
+      let startY = 0;
+
+      function calcStartY() {
+        startY = aside.getBoundingClientRect().top + window.scrollY;
+      }
+      calcStartY();
+
+      function updateSidebar() {
+        const sidebarH = sidebarEl!.offsetHeight;
+        const flexBottom = flexContainer.offsetTop + flexContainer.offsetHeight;
+        const stopY = flexBottom - sidebarH - topGap;
+
+        if (window.scrollY > stopY) {
+          sidebarEl!.style.position = "relative";
+          sidebarEl!.style.top = stopY - startY + topGap + "px";
+          sidebarEl!.style.width = "";
+        } else if (window.scrollY > startY - topGap) {
+          sidebarEl!.style.position = "fixed";
+          sidebarEl!.style.top = topGap + "px";
+          sidebarEl!.style.width = aside.offsetWidth + "px";
+        } else {
+          sidebarEl!.style.position = "";
+          sidebarEl!.style.top = "";
+          sidebarEl!.style.width = "";
+        }
+      }
+
+      window.addEventListener("scroll", updateSidebar, {
+        signal,
+        passive: true,
+      });
+      window.addEventListener(
+        "resize",
+        () => {
+          calcStartY();
+          updateSidebar();
+        },
+        { signal, passive: true },
+      );
+      updateSidebar();
+    }
+
+    function updateHeadingWidths() {
+      const isDesktop = window.innerWidth >= 1024;
+      categorySections.forEach((section) => {
+        const heading = section.querySelector<HTMLElement>("h2");
+        const cardCount = section.querySelectorAll("[data-app-card]").length;
+        if (!heading) return;
+        if (isDesktop && cardCount < 3) {
+          heading.style.width = `calc(${(Math.min(cardCount, 3) / 3) * 100}%)`;
+        } else {
+          heading.style.width = "";
+        }
+      });
+    }
+    updateHeadingWidths();
+    window.addEventListener("resize", updateHeadingWidths, {
+      signal,
+      passive: true,
+    });
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        ac.abort();
+        sectionObserver.disconnect();
+        if (modal.classList.contains("flex")) {
+          document.body.style.overflow = "";
+          document.body.style.position = "";
+          document.body.style.top = "";
+          document.body.style.width = "";
+        }
+      },
+      { once: true },
+    );
+  });
+</script>
+
+<style>
+  .app-card {
+    border-right: 1px solid var(--color-grey-200);
+  }
+  [data-app-grid] > .app-card:nth-child(3n) {
+    border-right: none;
+  }
+  [data-app-grid] > .app-card:last-child {
+    border-right: none;
+  }
+  @media (max-width: 1023px) {
+    [data-app-grid] > .app-card:nth-child(3n) {
+      border-right: 1px solid var(--color-grey-200);
+    }
+    [data-app-grid] > .app-card:nth-child(2n) {
+      border-right: none;
+    }
+    [data-app-grid] > .app-card:last-child {
+      border-right: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .app-card {
+      border-right: none;
+    }
+  }
+  .app-img-loading {
+    opacity: 0;
+  }
+  .app-img-loaded {
+    opacity: 1;
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.3s ease;
+  }
+</style>

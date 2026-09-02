@@ -1,0 +1,64 @@
+---
+interface Props {
+  variant?: "primary" | "secondary" | "outlined" | "accent" | "warning" | "danger" | "ghost";
+  href?: string;
+  class?: string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  icon?: boolean;
+  disabled?: boolean;
+  target?: string;
+  rel?: string;
+  type?: "submit" | "button" | "reset";
+}
+
+const {
+  variant = "primary",
+  href,
+  class: className = "",
+  size = "md",
+  icon = false,
+  disabled = false,
+  target,
+  rel,
+  type,
+} = Astro.props;
+
+const baseClasses = [
+  "BB-Button inline-flex items-center justify-center gap-2 rounded-sm font-normal",
+  "ring-offset-white focus-visible:outline-none focus-visible:ring-4",
+  "disabled:pointer-events-none",
+  "transition cursor-pointer",
+].join(" ");
+
+const sizeClasses: Record<string, string> = {
+  xs: "body-xs-medium h-[26px] px-2",
+  sm: "body-xs-medium h-8 px-3",
+  md: "body-sm-medium h-10 px-4",
+  lg: "body-md-medium h-12 px-5",
+  xl: "body-lg-medium h-14 px-5",
+};
+
+const variantClasses: Record<string, string> = {
+  primary: "bg-grey-50 text-grey-900 hover:bg-grey-200 focus-visible:ring-grey-200 disabled:bg-grey-200 disabled:text-grey-300",
+  secondary: "bg-grey-750 text-white hover:bg-grey-800 focus-visible:ring-grey-300 disabled:bg-grey-300 disabled:text-grey-400",
+  outlined: "border border-grey-300 text-grey-700 hover:border-grey-600 hover:text-grey-850 focus-visible:ring-grey-200 disabled:border-grey-300 disabled:text-grey-300 bg-transparent",
+  accent: "bg-light-blue-600 text-white hover:bg-light-blue-700 focus-visible:ring-light-blue-600/30 disabled:bg-light-blue-900 disabled:text-grey-500",
+  warning: "bg-warning-600 text-white hover:bg-warning-700 focus-visible:ring-warning-600/30 disabled:bg-warning-900 disabled:text-grey-500",
+  danger: "bg-danger-600 text-white hover:bg-danger-700 focus-visible:ring-danger-600/30 disabled:bg-danger-900 disabled:text-grey-500",
+  ghost: "bg-transparent text-white hover:bg-white/10 focus-visible:ring-white/20 disabled:text-grey-500",
+};
+
+const iconClass = icon ? "aspect-square p-0" : "";
+
+const classes = [baseClasses, sizeClasses[size], variantClasses[variant], iconClass, className].filter(Boolean).join(" ");
+---
+
+{href ? (
+  <a href={href} class={classes} target={target} rel={rel}>
+    <slot />
+  </a>
+) : (
+  <button class={classes} type={type} disabled={disabled}>
+    <slot />
+  </button>
+)}

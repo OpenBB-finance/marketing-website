@@ -1,0 +1,158 @@
+---
+import "@fontsource-variable/manrope/wght.css";
+import "@fontsource-variable/inter/wght.css";
+import interLatinUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import manropeLatinUrl from "@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url";
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
+import WindDownLetter from "../components/WindDownLetter.astro";
+import { getPostBySlug } from "../lib/directus";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** @deprecated meta keywords are ignored by search engines */
+  keywords?: string;
+  navLight?: boolean;
+  ogImage?: string;
+  ogType?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title = "OpenBB - Agentic Workspace for Finance",
+  description = "OpenBB is building an AI-powered research and analytics workspace. Our mission is to make research effective, powerful and accessible to everyone.",
+  navLight = false,
+  ogImage,
+  ogType = "website",
+  schema,
+} = Astro.props;
+
+const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+
+const resolvedOgImage = ogImage
+  ? (ogImage.startsWith("http") ? ogImage : `https://openbb.co${ogImage}`)
+  : "https://openbb.co/assets/images/ogimages/Homepage.png";
+const canonicalUrl = new URL(Astro.url.pathname, "https://openbb.co").href;
+
+const windDownPost = await getPostBySlug("openbb-belongs-to-everyone", {
+  includeDrafts: true,
+});
+if (!windDownPost) {
+  console.warn("[Layout] Wind-down letter not available from Directus — rendering without the overlay.");
+}
+---
+
+<!doctype html>
+<html lang="en" class="overflow-x-hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#ECECEC" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:site_name" content="OpenBB" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@openbb_finance" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
+
+    {schemaItems.map((item) => (
+      <script type="application/ld+json" set:html={JSON.stringify(item)} />
+    ))}
+    <slot name="head" />
+
+    <link rel="preconnect" href="https://openbb-cms.directus.app" crossorigin />
+    <link rel="preload" href={interLatinUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={manropeLatinUrl} as="font" type="font/woff2" crossorigin />
+    <ClientRouter />
+  </head>
+  <body class="font-sans antialiased overflow-x-hidden bg-dark-800" data-nav-light={navLight ? "" : undefined}>
+    <div data-page inert={Boolean(windDownPost)} aria-hidden={windDownPost ? "true" : undefined}>
+      <div>
+        <Navbar />
+        <slot />
+        <Footer />
+      </div>
+    </div>
+    {windDownPost && <WindDownLetter post={windDownPost} />}
+
+    <script>
+      document.addEventListener("astro:page-load", () => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+        document.querySelectorAll("[data-fade-in]").forEach((el) => observer.observe(el));
+      });
+    </script>
+
+    <script>
+      import posthog from "posthog-js";
+
+      const key = import.meta.env.PUBLIC_POSTHOG_API_KEY;
+      const host = import.meta.env.PUBLIC_POSTHOG_API_HOST;
+
+      if (key && host) {
+        posthog.init(key, {
+          api_host: host,
+          autocapture: true,
+          capture_pageview: true,
+          capture_pageleave: false,
+          person_profiles: "identified_only",
+          loaded: (ph) => {
+            ph.onFeatureFlags(() => {
+              if (!ph.isFeatureEnabled("record-web", { send_event: false })) {
+                ph.stopSessionRecording();
+              }
+              if (!ph.isFeatureEnabled("collect-logs-web", { send_event: false })) {
+                ph.opt_out_capturing();
+              } else if (ph.has_opted_out_capturing()) {
+                ph.opt_in_capturing();
+              }
+            });
+          },
+        });
+      }
+
+      let isFirstLoad = true;
+      document.addEventListener("astro:page-load", () => {
+        if (isFirstLoad) {
+          isFirstLoad = false;
+          return;
+        }
+        posthog.capture("$pageview");
+      });
+
+      document.addEventListener("astro:before-swap", () => {
+        posthog.capture("$pageleave");
+      });
+    </script>
+  </body>
+</html>

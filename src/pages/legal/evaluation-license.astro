@@ -1,0 +1,144 @@
+---
+import { marked } from "marked";
+import Layout from "../../layouts/Layout.astro";
+
+const markdown = `## 1. Definitions
+
+- i. **"Evaluation Materials"** means the Container Images, Documentation, Helm charts, APIs, and any other software, data, or materials provided by Licensor to Licensee under this License.
+
+- ii. **"Container Images"** means the pre-built, containerized software images of the OpenBB Workspace platform provided by Licensor to Licensee in a container registry under this License.
+
+- iii. **"Documentation"** means the written materials, deployment guides, configuration instructions, and technical specifications provided by Licensor to Licensee for the use and deployment of the Evaluation Materials.
+
+- iv. **"Evaluation Period"** means the period of 30 days commencing on the Effective Date.
+
+- v. **"Confidential Information"** means the Evaluation Materials and any other non-public information disclosed by Licensor or otherwise obtained by Licensee in connection with this License.
+
+
+## 2. Grant of License
+
+- i. **Evaluation License.** Subject to the terms and conditions of this License, Licensor hereby grants to Licensee a limited, non-exclusive, non-transferable, non-sublicensable, revocable license, during the Evaluation Period, to:
+
+  - **(1)** Deploy, install, run, and use the Evaluation Materials in accordance with the Documentation and solely within Licensee's own infrastructure (either on-premise or VPC), and
+
+  - **(2)** Integrate with the OpenBB Workspace platform via the API provided by Licensor to develop and test Licensee's own client applications for such integration;
+
+  in each case of the foregoing (1) and (2), solely for Licensee's internal evaluation of the Evaluation Materials.
+
+- ii. **Open Source Components.** Certain component of the Evaluation Materials may be covered by an open source license (such component, the "**OSS Component**"). The parties agree that the terms of the open source license applicable to such OSS Component will apply to such OSS Component and that to the extent there is any conflict between the terms of this License and such open source license, such open source license shall prevail with respect to such OSS Component.
+
+
+## 3. Restrictions
+
+- i. Licensee shall not, and shall not permit any third party to:
+
+  - **(1)** Access the internal filesystem of any running Container Image via SSH, shell, or any other interactive method.
+
+  - **(2)** Extract, copy, or exfiltrate any files, code, or data from the Container Images using commands such as docker cp, docker export, or any other means.
+
+  - **(3)** Reverse engineer, decompile, disassemble, or otherwise attempt to discover the source code or underlying structure of the Evaluation Materials.
+
+  - **(4)** Modify the Evaluation Materials except for configuration overlays (e.g., environment variables, configuration files mounted at runtime), or create any artifacts that contain, are derived from, or are a copy of any portion of the Evaluation Materials.
+
+  - **(5)** Redistribute, sublicense, lease, loan, sell, or otherwise transfer the Evaluation Materials to any third party, or use it for the benefit of a third party.
+
+  - **(6)** Embed any of the Evaluation Materials or any portion thereof into any other product or service.
+
+  - **(7)** Remove, modify, or obscure any proprietary rights notices, license text, or evaluation markers (e.g., watermarks, banners) from any of the Evaluation Materials.
+
+  - **(8)** Use the Evaluation Materials for any production, commercial, or revenue-generating purpose, or for any purpose other than as expressly licensed hereunder.
+
+  - **(9)** Use the Evaluation Materials in any way that violates any laws or infringes any third party rights.
+
+- ii. Licensee shall indemnify and hold Licensor harmless from any third party claims arising from Licensee's breach of any of the foregoing restrictions.
+
+
+## 4. Intellectual Property
+
+- i. All right, title, and interest in and to the Evaluation Materials, including all related intellectual property rights, are and shall remain the exclusive property of Licensor. Licensee acknowledges that it is receiving only a limited license to use the Evaluation Materials as expressly permitted herein.
+
+- ii. Licensee retains all of its right, title, and interest in and to any intellectual property it develops independently without use of any Confidential Information of Licensor, including its own integration code, API clients, scripts, and configuration files, but excluding any artifacts that contain, are derived from, or are a copy of any portion of the Evaluation Materials.
+
+- iii. Licensee may, in its sole discretion, provide suggestions, feedback, or comments about the Evaluation Materials (the "**Feedback**"), and agrees that Licensor has the right to use the Feedback freely to develop, improve, and provide its products and services without any restriction or obligation.
+
+
+## 5. Confidentiality
+
+Licensee agrees to treat the Evaluation Materials as Confidential Information of Licensor. Licensee shall use the same degree of care to protect the Confidential Information as it uses to protect its own confidential information of a similar nature, but in no event less than reasonable care. Licensee may disclose Confidential Information only to its employees and contractors who have a need to know for the purposes of this evaluation and who are bound by written confidentiality obligations at least as protective as those herein.
+
+
+## 6. Data & Telemetry
+
+- i. **Default Telemetry:** The Evaluation Materials installed within Licensee's infrastructure do not collect or transmit any telemetry, usage data, or logs to Licensor by default.
+
+- ii. **Diagnostic Data:** The Evaluation Materials hosted within Licensor's infrastructure may collect certain logs, metadata, technical, usage, and diagnostic information relating to the provision, use and performance of the Evaluation Materials ("**Diagnostic Data**"), which does not include any personal data. Licensor agrees to only use the Diagnostic Data to provide the services to Licensee.
+
+
+## 7. Support
+
+- i. **Support Model:** Licensor may provide remote support to Licensee during the Evaluation Period. This support will be conducted via screen-sharing sessions (e.g., Zoom, Teams) only.
+
+- ii. **No Direct Access:** Licensor will not have, and Licensee shall not grant, any direct access to Licensee's infrastructure, systems, or networks.
+
+- iii. **Support Requests:** Licensee may request support by submitting a request to support@openbb.finance. Licensor will acknowledge support requests within one (1) business day.
+
+- iv. **SLA:** Licensor will use commercially reasonable efforts to provide it's the support that it generally provides to its evaluation customers without charges during Licensor's business hours (9:00 AM to 6:00 PM Eastern Time, Monday through Friday, excluding US federal holidays).
+
+
+## 8. Warranty Disclaimers
+
+THE EVALUATION MATERIALS ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. LICENSOR DISCLAIMS ALL WARRANTIES WITH RESPECT TO THE PERFORMANCE OR SUITABILITY OF THE EVALUATION MATERIALS IN LICENSEE'S ENVIRONMENT.
+
+
+## 9. Limitations of Liability
+
+IN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF PROFITS, DATA, OR USE, ARISING OUT OF OR IN CONNECTION WITH THIS LICENSE, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. LICENSOR'S TOTAL LIABILITY ARISING OUT OF OR RELATED TO THIS LICENSE SHALL NOT EXCEED FIVE HUNDRED U.S. DOLLARS ($500).
+
+
+## 10. Return & Destruction
+
+Upon the expiration or termination of this License, Licensee shall have 10 days to:
+
+- **(1)** Cease all use of the Evaluation Materials;
+
+- **(2)** Permanently delete all copies of the Evaluation Materials from all systems and storage media; and
+
+- **(3)** Provide Licensor with a written certification of destruction, signed by an authorized officer of Licensee.
+
+
+## 11. Term & Termination
+
+Either party may terminate this License immediately upon written notice if the other party breaches any material term of this License and fails to cure such breach within ten (10) days of receiving notice. Upon termination, all rights granted to Licensee shall cease, and the obligations in Sections 3 (Restrictions), 4 (Intellectual Property), 5 (Confidentiality), 8 (Warranty Disclaimers), 9 (Limitations of Liabilities), 10 (Return & Destruction), 13 (Governing Law), and 14 (Miscellaneous) shall survive.
+
+
+## 12. Export Controls and Compliance
+
+Licensee is solely responsible for complying with all applicable export and import control laws and regulations, including those of the United States and the jurisdiction in which it operates. Licensee represents and warrants that it is not located in, and is not a national or resident of, any country or territory subject to any U.S. sanctions.
+
+
+## 13. Governing Law
+
+This License shall be governed by and construed in accordance with the laws of the State of New York, without regard to its conflict of laws principles. Any legal action arising out of or relating to this License shall be brought exclusively in the state or federal courts located in New York, New York.
+
+
+## 14. Miscellaneous
+
+This License constitutes the entire agreement between the parties concerning the subject matter hereof and supersedes all prior or contemporaneous agreements, representations, warranties, and understandings, whether written or oral. In the event that any of the provisions of this Agreement shall be held by a court or other tribunal of competent jurisdiction to be unenforceable, such provisions shall be limited or eliminated to the minimum extent necessary so that this Agreement shall otherwise remain in full force and effect and enforceable.`;
+
+const html = await marked.parse(markdown);
+---
+
+<Layout
+  title="Evaluation License | OpenBB"
+  description="OpenBB Evaluation License"
+  keywords="evaluation, license, legal"
+  navLight
+>
+  <div class="bg-white min-h-screen">
+    <div class="page-container py-16 lg:py-24">
+      <h1 class="text-title-s-medium lg:text-title-l-medium text-dark-600 mb-4">Evaluation License</h1>
+      <p class="mb-8 text-sm text-grey-500">Effective date: November 24, 2025</p>
+      <article class="prose prose-lg !w-full max-w-none prose-a:text-light-blue-600" set:html={html} />
+    </div>
+  </div>
+</Layout>

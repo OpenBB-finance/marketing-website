@@ -1,0 +1,1059 @@
+---
+import Button from "../components/Button.astro";
+import ContactModal from "../components/ContactModal.astro";
+import CtaLight from "../components/CtaLight.astro";
+import FadeIn from "../components/FadeIn.astro";
+import HeroSimple from "../components/HeroSimple.astro";
+import PricingCell from "../components/PricingCell.astro";
+import SvgIcon from "../components/SvgIcon.astro";
+import { FORMBRICKS } from "../data/contact";
+import { LITE } from "../data/lite";
+import Layout from "../layouts/Layout.astro";
+
+const SNOWFLAKE_URL =
+  "https://app.snowflake.com/marketplace/listing/GZT1ZOM2WO/openbb-openbb-workspace";
+const JUMPSTART_LINK = "https://openbb.link/jumpstart";
+const TRAINING_LINK = "https://openbb.link/workshops";
+
+interface PlanCard {
+  name: string;
+  price: string;
+  priceNote?: string;
+  promo?: {
+    originalPrice: string;
+    label: string;
+    code: string;
+  };
+  hosting: string;
+  description: string;
+  cta: {
+    label: string;
+    href?: string;
+    modal?: boolean;
+    variant: "accent" | "outlined";
+    external?: boolean;
+  };
+  highlight: boolean;
+}
+
+const planCards: PlanCard[] = [
+  {
+    name: "Community",
+    price: "Free",
+    priceNote: "(individual license)",
+    hosting: "Cloud-hosted by OpenBB",
+    description: "For individual investors or personal use",
+    cta: {
+      label: "Start now",
+      href: "https://pro.openbb.co/register",
+      variant: "accent",
+      external: true,
+    },
+    highlight: true,
+  },
+  {
+    name: "Lite",
+    // Promo: cadence on the sale price, short strikethrough, so the row
+    // fits as one line in the 4-col card grid ("$2,400 $1,200/year …").
+    price: LITE.promo
+      ? `${LITE.promo.price}${LITE.cadence}`
+      : `${LITE.price}${LITE.cadence}`,
+    priceNote: `(${LITE.unit})`,
+    promo: LITE.promo
+      ? {
+          originalPrice: LITE.price,
+          label: LITE.promo.label,
+          code: LITE.promo.code,
+        }
+      : undefined,
+    hosting: "Self-hosted (on-premises or VPC)",
+    description:
+      "For small teams (<10) that want their own collaborative environment",
+    cta: { label: "Start now", href: LITE.checkoutUrl, variant: "accent" },
+    highlight: true,
+  },
+  {
+    name: "Pro",
+    price: "Custom pricing",
+    priceNote: "(team license)",
+    hosting: "Self-hosted (on-premises or VPC)",
+    description: "For larger teams that want to deploy OpenBB at scale",
+    cta: { label: "Contact us for a quote", modal: true, variant: "accent" },
+    highlight: true,
+  },
+  {
+    name: "Snowflake",
+    price: "$500/year/seat",
+    hosting: "Snowflake hosted",
+    description: "For firms that want to analyze their data on Snowflake",
+    cta: {
+      label: "Go to Snowflake Marketplace",
+      href: SNOWFLAKE_URL,
+      variant: "outlined",
+      external: true,
+    },
+    highlight: false,
+  },
+];
+
+interface Cell {
+  value: boolean | null; // true → check, false → cross, null → plain text
+  label: string;
+  href?: string;
+  tooltip?: {
+    title: string;
+    body: string;
+    href?: string;
+    linkLabel?: string;
+  };
+}
+
+const RITA_REPO = "https://github.com/OpenBB-finance/agent-rita";
+
+// Cell factories keep the comparison matrix compact and readable.
+const yes = (label = "Yes", extra: Partial<Cell> = {}): Cell => ({
+  value: true,
+  label,
+  ...extra,
+});
+const no = (label = "No"): Cell => ({ value: false, label });
+const text = (label: string): Cell => ({ value: null, label });
+
+const marketplaceTip = {
+  title: "Browse and find data partners",
+  body: "Explore our App Marketplace and find ready-to-use apps from OpenBB Partners. Contact us to bring selected apps into your deployment.",
+};
+
+interface Row {
+  feature: string;
+  community: Cell;
+  lite: Cell;
+  pro: Cell;
+}
+interface Section {
+  title: string;
+  rows: Row[];
+}
+
+const comparisonSections: Section[] = [
+  {
+    title: "Data & analytics",
+    rows: [
+      {
+        feature: "Integrate your data",
+        community: yes("Unlimited"),
+        lite: yes("Unlimited"),
+        pro: yes("Unlimited"),
+      },
+      {
+        feature: "Export data and dashboards",
+        community: no(),
+        lite: yes(),
+        pro: yes(),
+      },
+      { feature: "Add-in for Excel", community: no(), lite: no(), pro: yes() },
+      {
+        feature: "OpenBB App Marketplace",
+        community: yes("Immediate access to Marketplace apps"),
+        lite: yes("Access to Marketplace catalogue", {
+          tooltip: marketplaceTip,
+        }),
+        pro: yes("Access to Marketplace catalogue", {
+          tooltip: marketplaceTip,
+        }),
+      },
+    ],
+  },
+  {
+    title: "AI",
+    rows: [
+      {
+        feature: "Custom agents supported",
+        community: yes(),
+        lite: yes("Yes", {
+          tooltip: {
+            title: "Custom agents",
+            body: "Integrate your own agent into the Workspace, or start from Agent Rita, our open-source reference agent.",
+            href: RITA_REPO,
+            linkLabel: "Agent Rita on GitHub",
+          },
+        }),
+        pro: yes(),
+      },
+      {
+        feature: "OpenBB Copilot",
+        community: yes("Yes, with 20 queries/day"),
+        lite: no(),
+        pro: yes("Deployed for you", {
+          tooltip: {
+            title: "OpenBB Copilot",
+            body: "We can deploy OpenBB Copilot in your environment for your team.",
+          },
+        }),
+      },
+      {
+        feature: "Bring your API key for OpenBB Copilot",
+        community: yes(),
+        lite: no(),
+        pro: yes(),
+      },
+      {
+        feature: "Workspace MCP server",
+        community: yes(),
+        lite: yes(),
+        pro: yes(),
+      },
+    ],
+  },
+  {
+    title: "Team Collaboration",
+    rows: [
+      {
+        feature: "Dashboard and apps sharing",
+        community: no(),
+        lite: yes(),
+        pro: yes(),
+      },
+      {
+        feature: "User and admin roles",
+        community: no(),
+        lite: yes(),
+        pro: yes(),
+      },
+      {
+        feature: "Role-based access control (RBAC)",
+        community: no(),
+        lite: yes(),
+        pro: yes(),
+      },
+      {
+        feature: "Multi-entity infrastructure",
+        community: no(),
+        lite: no(),
+        pro: yes(),
+      },
+    ],
+  },
+  {
+    title: "Security & Privacy",
+    rows: [
+      {
+        feature: "Multi-Factor Authentication (MFA)",
+        community: yes("Individual"),
+        lite: yes("Enforced for all users"),
+        pro: yes("Enforced for all users"),
+      },
+      {
+        feature: "Use your own Identity Provider (IdP)",
+        community: no(),
+        lite: no(),
+        pro: yes(),
+      },
+      {
+        feature: "Usage analytics collected by OpenBB",
+        community: yes(),
+        lite: no("No"),
+        pro: no("No"),
+      },
+      {
+        feature: "Client-side audit trail / activity logs",
+        community: no(),
+        lite: yes(),
+        pro: yes(),
+      },
+      {
+        feature: "Customer data used for training",
+        community: no("No"),
+        lite: no("No"),
+        pro: no("No"),
+      },
+    ],
+  },
+  {
+    title: "Deployment options",
+    rows: [
+      {
+        feature: "Cloud",
+        community: yes("Hosted by OpenBB"),
+        lite: no(),
+        pro: yes("Hosted by OpenBB (multi-tenant)"),
+      },
+      { feature: "VPC", community: no(), lite: yes(), pro: yes() },
+      { feature: "On-premises", community: no(), lite: yes(), pro: yes() },
+    ],
+  },
+  {
+    title: "External-facing applications",
+    rows: [
+      {
+        feature: "Share apps/dashboards with external users",
+        community: no(),
+        lite: no(),
+        pro: yes(),
+      },
+      {
+        feature: "OEM or white-label options",
+        community: no(),
+        lite: no(),
+        pro: yes(),
+      },
+    ],
+  },
+  {
+    title: "Onboarding",
+    rows: [
+      {
+        feature: "1-hour call with our team",
+        community: no(),
+        lite: yes(),
+        pro: yes(),
+      },
+      {
+        feature: "2-day training workshop",
+        community: no(),
+        lite: no(),
+        pro: yes("Yes", { href: TRAINING_LINK }),
+      },
+      {
+        feature: "Jumpstart program: one app developed with your team",
+        community: no(),
+        lite: no(),
+        pro: yes("Yes", { href: JUMPSTART_LINK }),
+      },
+    ],
+  },
+  {
+    title: "Support",
+    rows: [
+      {
+        feature: "Developer Support",
+        community: text("Discord public channel"),
+        lite: text("Slack channel\nBusiness hours support (EST)"),
+        pro: text(
+          "One dedicated support contact\nBusiness hours support (EST)",
+        ),
+      },
+    ],
+  },
+];
+
+const comparisonPlans = [
+  { key: "community", name: "Community Edition", short: "Community" },
+  { key: "lite", name: "OpenBB Lite", short: "Lite" },
+  { key: "pro", name: "Pro Edition", short: "Pro" },
+] as const;
+
+const defaultPlan = "lite";
+const isBare = (label: string) => label === "Yes" || label === "No";
+
+const faqData = [
+  {
+    id: "item-1",
+    question: "Is OpenBB free?",
+    answer:
+      "The OpenBB Workspace offers a Community tier, allowing users to experience core features and explore its capabilities at no cost.\n\nThis entry-level option is ideal for teams looking to evaluate OpenBB for enterprise adoption and for individual users, students, or academics who don't require advanced infrastructure, security, and support.",
+  },
+  {
+    id: "item-2",
+    question: "Does OpenBB provide financial data out of the box?",
+    answer:
+      "No. The OpenBB Workspace includes a limited sandbox powered by Financial Modeling Prep to help new users learn how to use the Workspace for research and analysis. However, the main value of the Workspace is that organizations can connect their own datasets and leverage them on a sleek, highly customizable UI within a secure and compliant environment.",
+  },
+  {
+    id: "item-3",
+    question: "Is OpenBB open source?",
+    answer: `OpenBB maintains two distinct products: the open-source Open Data Platform (ODP) and the enterprise OpenBB Workspace.\n\nThe Open Data Platform is an open-source toolset that helps engineers build standardized data integrations that analysts consume through multiple interfaces, like AI Copilots and research dashboards, locally and securely.\n\nThe OpenBB Workspace is our enterprise product designed for financial institutions requiring a comprehensive interface with AI capabilities and enhanced security, compliance, and service levels.\n\nWhile the core Workspace is proprietary, we've open-sourced several integration components, including <a href="https://github.com/OpenBB-finance/backends-for-openbb/tree/main" target="_blank" rel="noopener noreferrer" class="text-light-blue-600 hover:text-light-blue-800">Apps</a>, <a href="https://github.com/OpenBB-finance/backends-for-openbb/tree/main" target="_blank" rel="noopener noreferrer" class="text-light-blue-600 hover:text-light-blue-800">Widgets</a>, and <a href="https://github.com/OpenBB-finance/agents-for-openbb" target="_blank" rel="noopener noreferrer" class="text-light-blue-600 hover:text-light-blue-800">AI agent</a> examples. These open-source examples give your development teams a practical starting point for building custom solutions, combining flexibility with the enterprise-grade foundation your firm requires.`,
+  },
+  {
+    id: "item-4",
+    question: "What is OpenBB Copilot?",
+    answer:
+      "OpenBB Copilot is an AI assistant integrated into the OpenBB Workspace with capabilities to process natural language queries, pull data from your connected sources, search the web, generate charts and tables, and produce insights based on your specific datasets and workspace configuration.\n\nThe Community tier includes 20 daily queries, with the possibility to extend it by using your own API key. Pro tier users get fair-use access.\n\nThe OpenBB Copilot is entirely optional since all users can integrate their own AI agent into the OpenBB Workspace.",
+  },
+  {
+    id: "item-5",
+    question: "Who is OpenBB for?",
+    answer:
+      "OpenBB serves investment management firms, asset managers, hedge funds, and financial institutions that need secure, compliant environments for their data and AI deployment. Our typical users include financial analysts, quantitative researchers, portfolio managers, and development teams building custom analytics workflows.",
+  },
+  {
+    id: "item-6",
+    question: "Does OpenBB offer development support?",
+    answer: `Yes. To help your teams get productive more quickly, we offer the <a href="https://openbb-cms.directus.app/assets/498292ed-7fbb-4215-898a-45a8bef404ca.pdf?utm_source=website&utm_medium=pricing" target="_blank" rel="noopener noreferrer" class="text-light-blue-600 hover:text-light-blue-800">Jumpstart Package</a> and <a href="https://openbb-cms.directus.app/assets/9f67b149-b6ed-460e-b6d3-fd16090431a7.pdf?utm_source=website&utm_medium=pricing" target="_blank" rel="noopener noreferrer" class="text-light-blue-600 hover:text-light-blue-800">Training Workshops</a>. Upon request, we can also provide additional development services for more complex integrations and specialized requirements.`,
+  },
+];
+
+const accentButtonClasses =
+  "inline-flex h-10 w-full items-center justify-center rounded-sm px-4 body-sm-medium font-medium bg-light-blue-600 text-white transition-colors duration-200 hover:bg-light-blue-700 cursor-pointer";
+---
+
+<Layout
+  title="Pricing | OpenBB"
+  description="Individual users get full access at no cost. Firms that need private deployment, RBAC, and collaborative workflows get a plan built around their requirements."
+  keywords="pricing, plans, free, open source, professional, enterprise, teams, contact, sales"
+  navLight
+>
+  <div class="bg-white">
+    <!-- HERO -->
+    <HeroSimple
+      label="pricing"
+      title="Start free, scale to your\nown workspace"
+      description="Community Edition is free for individuals. Lite and Pro are for professional teams that need a collaborative workspace in their own OpenBB deployment."
+      hideButton
+    />
+
+    <div class="space-y-4 md:space-y-24 2xl:pb-0">
+      <!-- PRICING CARDS -->
+      <section class="pt-14 pb-6 md:pt-20 md:pb-8">
+        <div class="page-container">
+          <FadeIn>
+            <div
+              class="grid grid-cols-1 gap-6 max-w-md md:max-w-none md:grid-cols-2 xl:grid-cols-4 mx-auto"
+            >
+              {
+                planCards.map((card) => (
+                  <div
+                    class:list={[
+                      "flex flex-col overflow-hidden rounded-xl border shadow-light-1",
+                      card.highlight
+                        ? "border-light-blue-200"
+                        : "border-grey-200",
+                    ]}
+                  >
+                    <div
+                      class:list={[
+                        "px-6 pt-6 pb-5",
+                        card.highlight ? "bg-light-blue-50" : "bg-grey-50",
+                      ]}
+                    >
+                      <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <h3 class="text-title-xs-bold text-dark-600">
+                          {card.name}
+                        </h3>
+                        {card.promo && (
+                          <span class="inline-flex items-center rounded-full bg-light-blue-100 px-2.5 py-0.5 body-xs-medium text-light-blue-700">
+                            {card.promo.label}
+                          </span>
+                        )}
+                      </div>
+                      <p
+                        class:list={[
+                          "mt-2 text-dark-500",
+                          card.promo
+                            ? "flex items-baseline gap-x-1.5 whitespace-nowrap body-sm-medium"
+                            : "body-sm-medium",
+                        ]}
+                      >
+                        {card.promo && (
+                          <span class="text-grey-500 line-through">
+                            {card.promo.originalPrice}
+                          </span>
+                        )}
+                        <span>
+                          {card.priceNote
+                            ? `${card.price} ${card.priceNote}`
+                            : card.price}
+                        </span>
+                      </p>
+                    </div>
+                    <div class="flex flex-grow flex-col bg-white px-6 py-6">
+                      <p class="body-sm-medium text-dark-500">{card.hosting}</p>
+                      <p class="body-sm-regular text-grey-600 mt-3">
+                        {card.description}
+                      </p>
+                      <div class="mt-auto pt-8">
+                        {card.cta.modal ? (
+                          <button
+                            type="button"
+                            data-open-modal="contact"
+                            class={accentButtonClasses}
+                          >
+                            {card.cta.label}
+                          </button>
+                        ) : (
+                          <Button
+                            variant={card.cta.variant}
+                            href={card.cta.href}
+                            target={card.cta.external ? "_blank" : undefined}
+                            rel={
+                              card.cta.external
+                                ? "noopener noreferrer"
+                                : undefined
+                            }
+                            class="w-full"
+                          >
+                            {card.cta.label}
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      <!-- COMPARISON TABLE -->
+      <section class="pt-4 md:pt-8 pb-24">
+        <div class="page-container">
+          <h2
+            class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-8 md:mb-12 text-left text-balance"
+          >
+            Compare <br />our editions
+          </h2>
+
+          <!-- Mobile comparison -->
+          <div class="lg:hidden" data-mobile-comparison>
+            <div
+              class="rounded-lg border border-grey-200 shadow-light-1 p-6 max-w-lg mx-auto bg-white"
+            >
+              <div class="relative mb-6">
+                <button
+                  type="button"
+                  data-plan-toggle
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  class="flex w-full cursor-pointer items-center justify-between text-left"
+                >
+                  <h3
+                    class="body-lg-bold text-dark-600 flex-shrink-0"
+                    data-plan-title
+                  >
+                    OpenBB Lite
+                  </h3>
+                  <div class="ml-2 flex flex-shrink-0 items-center">
+                    <span
+                      class="body-xs-medium text-grey-700 mr-1 whitespace-nowrap"
+                    >
+                      Change plan
+                    </span>
+                    <svg
+                      data-plan-chevron
+                      class="h-4 w-4 text-grey-500 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      ><path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19 9l-7 7-7-7"></path></svg
+                    >
+                  </div>
+                </button>
+                <div
+                  data-plan-dropdown
+                  class="absolute right-0 top-full z-10 mt-2 hidden bg-white px-4 py-4 shadow-light-3 rounded-lg"
+                >
+                  {
+                    comparisonPlans.map((p) => (
+                      <button
+                        type="button"
+                        data-select-plan={p.key}
+                        data-plan-name={p.name}
+                        class:list={[
+                          "block w-full cursor-pointer px-2 py-3 text-left body-sm-regular hover:bg-light-blue-50",
+                          p.key === defaultPlan
+                            ? "text-light-blue-600"
+                            : "text-dark-600",
+                        ]}
+                      >
+                        {p.name}
+                      </button>
+                    ))
+                  }
+                </div>
+              </div>
+
+              {
+                comparisonPlans.map((plan) => (
+                  <div
+                    data-plan-content={plan.key}
+                    class:list={[
+                      "space-y-6",
+                      plan.key !== defaultPlan && "hidden",
+                    ]}
+                  >
+                    {comparisonSections.map((section) => (
+                      <div>
+                        <h4 class="body-md-bold text-dark-600 mb-4">
+                          {section.title}
+                        </h4>
+                        <div class="space-y-3">
+                          {section.rows.map((row) => {
+                            const cell = row[plan.key];
+                            const showDetail =
+                              cell.value === null || !isBare(cell.label);
+                            return (
+                              <div class="flex items-start gap-3">
+                                {cell.value === true ? (
+                                  <SvgIcon
+                                    name="pricing-tick"
+                                    class="mt-0.5 min-w-5 w-5 h-5 shrink-0 text-light-blue-600"
+                                  />
+                                ) : cell.value === false ? (
+                                  <SvgIcon
+                                    name="pricing-cross"
+                                    class="mt-0.5 min-w-5 w-5 h-5 shrink-0"
+                                  />
+                                ) : (
+                                  <span
+                                    class="mt-0.5 min-w-5 w-5 h-5 shrink-0"
+                                    aria-hidden="true"
+                                  />
+                                )}
+                                <span class="body-sm-regular text-dark-600">
+                                  {row.feature}
+                                  {showDetail && (
+                                    <span class="whitespace-pre-line text-grey-500">
+                                      {cell.value === null ? ": " : " — "}
+                                      {cell.label}
+                                    </span>
+                                  )}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Desktop comparison -->
+          <div class="hidden lg:block">
+            <table
+              class="w-full border-separate"
+              style="border-spacing: 12px 0;"
+            >
+              <caption class="sr-only">
+                Compare OpenBB Community, Lite, and Pro editions
+              </caption>
+              <colgroup>
+                <col style="width: 28%;" />
+                <col />
+                <col />
+                <col />
+              </colgroup>
+              <thead>
+                <tr>
+                  <td></td>
+                  {
+                    comparisonPlans.map((plan) => (
+                      <th
+                        scope="col"
+                        class="rounded-t-lg border-l border-r border-t border-grey-200 bg-white/60 px-6 py-6 text-center"
+                      >
+                        <span class="text-title-xs-bold text-dark-600">
+                          {plan.short}
+                        </span>
+                      </th>
+                    ))
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  comparisonSections.map((section, si) => (
+                    <>
+                      <tr>
+                        <th
+                          scope="rowgroup"
+                          class="px-6 pt-10 pb-3 text-left align-bottom"
+                        >
+                          <span class="body-lg-bold text-dark-600">
+                            {section.title}
+                          </span>
+                        </th>
+                        {[0, 1, 2].map(() => (
+                          <td class="border-l border-r border-grey-200 bg-white/60" />
+                        ))}
+                      </tr>
+                      {section.rows.map((row) => (
+                        <tr>
+                          <th
+                            scope="row"
+                            class="px-6 py-2.5 text-left align-top font-normal"
+                          >
+                            <span class="body-sm-regular text-dark-400">
+                              {row.feature}
+                            </span>
+                          </th>
+                          {[row.community, row.lite, row.pro].map((cell) => (
+                            <td class="border-l border-r border-grey-200 bg-white/60 px-6 py-2.5 align-top">
+                              <PricingCell cell={cell} />
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                      {si < comparisonSections.length - 1 && (
+                        <tr aria-hidden="true">
+                          <td />
+                          {[0, 1, 2].map(() => (
+                            <td class="h-10 border-l border-r border-grey-200 bg-white/60" />
+                          ))}
+                        </tr>
+                      )}
+                    </>
+                  ))
+                }
+                <tr aria-hidden="true">
+                  <td></td>
+                  {
+                    [0, 1, 2].map(() => (
+                      <td class="h-4 rounded-b-lg border-b border-l border-r border-grey-200 bg-white/60" />
+                    ))
+                  }
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- KICKSTART SECTION -->
+      <section class="py-6 md:py-8 lg:py-6 pb-16 md:pb-20 lg:pb-24">
+        <div class="page-container">
+          <div
+            class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-0 items-center"
+          >
+            <div
+              class="space-y-4 md:space-y-6 max-w-[480px] order-2 lg:order-1 scroll-m-64"
+              id="kickstart"
+            >
+              <h2 class="text-dark-600 text-title-xs-regular">
+                Kickstart your journey with OpenBB
+              </h2>
+              <p class="text-dark-400 body-lg-regular">
+                Bring your financial application to life in just 3 days with
+                <span class="font-bold">JumpStart</span>, or train your team to
+                build and scale with our
+                <span class="font-bold">Workshops</span>.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                <a
+                  href="https://openbb.link/jumpstart"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 border-b-[1.5px] border-light-blue-400 text-dark-600 body-sm-medium md:body-md-medium transition-colors duration-200 hover:text-light-blue-600 group self-start py-3 sm:py-2 md:py-0 mt-2 pb-1 cursor-pointer"
+                >
+                  <span>Explore JumpStart</span>
+                  <SvgIcon
+                    name="pdf-download"
+                    class="w-[18px] h-[18px] shrink-0 transition-transform duration-200 group-hover:translate-x-1"
+                  />
+                </a>
+                <a
+                  href="https://openbb.link/workshops"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 border-b-[1.5px] border-light-blue-400 text-dark-600 body-sm-medium md:body-md-medium transition-colors duration-200 hover:text-light-blue-600 group self-start py-3 sm:py-2 md:py-0 mt-2 pb-1 cursor-pointer"
+                >
+                  <span>View Training Workshop</span>
+                  <SvgIcon
+                    name="pdf-download"
+                    class="w-[18px] h-[18px] shrink-0 transition-transform duration-200 group-hover:translate-x-1"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="flex justify-center lg:justify-end order-1 lg:order-2">
+              <img
+                src="https://openbb-cms.directus.app/assets/1279ae44-8f1e-449c-bd66-3aaff2013e05.png"
+                alt="Security team collaboration"
+                class="w-full max-w-md lg:max-w-lg rounded-lg"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ SECTION -->
+      <section class="pt-6 md:pt-10 pb-16 md:pb-20 bg-grey-50">
+        <div class="page-container mt-8 md:mt-12 lg:mt-20">
+          <div class="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-24">
+            <div class="w-full lg:w-[40%] flex flex-col order-1">
+              <h2
+                class="text-title-s-regular md:text-title-xl-regular text-dark-600 mb-4 md:mb-6 lg:mb-20 text-left"
+              >
+                Answers to the frequently asked questions.
+              </h2>
+              <!-- Still have questions - desktop -->
+              <div class="hidden lg:block mt-auto space-y-3 md:space-y-4">
+                <div
+                  class="bg-light-blue-600 p-2 w-12 h-12 flex items-center justify-center mb-2 md:mb-3 rounded-md"
+                >
+                  <SvgIcon name="pricing-faqs" class="h-6 w-6 text-white" />
+                </div>
+                <h3 class="body-lg-bold text-dark-600">
+                  Still have questions?
+                </h3>
+                <p class="body-md-regular text-grey-600">
+                  Need help? Visit our <a
+                    href="/contact"
+                    class="text-light-blue-600 hover:text-light-blue-700 font-bold"
+                    >Contact Us</a
+                  > page or reach out via socials. Just getting started or building
+                  your next big workflow? We're here to support you.
+                </p>
+              </div>
+            </div>
+
+            <div class="w-full lg:w-[60%] order-2">
+              <div class="space-y-3 md:space-y-4">
+                {
+                  faqData.map((item) => (
+                    <div
+                      class="bg-white shadow-light-2 overflow-hidden rounded-lg"
+                      data-faq-item
+                    >
+                      <button
+                        type="button"
+                        data-faq-trigger
+                        class="flex flex-1 cursor-pointer items-center justify-between p-6 text-left body-md-medium text-dark-600 transition-all hover:bg-light-blue-50 w-full"
+                      >
+                        <span>{item.question}</span>
+                        <svg
+                          data-faq-icon-plus
+                          class="h-5 w-5 shrink-0 text-grey-500 ml-4"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 5v14m-7-7h14"
+                          />
+                        </svg>
+                        <svg
+                          data-faq-icon-minus
+                          class="h-5 w-5 shrink-0 text-grey-500 ml-4 hidden"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5 12h14"
+                          />
+                        </svg>
+                      </button>
+                      <div data-faq-content class="hidden px-6 pt-2 pb-6">
+                        <div
+                          class="body-md-regular text-grey-600 whitespace-pre-line"
+                          set:html={item.answer}
+                        />
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Still have questions - mobile -->
+            <div class="w-full lg:hidden flex flex-col order-3 mt-6 md:mt-8">
+              <div class="space-y-3 md:space-y-4">
+                <div
+                  class="bg-light-blue-600 p-2 w-12 h-12 flex items-center justify-center mb-2 md:mb-3 rounded-md"
+                >
+                  <SvgIcon name="pricing-faqs" class="h-6 w-6 text-white" />
+                </div>
+                <h3 class="body-lg-bold text-dark-600">
+                  Still have questions?
+                </h3>
+                <p class="body-md-regular text-grey-600">
+                  Need help? Visit our <a
+                    href="/contact"
+                    class="text-light-blue-600 hover:text-light-blue-700 font-bold"
+                    >Contact Us</a
+                  > page or reach out via socials. Just getting started or building
+                  your next big workflow? We're here to support you.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIAL -->
+      <section class="py-10 lg:py-20">
+        <div class="page-container">
+          <div>
+            <h2
+              class="text-dark-600 text-title-s-regular md:text-title-xl-regular mb-10 md:mb-20"
+            >
+              What our clients<br class="block md:hidden" /> have to say
+            </h2>
+            <FadeIn>
+              <div
+                class="bg-white border border-grey-300 shadow-light-1 overflow-hidden rounded-lg md:rounded-2xl"
+              >
+                <!-- Mobile testimonial -->
+                <div class="flex flex-col md:hidden">
+                  <div class="w-full">
+                    <img
+                      src="https://openbb-cms.directus.app/assets/8dcede5e-723e-488b-8a8e-ef57e8b20e88.png"
+                      alt="Angeles Investments"
+                      class="w-full h-[248px] object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="px-5 py-5 flex flex-col gap-5">
+                    <h3 class="text-dark-600 text-left text-title-xs-bold">
+                      "A pivotal tool to integrate all our data in a
+                      user-friendly interface"
+                    </h3>
+                    <p class="text-dark-400 text-left body-md-regular">
+                      The core benefit of OpenBB is its ability to build your
+                      own apps and integrate data seamlessly. I see it as a
+                      pivotal tool to integrate all our internal and third-party
+                      data in a user-friendly UI, benefiting our entire
+                      organization.
+                    </p>
+                    <div>
+                      <p class="text-dark-50 text-left body-xs-bold">
+                        Hector Santana, Director, Quantitative Research and
+                        Strategy
+                      </p>
+                      <p class="text-grey-500 text-left body-xs-regular">
+                        Angeles Investments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- Desktop testimonial -->
+                <div class="hidden md:flex">
+                  <div class="w-1/3">
+                    <img
+                      src="https://openbb-cms.directus.app/assets/8dcede5e-723e-488b-8a8e-ef57e8b20e88.png"
+                      alt="Angeles Investments"
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="w-2/3 px-8 py-10 flex flex-col justify-center">
+                    <h3 class="text-dark-600 text-left text-title-s-bold mb-6">
+                      "A pivotal tool to integrate all our data in a
+                      user-friendly interface"
+                    </h3>
+                    <p class="text-dark-400 text-left body-md-regular mb-6">
+                      The core benefit of OpenBB is its ability to build your
+                      own apps and integrate data seamlessly. I see it as a
+                      pivotal tool to integrate all our internal and third-party
+                      data in a user-friendly UI, benefiting our entire
+                      organization.
+                    </p>
+                    <div>
+                      <p class="text-dark-50 text-left body-xs-bold">
+                        Hector Santana, Director, Quantitative Research and
+                        Strategy
+                      </p>
+                      <p class="text-grey-500 text-left body-xs-regular">
+                        Angeles Investments
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CTA -->
+    <CtaLight />
+
+    <!-- Contact Modal -->
+    <ContactModal>
+      <div style="position: relative; height:80dvh; overflow:auto;">
+        <iframe
+          src={FORMBRICKS.pricing}
+          frameborder="0"
+          style="position: absolute; left:0; top:0; width:100%; height:100%; border:0;"
+        >
+        </iframe>
+      </div>
+    </ContactModal>
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll("[data-faq-trigger]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const item = trigger.closest("[data-faq-item]")!;
+        const content = item.querySelector("[data-faq-content]")!;
+        const plus = item.querySelector("[data-faq-icon-plus]")!;
+        const minus = item.querySelector("[data-faq-icon-minus]")!;
+        const isOpen = !content.classList.contains("hidden");
+
+        document.querySelectorAll("[data-faq-item]").forEach((el) => {
+          el.querySelector("[data-faq-content]")!.classList.add("hidden");
+          el.querySelector("[data-faq-icon-plus]")!.classList.remove("hidden");
+          el.querySelector("[data-faq-icon-minus]")!.classList.add("hidden");
+        });
+
+        if (!isOpen) {
+          content.classList.remove("hidden");
+          plus.classList.add("hidden");
+          minus.classList.remove("hidden");
+        }
+      });
+    });
+
+    const planToggle = document.querySelector("[data-plan-toggle]");
+    const planDropdown = document.querySelector("[data-plan-dropdown]");
+    const planTitle = document.querySelector("[data-plan-title]");
+    const planChevron = document.querySelector("[data-plan-chevron]");
+
+    if (planToggle && planDropdown) {
+      planToggle.addEventListener("click", () => {
+        const isHidden = planDropdown.classList.toggle("hidden");
+        planToggle.setAttribute("aria-expanded", String(!isHidden));
+        planChevron?.classList.toggle("rotate-180");
+      });
+
+      document.querySelectorAll("[data-select-plan]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const plan = (btn as HTMLElement).dataset.selectPlan!;
+          const name = (btn as HTMLElement).dataset.planName!;
+          if (planTitle) planTitle.textContent = name;
+
+          document.querySelectorAll("[data-plan-content]").forEach((el) => {
+            (el as HTMLElement).classList.toggle(
+              "hidden",
+              (el as HTMLElement).dataset.planContent !== plan,
+            );
+          });
+
+          document.querySelectorAll("[data-select-plan]").forEach((b) => {
+            (b as HTMLElement).classList.toggle(
+              "text-light-blue-600",
+              (b as HTMLElement).dataset.selectPlan === plan,
+            );
+            (b as HTMLElement).classList.toggle(
+              "text-dark-600",
+              (b as HTMLElement).dataset.selectPlan !== plan,
+            );
+          });
+
+          planDropdown.classList.add("hidden");
+          planToggle.setAttribute("aria-expanded", "false");
+          planChevron?.classList.remove("rotate-180");
+        });
+      });
+    }
+  });
+</script>

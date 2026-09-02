@@ -1,0 +1,149 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "off",
+        "noPrototypeBuiltins": "off",
+        "noAssignInExpressions": "off",
+        "useAwait": "off",
+        "noEmptyBlockStatements": "off",
+        "noGlobalIsNan": { "fix": "safe", "level": "warn" },
+        "noConsole": { "level": "off", "options": { "allow": ["log"] } },
+        "useIterableCallbackReturn": "off"
+      },
+      "style": {
+        "noParameterAssign": "off",
+        "noNonNullAssertion": "off",
+        "useNamingConvention": "off",
+        "noDefaultExport": "off",
+        "useBlockStatements": "off",
+        "useTemplate": { "fix": "safe", "level": "warn" },
+        "noUnusedTemplateLiteral": { "fix": "safe", "level": "warn" },
+        "useFilenamingConvention": "off",
+        "useSelfClosingElements": { "fix": "safe", "level": "warn" },
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSingleVarDeclarator": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
+      },
+      "a11y": {
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "off",
+        "noSvgWithoutTitle": "off",
+        "useButtonType": "off",
+        "useValidAnchor": "off",
+        "useKeyWithClickEvents": "off",
+        "useIframeTitle": "off",
+        "useAltText": "off",
+        "useMediaCaption": "off",
+        "noLabelWithoutControl": "off",
+        "useFocusableInteractive": "off",
+        "useGenericFontNames": "off"
+      },
+      "correctness": {
+        "noUnusedImports": { "level": "error", "fix": "safe" },
+        "noInnerDeclarations": "off",
+        "noChildrenProp": "off",
+        "useExhaustiveDependencies": "off",
+        "noUnusedVariables": "off",
+        "useValidTypeof": "off",
+        "noPrivateImports": "off",
+        "noUnusedFunctionParameters": { "level": "warn", "fix": "safe" },
+        "useUniqueElementIds": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off",
+        "noDangerouslySetInnerHtmlWithChildren": "error",
+        "noGlobalEval": "error"
+      },
+      "complexity": {
+        "noUselessSwitchCase": "off",
+        "noBannedTypes": "off",
+        "noForEach": "off",
+        "noExcessiveCognitiveComplexity": "off",
+        "useLiteralKeys": { "fix": "safe", "level": "warn" },
+        "noArguments": "off",
+        "noImportantStyles": "off"
+      },
+      "nursery": {},
+      "performance": {
+        "noNamespaceImport": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "enabled": true,
+      "quoteStyle": "double",
+      "semicolons": "always"
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": false,
+      "tailwindDirectives": true
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 100
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          }
+        }
+      },
+      "formatter": {
+        "enabled": false
+      }
+    },
+    {
+      "includes": ["package.json"],
+      "json": {
+        "formatter": {
+          "enabled": true,
+          "expand": "auto",
+          "indentStyle": "space",
+          "indentWidth": 2,
+          "lineWidth": 88
+        }
+      }
+    }
+  ],
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  }
+}

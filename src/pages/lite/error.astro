@@ -1,0 +1,22 @@
+---
+import LiteResult from "../../components/LiteResult.astro";
+import { LITE } from "../../data/lite";
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+  title="Payment didn't go through | OpenBB Lite"
+  description="Your OpenBB Lite payment didn't go through. No charge was made. Try again or contact us."
+  navLight
+>
+  <meta slot="head" name="robots" content="noindex" />
+
+  <LiteResult
+    icon="slash-circle"
+    tone="error"
+    title="Payment didn't go through"
+    description="No charge was made. You can try again, or reach out and we'll help you get set up."
+    primary={{ text: "Try again", href: LITE.checkoutUrl }}
+    secondary={{ text: "Contact us", href: "/contact" }}
+  />
+</Layout>

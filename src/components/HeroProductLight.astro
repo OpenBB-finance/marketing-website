@@ -1,0 +1,107 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  buttonText?: string;
+  buttonLink?: string;
+  buttonDataModal?: boolean;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const {
+  title,
+  description,
+  buttonText = "Start now",
+  buttonLink = "https://pro.openbb.co/register",
+  buttonDataModal = false,
+  imageSrc,
+  imageAlt,
+} = Astro.props;
+
+const titleLines = title.split("\n");
+const descriptionLines = description.split("\n");
+---
+
+<section class="bg-white overflow-hidden w-full" data-hero-light>
+  <div class="page-container">
+    <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-center pt-24 pb-16 md:py-24 lg:py-32 text-center md:text-left">
+      <div class="w-full md:w-1/2 flex flex-col gap-6 items-center md:items-start">
+        <h1
+          class="text-title-s-medium md:text-[56px] md:font-medium md:font-manrope md:leading-[120%] text-dark-800 opacity-0 translate-y-4 transition-all duration-700"
+          data-hero-light-title
+        >
+          {titleLines.map((line, i) => (
+            <Fragment>
+              {i > 0 && <br />}
+              {line}
+            </Fragment>
+          ))}
+        </h1>
+        <p
+          class="body-md-regular md:body-lg-regular text-dark-400 opacity-0 translate-y-4 transition-all duration-700"
+          data-hero-light-desc
+        >
+          {descriptionLines.map((line, i) => (
+            <Fragment>
+              {i > 0 && <span class="hidden md:inline"><br /></span>}
+              {line}
+            </Fragment>
+          ))}
+        </p>
+        <div class="opacity-0 translate-y-4 transition-all duration-700 w-full md:w-auto" data-hero-light-btn>
+          {buttonDataModal ? (
+            <button
+              type="button"
+              data-open-modal="contact"
+              class="inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-sm cursor-pointer px-5 py-2.5 body-sm-medium bg-grey-750 text-white hover:bg-grey-800 w-full md:w-auto"
+            >
+              {buttonText}
+            </button>
+          ) : (
+            <Button variant="secondary" href={buttonLink} target="_blank" rel="noopener noreferrer" class="w-full md:w-auto">
+              {buttonText}
+            </Button>
+          )}
+        </div>
+      </div>
+      <div
+        class="w-full md:w-1/2 opacity-0 translate-y-4 transition-all duration-700"
+        data-hero-light-image
+      >
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          class="w-full h-auto shadow-light-2 rounded-xl"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="w-full h-px bg-grey-200"></div>
+</section>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const hero = document.querySelector("[data-hero-light]");
+    if (hero) {
+      const els = [
+        hero.querySelector("[data-hero-light-title]"),
+        hero.querySelector("[data-hero-light-desc]"),
+        hero.querySelector("[data-hero-light-btn]"),
+        hero.querySelector("[data-hero-light-image]"),
+      ].filter(Boolean) as HTMLElement[];
+      setTimeout(() => {
+        els.forEach((el, i) => {
+          setTimeout(() => {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          }, i * 180);
+        });
+      }, 300);
+    }
+  });
+</script>

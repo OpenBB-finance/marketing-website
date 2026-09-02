@@ -1,0 +1,32 @@
+# OpenBB
+
+> OpenBB is building an AI-powered research and analytics workspace for finance.
+
+OpenBB provides a collaborative, fully customizable investment research platform that bridges proprietary data with AI. Investment teams use OpenBB Workspace to build AI-powered analytics applications securely and on their own terms.
+
+## Products
+
+- [OpenBB Workspace](https://openbb.co/products/workspace): Enterprise UI for data visualization and AI-powered analysis. Integrates public, proprietary and licensed data in one interface.
+- [Open Data Platform (ODP)](https://openbb.co/products/odp): Open-source toolset for standardized data integrations that analysts consume through multiple interfaces.
+- [OpenBB on Snowflake](https://openbb.co/products/snowflake): Native app on Snowflake Marketplace for in-platform analytics.
+
+## Use Cases
+
+- [Buy-Side](https://openbb.co/buy-side): Consolidate fragmented legacy tools into one secure workspace for analysts, PMs and investment teams.
+- [AI Vendors](https://openbb.co/ai-vendor): Integrate AI agents into OpenBB Workspace with MCP or API. Focus on intelligence while OpenBB handles deployment and security.
+
+## Key Features
+
+- Data agnostic: connect Snowflake, FactSet, internal warehouses, alternative data
+- AI-ready: plug in custom or third-party AI agents
+- Enterprise security: SOC 2 Type II, SSO, RBAC, on-prem/VPC deployment
+- Collaborative: shared dashboards, role-based access, centralized data
+
+## Resources
+
+- [Documentation](https://docs.openbb.co/)
+- [Blog](https://openbb.co/blog)
+- [Pricing](https://openbb.co/pricing)
+- [Security](https://openbb.co/security)
+- [About](https://openbb.co/company/about)
+- [GitHub](https://github.com/OpenBB-finance)

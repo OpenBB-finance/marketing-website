@@ -1,0 +1,247 @@
+---
+import SvgIcon from "./SvgIcon.astro";
+---
+
+<div
+  data-app-modal
+  class="fixed inset-0 z-[60] hidden items-center justify-center"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+>
+  <div data-modal-overlay class="absolute inset-0 bg-black/50"></div>
+
+  <div
+    class="relative w-[90vw] md:w-[85vw] max-w-[1280px] max-h-[85dvh] lg:max-h-[92dvh] flex flex-col"
+  >
+    <!-- Left Chevron -->
+    <button
+      data-modal-prev
+      type="button"
+      class="absolute -left-14 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-grey-900 rounded-full hidden md:flex items-center justify-center transition-colors duration-200 shadow-light-3 cursor-pointer z-10"
+      aria-label="Previous app"
+    >
+      <SvgIcon name="chevron-left" class="w-6 h-6" />
+    </button>
+
+    <!-- Right Chevron -->
+    <button
+      data-modal-next
+      type="button"
+      class="absolute -right-14 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-grey-900 rounded-full hidden md:flex items-center justify-center transition-colors duration-200 shadow-light-3 cursor-pointer z-10"
+      aria-label="Next app"
+    >
+      <SvgIcon name="chevron-right" class="w-6 h-6" />
+    </button>
+
+    <!-- Modal Content -->
+    <div
+      class="w-full min-h-0 flex-1 bg-white shadow-light-3 flex flex-col rounded-xl overflow-hidden"
+    >
+      <!-- Mobile Header -->
+      <div
+        class="md:hidden shrink-0 bg-white border-b border-light-blue-100 p-4 pb-2 relative"
+      >
+        <div class="absolute top-4 right-4 flex items-center gap-2 z-10">
+          <a
+            data-marketplace-btn
+            href="https://pro.openbb.co/app?tab=apps-marketplace"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden items-center justify-center font-bold transition-colors duration-200 rounded-sm cursor-pointer px-2 py-1 text-[10px] uppercase bg-white text-dark-600 border border-grey-300 hover:bg-grey-50"
+          >
+            Get App
+          </a>
+          <button
+            data-modal-close
+            type="button"
+            class="p-1 hover:bg-grey-100 transition-colors"
+            aria-label="Close modal"
+          >
+            <SvgIcon name="x-icon" class="w-4 h-4 text-dark-600" />
+          </button>
+        </div>
+
+        <img
+          data-modal-logo
+          src=""
+          alt=""
+          class="absolute top-14 right-4 h-10 w-10 object-contain hidden"
+          loading="lazy"
+          decoding="async"
+        />
+
+        <div class="flex flex-col gap-1 pr-16">
+          <p data-modal-category class="text-left text-grey-600 body-xs-regular"></p>
+          <div class="flex items-center gap-4 min-h-[40px]">
+            <h2
+              data-modal-title-mobile
+              id="modal-title"
+              class="text-left text-dark-600 text-title-xs-regular pr-2"
+            >
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop Header -->
+      <div
+        class="hidden md:flex shrink-0 bg-white border-b border-light-blue-100 p-6 items-center justify-between"
+      >
+        <div class="flex flex-col gap-1">
+          <p data-modal-category-desktop class="text-left text-grey-600 body-sm-regular">
+          </p>
+          <div class="flex items-center gap-4 min-h-[64px]">
+            <h2
+              data-modal-title-desktop
+              class="text-left text-dark-600 text-title-m-regular"
+            >
+            </h2>
+            <img
+              data-modal-logo-desktop
+              src=""
+              alt=""
+              class="h-16 w-16 object-contain hidden"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <a
+            data-marketplace-btn
+            href="https://pro.openbb.co/app?tab=apps-marketplace"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden items-center justify-center font-medium transition-colors duration-200 rounded-sm cursor-pointer px-4 py-2 body-sm-medium bg-white text-dark-600 border border-grey-300 hover:bg-grey-50"
+          >
+            Get App from Marketplace
+          </a>
+          <button
+            data-modal-close-desktop
+            type="button"
+            class="p-2 hover:bg-grey-100 transition-colors"
+            aria-label="Close modal"
+          >
+            <SvgIcon name="x-icon" class="w-5 h-5 text-dark-600" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Body -->
+      <div
+        class="flex-1 overflow-y-auto overscroll-contain modal-scrollbar"
+        style="-webkit-overflow-scrolling: touch; color-scheme: light;"
+      >
+        <div class="p-3 md:p-8 lg:p-10">
+          <p
+            data-modal-description
+            class="text-left text-grey-600 body-sm-regular md:body-md-regular mb-4 md:mb-6"
+          >
+          </p>
+
+          <img
+            data-modal-screenshot
+            src=""
+            alt=""
+            class="shadow-light-1 w-full h-auto object-contain mb-4 md:mb-6"
+            loading="lazy"
+            decoding="async"
+          />
+
+          <div
+            data-modal-buttons
+            class="hidden flex-col md:flex-row flex-wrap gap-2 md:gap-3 mb-4 md:mb-6"
+          >
+            <a
+              data-modal-btn-github
+              href=""
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hidden BB-Button items-center justify-center gap-2 rounded-sm font-normal transition cursor-pointer body-sm-medium h-10 px-4 bg-grey-750 text-white hover:bg-grey-800 w-full md:w-auto"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.008 2C6.474 2 2 6.507 2 12.083c0 4.457 2.867 8.23 6.843 9.565.498.1.68-.217.68-.484 0-.234-.017-1.035-.017-1.87-2.784.601-3.364-1.202-3.364-1.202-.447-1.168-1.11-1.469-1.11-1.469-.911-.617.067-.617.067-.617 1.01.066 1.54 1.035 1.54 1.035.895 1.535 2.337 1.102 2.917.834.083-.651.348-1.102.63-1.352-2.22-.234-4.557-1.102-4.557-4.975 0-1.101.397-2.003 1.027-2.704-.1-.25-.447-1.285.1-2.67 0 0 .845-.268 2.75 1.034a9.622 9.622 0 0 1 2.502-.334c.845 0 1.707.117 2.502.334 1.906-1.302 2.75-1.035 2.75-1.035.548 1.386.2 2.42.1 2.671.647.701 1.028 1.603 1.028 2.704 0 3.873-2.337 4.725-4.574 4.975.365.317.68.918.68 1.87 0 1.352-.017 2.437-.017 2.77 0 .268.183.585.68.485A10.075 10.075 0 0 0 22 12.083C22.016 6.507 17.526 2 12.008 2Z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              See on Github
+            </a>
+            <a
+              data-modal-btn-blog
+              href=""
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hidden BB-Button items-center justify-center gap-2 rounded-sm font-normal transition cursor-pointer body-sm-medium h-10 px-4 bg-white text-dark-600 border border-grey-300 hover:bg-grey-50 w-full md:w-auto"
+            >
+              See Blog Post
+            </a>
+            <a
+              data-modal-btn-video
+              href=""
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hidden BB-Button items-center justify-center gap-2 rounded-sm font-normal transition cursor-pointer body-sm-medium h-10 px-4 bg-white text-dark-600 border border-grey-300 hover:bg-grey-50 w-full md:w-auto"
+            >
+              Watch Demo
+            </a>
+          </div>
+
+          <div
+            data-modal-quote
+            class="hidden p-4 md:p-5 bg-grey-50 border border-grey-200 rounded-lg"
+          >
+            <div class="flex flex-col gap-3">
+              <img
+                src="https://openbb-cms.directus.app/assets/64e84918-0a93-45a1-8a4b-42bc5925d626.png"
+                alt="Quote mark"
+                class="w-5 h-3"
+                width="20"
+                height="12"
+                loading="lazy"
+              />
+              <blockquote>
+                <p
+                  data-modal-quote-text
+                  class="text-dark-600 body-sm-regular md:body-sm-medium"
+                >
+                </p>
+              </blockquote>
+              <footer
+                data-modal-quote-author
+                class="text-grey-600 body-xs-regular"
+              >
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-scrollbar {
+    scrollbar-color: var(--color-grey-300) transparent;
+    scrollbar-width: thin;
+  }
+  .modal-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .modal-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .modal-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--color-grey-300);
+    border-radius: 10px;
+  }
+  .modal-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-grey-400);
+  }
+</style>

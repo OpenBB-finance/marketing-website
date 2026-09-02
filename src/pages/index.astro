@@ -1,0 +1,81 @@
+---
+import Bento from "../components/Bento.astro";
+import CtaLight from "../components/CtaLight.astro";
+import CtaMid from "../components/CtaMid.astro";
+import FadeIn from "../components/FadeIn.astro";
+import Hero from "../components/Hero.astro";
+import SecuritySection from "../components/SecuritySection.astro";
+import Testimonial from "../components/Testimonial.astro";
+import Workflows from "../components/Workflows.astro";
+import Layout from "../layouts/Layout.astro";
+import { getGlobalData } from "../lib/directus";
+
+let bannerTitle: string | undefined;
+let bannerUrl: string | undefined;
+try {
+  const global = await getGlobalData();
+  if (global?.banner) {
+    const parsed = JSON.parse(global.banner);
+    bannerTitle = parsed.title;
+    bannerUrl = parsed.url;
+  }
+} catch {}
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "OpenBB",
+  url: "https://openbb.co",
+  logo: "https://openbb.co/assets/images/ogimages/Homepage.png",
+  sameAs: [
+    "https://twitter.com/openbb_finance",
+    "https://www.linkedin.com/company/openbb-finance/",
+    "https://github.com/OpenBB-finance",
+    "https://discord.com/invite/xPHTuHCmuV",
+  ],
+  description:
+    "OpenBB is building an AI-powered research and analytics workspace for finance.",
+};
+
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "OpenBB",
+  url: "https://openbb.co",
+};
+---
+
+<Layout
+  title="OpenBB - Build your own financial workspace"
+  description="The workspace where investment teams bring their data, workflows, and AI together. Under your control."
+  ogImage="https://openbb.co/assets/images/ogimages/Homepage.png"
+  schema={[organizationSchema, webSiteSchema]}
+>
+  <main class="bg-white overflow-x-clip">
+    <Hero bannerTitle={bannerTitle} bannerUrl={bannerUrl} />
+
+    <FadeIn>
+      <section class="w-full bg-white py-16 lg:pt-32 lg:pb-20">
+        <Bento />
+      </section>
+    </FadeIn>
+
+    <CtaMid
+      title="Start building with the free tier"
+      subtitle="The Community Edition is free for individuals. No sales call required. Scale when you’re ready."
+      class="py-16 lg:py-20"
+    />
+
+    <Workflows />
+
+    <FadeIn>
+      <SecuritySection />
+    </FadeIn>
+
+    <FadeIn>
+      <Testimonial />
+    </FadeIn>
+
+    <CtaLight />
+  </main>
+</Layout>

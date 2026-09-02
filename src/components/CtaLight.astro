@@ -1,0 +1,91 @@
+---
+import Button from "./Button.astro";
+import SvgIcon from "./SvgIcon.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonHref?: string;
+  buttonTarget?: string;
+  buttonDataModal?: boolean;
+  secondaryButtonText?: string;
+  secondaryButtonHref?: string;
+}
+
+const {
+  title = 'Analysts shouldn\'t need a data scientist to get an answer',
+  description = "The firms that fix that first will have a structural advantage",
+  buttonText = "Start now",
+  buttonHref = "https://pro.openbb.co/register",
+  buttonTarget = "_blank",
+  buttonDataModal = false,
+  secondaryButtonText,
+  secondaryButtonHref,
+} = Astro.props;
+---
+
+<section class="py-16 md:py-20">
+  <div class="page-container">
+    <div
+      data-cta-reveal
+      class="bg-[linear-gradient(to_right,#013554,#0190D8)] rounded-lg md:rounded-2xl px-8 py-12 md:px-16 md:py-16 flex flex-col items-center text-center gap-6"
+    >
+      <SvgIcon name="ai-cta" class="w-6 h-6 text-white" />
+      <h2 class="text-white text-title-s-regular md:text-title-l-regular" set:html={title} />
+      {description && (
+        <p class="text-white/80 body-md-regular md:body-lg-regular max-w-4xl" set:html={description} />
+      )}
+      <div class="mt-2 flex flex-col md:flex-row gap-4">
+        {buttonDataModal ? (
+          <button
+            type="button"
+            data-open-modal="contact"
+            class="inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-sm cursor-pointer px-6 py-3 body-md-medium bg-white text-dark-800 hover:bg-grey-100 w-full md:w-auto"
+          >
+            {buttonText}
+          </button>
+        ) : (
+          <Button variant="primary" size="lg" href={buttonHref} target={buttonTarget} {...(buttonTarget === "_blank" ? { rel: "noopener noreferrer" } : {})} class="w-full md:w-auto">
+            {buttonText}
+          </Button>
+        )}
+        {secondaryButtonText && secondaryButtonHref && (
+          <Button variant="secondary" size="lg" href={secondaryButtonHref} target="_blank" rel="noopener noreferrer" class="w-full md:w-auto">
+            {secondaryButtonText}
+          </Button>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  [data-cta-reveal] {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  [data-cta-reveal].visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const cta = document.querySelectorAll("[data-cta-reveal]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    cta.forEach((el) => observer.observe(el));
+  });
+</script>

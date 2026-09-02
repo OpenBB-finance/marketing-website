@@ -1,0 +1,195 @@
+---
+import ArrowLink from "../components/ArrowLink.astro";
+import ContactModal from "../components/ContactModal.astro";
+import CtaLight from "../components/CtaLight.astro";
+import FadeIn from "../components/FadeIn.astro";
+import HeroProductLight from "../components/HeroProductLight.astro";
+import SvgIcon from "../components/SvgIcon.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Buy-Side | OpenBB"
+  description="OpenBB helps buy-side institutions consolidate fragmented legacy tools into one secure, AI-powered workspace for analysts, PMs and investment teams."
+  keywords="buy-side, investment, asset management"
+  navLight
+>
+  <main class="isolate bg-white">
+    <HeroProductLight
+      title={"Build the dashboards your investment team deserves"}
+      description={"OpenBB helps buy-side institutions replace fragmented\nlegacy tools and cut costs, not capabilities."}
+      buttonText="Start now"
+      buttonLink="https://pro.openbb.co/register"
+      imageSrc="https://openbb-cms.directus.app/assets/59ad7c7f-ccee-4c29-8d86-51df839c3213.png"
+      imageAlt="OpenBB Workspace Interface"
+    />
+
+    <!-- One Workspace section -->
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+          <div class="space-y-6">
+            <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600">
+              One Workspace for your entire organization
+            </h2>
+            <p class="body-md-regular md:body-lg-regular text-dark-400">
+              OpenBB Workspace gives investment teams a single environment for analysts, PMs and more. Connect your firm's data with external sources and AI agents to speed up decision-making.
+            </p>
+          </div>
+          <FadeIn>
+            <img
+              src="https://openbb-cms.directus.app/assets/ce8e3c37-891a-438d-927d-21721850cf5d.png"
+              alt="OpenBB Workspace Interface"
+              class="w-full h-auto object-cover rounded-lg shadow-light-2"
+              loading="lazy"
+            />
+          </FadeIn>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Buy-Side + Connect data sections -->
+    <section class="py-16 lg:py-32 bg-dark-850">
+      <div class="page-container">
+        <h2 class="text-title-s-regular md:text-title-xl-regular text-white mb-10 md:mb-20 text-left">
+          Why buy-side institutions <br class="hidden md:block" />choose OpenBB
+        </h2>
+        <FadeIn>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                image: "https://openbb-cms.directus.app/assets/6fe9a700-0b02-4330-8003-ea27beb02934.png",
+                title: "Consolidate datasets",
+                text: "Plug Snowflake, FactSet, internal warehouses, and alternative data into one configurable workspace instead of juggling separate surfaces for each source.",
+                link: "https://docs.openbb.co/workspace/developers/data-integration",
+              },
+              {
+                image: "https://openbb-cms.directus.app/assets/2084b3d0-a629-412c-9ffa-8091a4a56156.png",
+                title: "Bring AI to your workflows",
+                text: "Build visualization dashboards and layer state-of-the-art AI agents on top so analysts and PMs can get quick answers without leaving their workspace.",
+                link: "https://docs.openbb.co/workspace/analysts/ai-features/copilot-basics",
+              },
+              {
+                image: "https://openbb-cms.directus.app/assets/97bb43c2-9319-4e0e-bad5-22243b3537c1.png",
+                title: "Unify tools and reduce costs",
+                text: "Replace fragmented legacy terminals with a workspace your team shapes, avoiding multi-year, multi-million internal builds while keeping vendor lock-in low.",
+                link: "https://openbb.co/pricing",
+              },
+              {
+                image: "https://openbb-cms.directus.app/assets/61dd3233-c341-4851-a257-121bfd67d846.png",
+                title: "Stay in full control",
+                text: "Deploy on-premises or in a private cloud, connect your own models, and manage permissions, audit trails, and usage analytics from a central admin view.",
+                link: "https://openbb.co/security",
+              },
+            ].map((card) => (
+              <div class="flex flex-col gap-4">
+                <div class="w-full overflow-hidden rounded-lg">
+                  <img src={card.image} alt={card.title} class="w-full h-full object-cover" loading="lazy" />
+                </div>
+                <h3 class="body-lg-bold text-white">{card.title}</h3>
+                <p class="body-md-regular text-grey-300">{card.text}</p>
+                <ArrowLink label="Learn more" href={card.link} class="text-white mt-auto" />
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+      </div>
+
+      <div class="page-container pt-16 lg:pt-32">
+        <h2 class="text-title-s-regular md:text-title-xl-regular text-white mb-10 md:mb-20 text-left">
+          Connect your data<br />and AI in one Workspace
+        </h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+          {[
+            {
+              icon: "data-buy-side",
+              title: "Data agnostic",
+              text: "Integrate data from any source, warehouse or vendor",
+            },
+            {
+              icon: "ai-buy-side",
+              title: "AI-ready",
+              text: "Plug in any custom or third-party AI agents",
+            },
+            {
+              icon: "users-buy-side",
+              title: "Built for teams",
+              text: "Get a macro view of how your teams collaborate and use AI",
+            },
+            {
+              icon: "lock-buy-side",
+              title: "Enterprise security",
+              text: "Stay compliant with on-prem or private cloud",
+            },
+          ].map((item) => (
+            <div class="bg-dark-750 border border-dark-400 shadow-dark-1 rounded-lg p-5 md:p-6 flex flex-col gap-3">
+              <div class="w-10 h-10 bg-light-blue-600 flex items-center justify-center shrink-0 rounded-md">
+                <SvgIcon name={item.icon} class="w-5 h-5 text-white" />
+              </div>
+              <h3 class="body-lg-bold text-white">{item.title}</h3>
+              <p class="body-md-regular text-grey-300">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonial section -->
+    <section class="py-16 lg:py-32">
+      <div class="page-container">
+        <div class="flex flex-col gap-10 items-center text-center">
+          <h2 class="text-title-s-regular md:text-title-xl-regular text-dark-600">
+            A custom Workspace for every <br class="hidden md:block" />role at a $67B AUM fund
+          </h2>
+          <p class="body-md-regular md:body-lg-regular text-dark-400 max-w-[900px]">
+            <span class="font-bold">Causeway Capital, a $67B AUM asset management firm</span>, runs a dedicated "Causeway Workspace" where portfolio managers, fundamental analysts, and risk and performance teams each work inside role-specific apps. From macro and market dashboards to holdings, risk, and performance views, AI-assisted workflows all sit on top of the same data foundation, so teams move faster and share context instead of emailing spreadsheets.
+          </p>
+
+          <FadeIn>
+            <div class="bg-white border border-grey-300 shadow-light-1 overflow-hidden rounded-lg">
+              <!-- Mobile -->
+              <div class="flex flex-col md:hidden">
+                <div class="w-full">
+                  <img src="https://openbb-cms.directus.app/assets/f35afdab-8c81-4583-af7f-608dbd7bf054.png" alt="Causeway Capital Management" class="w-full h-[248px] object-cover" loading="lazy" />
+                </div>
+                <div class="px-5 py-5 flex flex-col gap-5">
+                  <h3 class="text-dark-600 text-left text-title-xs-bold">"One of the most impressive development teams I've ever worked with"</h3>
+                  <p class="text-dark-400 text-left body-md-regular">OpenBB brings together brilliant minds with an extraordinary product. Their agile teams truly listen, act, and deliver, making them one of the most impressive development teams I've ever worked with.</p>
+                  <div>
+                    <p class="text-dark-50 text-left body-xs-bold">Pete Petersen, CTO</p>
+                    <p class="text-grey-500 text-left body-xs-regular">Causeway Capital Management</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Desktop -->
+              <div class="hidden md:flex">
+                <div class="w-1/3">
+                  <img src="https://openbb-cms.directus.app/assets/f35afdab-8c81-4583-af7f-608dbd7bf054.png" alt="Causeway Capital Management" class="w-full h-full object-cover" loading="lazy" />
+                </div>
+                <div class="w-2/3 px-8 py-10 flex flex-col justify-center">
+                  <h3 class="text-dark-600 text-left text-title-s-bold mb-6">"One of the most impressive development team I've ever worked with"</h3>
+                  <p class="text-dark-400 text-left body-md-regular mb-6">OpenBB brings together brilliant minds with an extraordinary product. Their agile teams truly listen, act, and deliver, making them one of the most impressive development teams I've ever worked with.</p>
+                  <div>
+                    <p class="text-dark-50 text-left body-xs-bold">Pete Petersen, CTO</p>
+                    <p class="text-grey-500 text-left body-xs-regular">Causeway Capital Management</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </div>
+    </section>
+
+    <CtaLight
+      title='Ready to co-design and ship your <br class="hidden md:inline" /> first OpenBB App with our team?'
+      description='Our <a href="https://openbb-cms.directus.app/assets/10e9fb2a-1414-4d34-bbfa-41a896588535.pdf" target="_blank" rel="noopener noreferrer" class="underline hover:text-white transition-colors">Jumpstart package</a> is the right starting point.'
+      buttonText="Talk to us"
+      buttonDataModal
+      secondaryButtonText="Explore Workspace"
+      secondaryButtonHref="https://pro.openbb.co/register"
+    />
+  </main>
+
+  <ContactModal title="Talk to us" />
+</Layout>

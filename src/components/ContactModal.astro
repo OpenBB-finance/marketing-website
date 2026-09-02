@@ -1,0 +1,71 @@
+---
+import { FORMBRICKS } from "../data/contact";
+
+interface Props {
+  iframeSrc?: string;
+  title?: string;
+  iframeClass?: string;
+}
+
+const {
+  iframeSrc = FORMBRICKS.pricing,
+  title,
+  iframeClass = "h-[500px] sm:h-[650px]",
+} = Astro.props;
+---
+
+<dialog
+  data-contact-modal
+  class="fixed inset-0 m-auto max-w-[620px] w-[calc(100%-2rem)] bg-white p-0 border border-light-blue-100 overflow-hidden rounded-xl backdrop:bg-black/50"
+>
+  <form method="dialog" class="flex justify-end p-2">
+    <button
+      type="submit"
+      class="text-dark-400 hover:text-dark-600 cursor-pointer p-1"
+      aria-label="Close"
+    >
+      <svg
+        class="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </form>
+  <slot>
+    {
+      iframeSrc && (
+        <iframe
+          src={iframeSrc}
+          title={title}
+          width="100%"
+          class={iframeClass}
+        />
+      )
+    }
+  </slot>
+</dialog>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const dialog = document.querySelector<HTMLDialogElement>(
+      "[data-contact-modal]",
+    );
+    if (dialog) {
+      document
+        .querySelectorAll<HTMLElement>("[data-open-modal='contact']")
+        .forEach((btn) => {
+          btn.addEventListener("click", () => dialog.showModal());
+        });
+      dialog.addEventListener("click", (e) => {
+        if (e.target === dialog) dialog.close();
+      });
+    }
+  });
+</script>

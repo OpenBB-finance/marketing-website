@@ -1,0 +1,192 @@
+---
+import CtaLight from "../../../components/CtaLight.astro";
+import Layout from "../../../layouts/Layout.astro";
+---
+
+<Layout title="Preview | OpenBB" description="Blog post preview" navLight>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
+  <div class="bg-white min-h-screen">
+    <div class="mx-auto px-5 lg:px-0 lg:w-[90%] 2xl:w-[80%]">
+      <div class="flex flex-col lg:flex-row lg:gap-6 xl:gap-12 pt-8 lg:pt-32">
+        <!-- Sidebar -->
+        <div class="lg:w-[200px] lg:shrink-0">
+          <div class="max-w-[220px] lg:pt-40">
+            <a href="/blog" class="inline-flex items-center gap-2 text-dark-600 body-sm-regular hover:text-dark-800 transition-colors">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+              Back to blog
+            </a>
+
+            <div id="preview-authors" class="mt-8 mb-4 hidden">
+              <div class="flex items-center gap-4">
+                <div id="preview-avatars" class="flex -space-x-4"></div>
+                <div id="preview-single-author" class="hidden">
+                  <p class="text-grey-500 text-xs mb-1">Author</p>
+                  <p id="preview-single-author-name" class="text-grey-500 body-sm-regular whitespace-nowrap"></p>
+                </div>
+              </div>
+              <div id="preview-multi-authors" class="mt-2 hidden">
+                <p class="text-grey-500 text-xs mb-1">Authors</p>
+                <p id="preview-multi-authors-names" class="text-grey-500 body-sm-regular"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 min-w-0 lg:max-w-3xl lg:mx-auto">
+          <div id="preview-loading" class="py-32 text-center">
+            <p class="text-dark-50 body-lg-regular">Loading preview...</p>
+          </div>
+
+          <div id="preview-error" class="py-32 text-center hidden">
+            <p class="text-dark-600 text-title-xs-bold mb-4">Post not found</p>
+            <p class="text-dark-50 body-md-regular">Check the slug and try again.</p>
+          </div>
+
+          <div id="preview-content" class="hidden">
+            <div id="preview-banner" class="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 mb-6">
+              <span class="text-amber-800 body-xs-medium">CONFIDENTIAL</span>
+            </div>
+            <div class="flex justify-center">
+              <img id="preview-cover" class="rounded mb-8 w-full" loading="eager" src="" alt="" />
+            </div>
+            <p id="preview-meta" class="mb-6 font-normal uppercase tracking-widest text-dark-50 body-sm-regular"></p>
+            <h1 id="preview-title" class="text-title-xs-bold md:text-title-m-bold text-dark-600"></h1>
+            <article id="preview-body" class="mt-8 prose prose-lg !w-full max-w-none prose-a:text-light-blue-600 prose-code:bg-grey-100 prose-code:rounded-sm prose-code:px-1 prose-img:rounded prose-img:mt-8 prose-img:mb-2 prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:text-grey-500 prose-figcaption:mt-3"></article>
+          </div>
+        </div>
+
+        <div class="hidden lg:block lg:w-[240px] lg:shrink-0" />
+      </div>
+    </div>
+
+    <CtaLight />
+  </div>
+</Layout>
+
+<script>
+  import { parseMarkdown } from "../../../lib/marked";
+  import mediumZoom from "medium-zoom";
+
+  const DIRECTUS_URL = "https://openbb-cms.directus.app";
+  const TOKEN = import.meta.env.PUBLIC_DIRECTUS_PREVIEW_TOKEN;
+
+  function assetUrl(id: string) {
+    return `${DIRECTUS_URL}/assets/${id}`;
+  }
+
+  function formatDate(date: Date): string {
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  }
+
+  function calculateTimeToRead(body: string, wpm = 200): number {
+    if (!body) return 0;
+    return Math.ceil(body.split(" ").length / wpm);
+  }
+
+  async function loadPreview() {
+    const slug = new URLSearchParams(window.location.search).get("slug");
+    if (!slug) {
+      showError();
+      return;
+    }
+
+    try {
+      const params = new URLSearchParams({
+        "filter[slug][_eq]": slug,
+        limit: "1",
+        fields: "*",
+      });
+
+      const headers: Record<string, string> = {};
+      if (TOKEN) headers["Authorization"] = `Bearer ${TOKEN}`;
+
+      const res = await fetch(`${DIRECTUS_URL}/items/Blog?${params}`, { headers });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const { data } = await res.json();
+      if (!data?.length) {
+        showError();
+        return;
+      }
+
+      const post = data[0];
+      renderPost(post);
+    } catch (e) {
+      console.error("Preview fetch failed:", e);
+      showError();
+    }
+  }
+
+  function renderPost(post: any) {
+    document.title = `${post.title} (Preview) | OpenBB`;
+
+    const cover = document.getElementById("preview-cover") as HTMLImageElement;
+    cover.src = assetUrl(post.cover);
+    cover.alt = post.title;
+
+    const date = new Date(post.publishDate ?? post.date_created);
+    const timeToRead = calculateTimeToRead(post.body);
+    document.getElementById("preview-meta")!.textContent =
+      `${formatDate(date)} — ${timeToRead} MIN`;
+
+    document.getElementById("preview-title")!.textContent = post.title;
+    document.getElementById("preview-body")!.innerHTML = parseMarkdown(
+      post.body,
+    );
+
+    // Authors
+    const authors = [
+      { name: post.authorName, img: post.authorImgUrl },
+      { name: post.authorName2, img: post.authorImgUrl2 },
+      { name: post.authorName3, img: post.authorImgUrl3 },
+    ].filter((a) => a.name && a.img);
+
+    if (authors.length > 0) {
+      document.getElementById("preview-authors")!.classList.remove("hidden");
+      const avatarsEl = document.getElementById("preview-avatars")!;
+      avatarsEl.innerHTML = authors
+        .map(
+          (a) =>
+            `<img src="${assetUrl(a.img)}" alt="${a.name}" class="h-14 w-14 rounded-full border-[1.5px] border-white object-cover" />`,
+        )
+        .join("");
+
+      if (authors.length === 1) {
+        const el = document.getElementById("preview-single-author")!;
+        el.classList.remove("hidden");
+        document.getElementById("preview-single-author-name")!.textContent =
+          authors[0].name;
+      } else {
+        const el = document.getElementById("preview-multi-authors")!;
+        el.classList.remove("hidden");
+        document.getElementById("preview-multi-authors-names")!.textContent =
+          authors.map((a) => a.name).join(", ");
+      }
+    }
+
+    document.getElementById("preview-loading")!.classList.add("hidden");
+    document.getElementById("preview-content")!.classList.remove("hidden");
+
+    mediumZoom("article.prose img", {
+      margin: 24,
+      background: "rgba(0, 0, 0, 0.85)",
+    });
+  }
+
+  function showError() {
+    document.getElementById("preview-loading")!.classList.add("hidden");
+    document.getElementById("preview-error")!.classList.remove("hidden");
+  }
+
+  loadPreview();
+</script>

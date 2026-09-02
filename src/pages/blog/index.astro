@@ -1,0 +1,343 @@
+---
+import BlogCard from "../../components/BlogCard.astro";
+import CtaLight from "../../components/CtaLight.astro";
+import Layout from "../../layouts/Layout.astro";
+import {
+  calculateTimeToRead,
+  directusAssetUrl,
+  formatDate,
+  getPublishedPosts,
+  postTypes,
+} from "../../lib/directus";
+
+const allPosts = await getPublishedPosts();
+
+const posts = allPosts.map((post) => ({
+  title: post.title,
+  slug: post.slug,
+  url: `/blog/${post.slug}`,
+  imgUrl: directusAssetUrl(post.cover),
+  date: post.publishDate,
+  timeToRead: calculateTimeToRead(post.body),
+  type: post.type,
+  excerpt: post.excerpt,
+}));
+
+const [mainPost, ...restPosts] = posts;
+
+const typeOptions = [
+  { label: "All News", value: "all" },
+  ...postTypes.map((t) => ({ label: t.charAt(0).toUpperCase() + t.slice(1), value: t })),
+];
+
+const POSTS_PER_PAGE = 9;
+---
+
+<Layout
+  title="Blog | OpenBB"
+  description="Read the latest OpenBB blogposts which include announcements, new launches, meet the teams and more."
+  keywords="blog, stories, posts, meet the team, our story, journey, writing, articles, announcements, news, updates"
+  navLight
+>
+  <div class="bg-white">
+    <!-- Hero -->
+    <section class="bg-white overflow-hidden w-full" data-blog-hero>
+      <div class="page-container">
+        <div class="flex flex-col items-center pt-24 pb-12 lg:pt-32 lg:pb-16 text-center">
+          <p
+            class="text-sm font-medium leading-[22px] tracking-[0.1em] text-light-blue-600 uppercase mb-4 opacity-0 translate-y-4 transition-all duration-700"
+            data-blog-hero-label
+          >
+          read the latest stories
+          </p>
+          <h1
+            class="text-title-s-medium md:text-[56px] md:font-medium md:font-manrope md:leading-[120%] text-dark-800 opacity-0 translate-y-4 transition-all duration-700"
+            data-blog-hero-title
+          >
+            OpenBB Blog
+          </h1>
+        </div>
+
+        {mainPost && (
+          <div
+            class="bg-grey-50 rounded-lg p-5 md:p-10 mb-16 lg:mb-24 opacity-0 translate-y-4 transition-all duration-700"
+            data-blog-hero-card
+          >
+            <div class="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12">
+              <div class="lg:w-1/2 overflow-hidden rounded-md">
+                <img
+                  class="w-full h-auto object-cover aspect-3/2"
+                  width="450"
+                  height="300"
+                  alt={mainPost.title}
+                  src={mainPost.imgUrl}
+                  fetchpriority="high"
+                />
+              </div>
+              <div class="lg:w-1/2 space-y-4">
+                <h2 class="text-title-xs-medium md:text-title-s-medium text-dark-800">
+                  {mainPost.title}
+                </h2>
+                <p class="body-md-regular text-dark-400 line-clamp-3 md:line-clamp-4">
+                  {mainPost.excerpt}
+                </p>
+                <a
+                  href={mainPost.url}
+                  class="inline-flex items-center gap-2 body-sm-medium bg-light-blue-600 text-white px-4 py-2.5 rounded-sm hover:bg-light-blue-700 transition-colors"
+                >
+                  Read post
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <div class="page-container"><div class="w-full h-px bg-grey-200"></div></div>
+    </section>
+
+    <!-- Search & Filters -->
+    <section class="page-container py-10 lg:py-16">
+      <div class="relative">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-grey-400 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input
+          type="text"
+          data-search-input
+          placeholder="Search"
+          class="w-full border border-grey-200 rounded-md bg-white pl-10 pr-10 py-2.5 body-sm-regular text-grey-900 placeholder-grey-400 focus:outline-none focus:border-grey-300"
+        />
+        <button
+          type="button"
+          data-search-clear
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-grey-400 hover:text-grey-600 hidden"
+          aria-label="Clear search"
+        >
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="mt-8 flex gap-6 border-b border-grey-200 overflow-x-auto" data-type-tabs aria-label="Filter by category">
+        {typeOptions.map((opt) => (
+          <button
+            type="button"
+            data-tab-value={opt.value}
+            class:list={[
+              "whitespace-nowrap pb-3 body-sm-medium transition-colors border-b-2 -mb-px cursor-pointer",
+              opt.value === "all"
+                ? "text-light-blue-600 border-light-blue-600"
+                : "text-dark-400 border-transparent hover:text-dark-600",
+            ]}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </nav>
+    </section>
+
+    <!-- Post Grid -->
+    <section class="page-container pb-10 lg:pb-16">
+      <div data-posts-grid class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-16">
+        {restPosts.map((post) => (
+          <div data-post-card data-post-type={post.type} data-post-title={post.title.toLowerCase()}>
+            <BlogCard
+              title={post.title}
+              imgUrl={post.imgUrl}
+              url={post.url}
+              date={post.date}
+              timeToRead={post.timeToRead}
+              type={post.type}
+            />
+          </div>
+        ))}
+      </div>
+
+      <p data-no-results class="hidden py-8 text-center body-lg-bold text-dark-400 col-span-full">
+        No posts found
+      </p>
+
+      <!-- Pagination -->
+      <nav data-pagination class="mt-10 lg:mt-20 mb-10 lg:mb-0 mx-auto flex w-full max-w-md justify-center gap-4 rounded-md px-4 py-2.5 bg-white shadow-sm border border-grey-100" aria-label="Blog pagination">
+      </nav>
+
+      <p data-post-count class="mt-6 text-center body-sm-regular text-dark-400"></p>
+    </section>
+
+    <CtaLight />
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const blogHero = document.querySelector("[data-blog-hero]");
+    if (blogHero) {
+      const els = [
+        blogHero.querySelector("[data-blog-hero-label]"),
+        blogHero.querySelector("[data-blog-hero-title]"),
+        blogHero.querySelector("[data-blog-hero-card]"),
+      ].filter((el): el is HTMLElement => el !== null);
+      setTimeout(() => {
+        els.forEach((el, i) => {
+          setTimeout(() => {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          }, i * 180);
+        });
+      }, 300);
+    }
+  });
+</script>
+
+<script>
+  const POSTS_PER_PAGE = 9;
+
+  document.addEventListener("astro:page-load", () => {
+    const cards = Array.from(document.querySelectorAll("[data-post-card]"));
+    if (!cards.length) return;
+
+    const grid = document.querySelector("[data-posts-grid]");
+    const noResults = document.querySelector("[data-no-results]");
+    const pagination = document.querySelector("[data-pagination]");
+    const postCount = document.querySelector("[data-post-count]");
+    const tabs = Array.from(document.querySelectorAll("[data-tab-value]"));
+    const searchInput = document.querySelector("[data-search-input]") as HTMLInputElement;
+    const searchClear = document.querySelector("[data-search-clear]");
+
+    if (!grid || !pagination || !searchInput || !searchClear) return;
+
+    let currentType = "all";
+    let currentSearch = "";
+    let currentPage = 1;
+
+    function setActiveTab(value: string) {
+      tabs.forEach((tab) => {
+        const isActive = tab.getAttribute("data-tab-value") === value;
+        tab.classList.toggle("text-light-blue-600", isActive);
+        tab.classList.toggle("border-light-blue-600", isActive);
+        tab.classList.toggle("text-dark-400", !isActive);
+        tab.classList.toggle("border-transparent", !isActive);
+      });
+    }
+
+    function toggleClearBtn() {
+      searchClear!.classList.toggle("hidden", !searchInput.value);
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("type")) {
+      currentType = params.get("type")!;
+      setActiveTab(currentType);
+    }
+    if (params.get("search")) {
+      currentSearch = params.get("search")!;
+      searchInput.value = currentSearch;
+      toggleClearBtn();
+    }
+    if (params.get("page")) currentPage = parseInt(params.get("page")!, 10) || 1;
+
+    function getVisibleCards() {
+      return cards.filter((card) => {
+        const type = card.getAttribute("data-post-type");
+        const title = card.getAttribute("data-post-title");
+        if (currentType !== "all" && type !== currentType) return false;
+        if (currentSearch && !title?.includes(currentSearch.toLowerCase())) return false;
+        return true;
+      });
+    }
+
+    function render() {
+      const visible = getVisibleCards();
+      const totalPages = Math.max(1, Math.ceil(visible.length / POSTS_PER_PAGE));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const start = (currentPage - 1) * POSTS_PER_PAGE;
+      const end = start + POSTS_PER_PAGE;
+
+      cards.forEach((card) => ((card as HTMLElement).style.display = "none"));
+      visible.forEach((card, i) => {
+        (card as HTMLElement).style.display = i >= start && i < end ? "" : "none";
+      });
+
+      noResults!.classList.toggle("hidden", visible.length > 0);
+      grid!.classList.toggle("hidden", visible.length === 0);
+
+      renderPagination(totalPages);
+      postCount!.textContent = visible.length + " posts found";
+
+      const url = new URL(window.location.href);
+      url.searchParams.set("type", currentType);
+      url.searchParams.set("search", currentSearch);
+      url.searchParams.set("page", String(currentPage));
+      history.replaceState(null, "", url);
+    }
+
+    function renderPagination(totalPages: number) {
+      if (totalPages <= 1) {
+        (pagination as HTMLElement).style.display = "none";
+        return;
+      }
+      (pagination as HTMLElement).style.display = "";
+
+      const half = 2;
+      let rangeStart = Math.max(1, currentPage - half);
+      let rangeEnd = Math.min(totalPages, rangeStart + 4);
+      if (rangeEnd - rangeStart < 4) rangeStart = Math.max(1, rangeEnd - 4);
+
+      let html = `<button data-page-prev class="w-8 h-8 flex items-center justify-center text-light-blue-600 hover:bg-grey-100 rounded-sm disabled:text-grey-400 disabled:cursor-not-allowed" ${currentPage <= 1 ? "disabled" : ""} aria-label="Previous page">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>`;
+
+      for (let i = rangeStart; i <= rangeEnd; i++) {
+        const active = i === currentPage;
+        html += `<button data-page-num="${i}" class="w-8 h-8 flex items-center justify-center rounded-sm body-xs-bold ${active ? "bg-light-blue-600 text-white" : "bg-transparent text-grey-900 hover:bg-grey-100"}">${i}</button>`;
+      }
+
+      html += `<button data-page-next class="w-8 h-8 flex items-center justify-center text-light-blue-600 hover:bg-grey-100 rounded-sm disabled:text-grey-400 disabled:cursor-not-allowed" ${currentPage >= totalPages ? "disabled" : ""} aria-label="Next page">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>`;
+
+      pagination!.innerHTML = html;
+
+      pagination!.querySelector("[data-page-prev]")?.addEventListener("click", () => { currentPage--; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      pagination!.querySelector("[data-page-next]")?.addEventListener("click", () => { currentPage++; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      pagination!.querySelectorAll("[data-page-num]").forEach((btn) => {
+        btn.addEventListener("click", () => { currentPage = parseInt(btn.getAttribute("data-page-num")!, 10); render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      });
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        currentType = tab.getAttribute("data-tab-value")!;
+        currentPage = 1;
+        setActiveTab(currentType);
+        render();
+      });
+    });
+
+    let searchTimeout: ReturnType<typeof setTimeout>;
+    searchInput.addEventListener("input", () => {
+      clearTimeout(searchTimeout);
+      toggleClearBtn();
+      searchTimeout = setTimeout(() => {
+        currentSearch = searchInput.value;
+        currentPage = 1;
+        render();
+      }, 200);
+    });
+
+    searchClear.addEventListener("click", () => {
+      searchInput.value = "";
+      currentSearch = "";
+      currentPage = 1;
+      toggleClearBtn();
+      render();
+    });
+
+    render();
+  });
+</script>
