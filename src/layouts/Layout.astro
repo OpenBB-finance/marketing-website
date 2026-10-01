@@ -8,7 +8,7 @@ import { ClientRouter } from "astro:transitions";
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
 import WindDownLetter from "../components/WindDownLetter.astro";
-import { getPostBySlug } from "../lib/directus";
+import { getPostBySlug, WIND_DOWN_SLUG } from "../lib/directus";
 
 interface Props {
   title?: string;
@@ -19,6 +19,7 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   schema?: Record<string, unknown> | Record<string, unknown>[];
+  showLetter?: boolean;
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   ogImage,
   ogType = "website",
   schema,
+  showLetter = true,
 } = Astro.props;
 
 const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
@@ -37,10 +39,10 @@ const resolvedOgImage = ogImage
   : "https://openbb.co/assets/images/ogimages/Homepage.png";
 const canonicalUrl = new URL(Astro.url.pathname, "https://openbb.co").href;
 
-const windDownPost = await getPostBySlug("openbb-belongs-to-everyone", {
-  includeDrafts: true,
-});
-if (!windDownPost) {
+const windDownPost = showLetter
+  ? await getPostBySlug(WIND_DOWN_SLUG, { includeDrafts: true })
+  : null;
+if (showLetter && !windDownPost) {
   console.warn("[Layout] Wind-down letter not available from Directus — rendering without the overlay.");
 }
 ---

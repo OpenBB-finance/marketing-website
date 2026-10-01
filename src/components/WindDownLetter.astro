@@ -6,6 +6,7 @@ import {
 } from "../lib/directus";
 import { parseMarkdown } from "../lib/marked";
 import SvgIcon from "./SvgIcon.astro";
+import WindDownEdit from "./WindDownEdit.astro";
 
 interface Props {
   post: DirectusBlogItem;
@@ -77,7 +78,9 @@ const avatarUrl = `${directusAssetUrl(post.authorImgUrl)}?width=96&height=96&fit
 
       <hr class="my-8 border-grey-200" />
 
-      <div class="prose max-w-none prose-a:text-light-blue-600 md:prose-lg lg:prose-xl" set:html={bodyHtml} />
+      <WindDownEdit />
+
+      <div class="prose mt-8 max-w-none prose-a:text-light-blue-600 md:prose-lg lg:prose-xl" set:html={bodyHtml} />
     </article>
   </div>
 </div>

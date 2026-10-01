@@ -40,6 +40,8 @@ export interface DirectusBlogItem {
   }[];
 }
 
+export const WIND_DOWN_SLUG = "openbb-belongs-to-everyone";
+
 export const postTypes = [
   "announcements",
   "company",
