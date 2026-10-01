@@ -2,12 +2,14 @@
 import BlogCard from "../../components/BlogCard.astro";
 import CtaLight from "../../components/CtaLight.astro";
 import ImageCarousel from "../../components/ImageCarousel.astro";
+import WindDownEdit from "../../components/WindDownEdit.astro";
 import Layout from "../../layouts/Layout.astro";
 import {
   calculateTimeToRead,
   directusAssetUrl,
   formatDate,
   getPublishedPosts,
+  WIND_DOWN_SLUG,
 } from "../../lib/directus";
 import { parseMarkdown } from "../../lib/marked";
 
@@ -155,6 +157,7 @@ const blogPostingSchema = {
   ogType="article"
   schema={blogPostingSchema}
   navLight
+  showLetter={false}
 >
   <div class="bg-white min-h-screen">
     <div class="mx-auto px-5 lg:px-0 lg:w-[90%] 2xl:w-[80%]">
@@ -228,6 +231,7 @@ const blogPostingSchema = {
             <time datetime={publishIso}>{dateStr}</time> — {timeToRead} MIN
           </p>
           <h1 class="text-title-xs-bold md:text-title-m-bold text-dark-600">{post.title}</h1>
+          {post.slug === WIND_DOWN_SLUG && <div class="mt-8"><WindDownEdit /></div>}
           
           <article class="mt-8 prose prose-lg !w-full max-w-none prose-a:text-light-blue-600 [&_:not(pre)>code]:bg-grey-100 [&_:not(pre)>code]:rounded-sm [&_:not(pre)>code]:px-1 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:rounded-none prose-img:rounded prose-img:mt-8 prose-img:mb-2 prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:text-grey-500 prose-figcaption:mt-3 [&_iframe]:w-full [&_iframe]:h-auto [&_iframe]:aspect-video [&_iframe]:rounded [&_iframe]:my-8">
             {bodyHtml.includes("[gallery]") || bodyHtml.includes("<p>[gallery]</p>") ? (

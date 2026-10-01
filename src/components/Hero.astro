@@ -3,16 +3,6 @@ import { Image } from "astro:assets";
 import heroDesktop from "../assets/images/hero_homepage.png";
 import heroMobile from "../assets/images/hero_homepage_mobile.png";
 import Button from "./Button.astro";
-
-interface Props {
-  bannerTitle?: string;
-  bannerUrl?: string;
-}
-
-const { bannerTitle, bannerUrl } = Astro.props;
-const eyebrowText = bannerTitle || "Latest Updates";
-const eyebrowHref = bannerUrl || "/blog";
-const isExternal = eyebrowHref.startsWith("http");
 ---
 
 <section class="relative pt-28 lg:pt-[440px] pb-16 lg:pb-20 overflow-hidden w-full bg-dark-800" data-hero-home>
@@ -51,11 +41,12 @@ const isExternal = eyebrowHref.startsWith("http");
       <div class="text-center md:text-left">
         <div class="mb-6 md:mb-8 flex justify-center md:justify-start opacity-0 translate-y-4 transition-all duration-700" data-hero-el>
           <a
-            href={eyebrowHref}
-            {...isExternal ? { target: "_blank", rel: "noreferrer noopener" } : {}}
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-lg border border-light-blue-200 text-white transition-colors group hover:border-light-blue-500 max-w-xs overflow-hidden"
+            href="https://openbq.org/"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-lg border border-light-blue-200 text-white text-left transition-colors group hover:border-light-blue-500 max-w-sm md:max-w-md"
           >
-            <span class="body-xs-medium truncate">{eyebrowText}</span>
+            <span class="body-xs-medium">Non-profit OpenBQ is taking over OpenBB assets</span>
             <svg class="w-4 h-4 group-hover:text-light-blue-600 transition-colors flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9 18l6-6-6-6" />
             </svg>

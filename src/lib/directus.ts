@@ -7,7 +7,7 @@ const directus = createDirectus("https://openbb-cms.directus.app/")
 const directusToken = import.meta.env.DIRECTUS_TOKEN;
 if (!directusToken) {
   console.warn(
-    "[Directus] DIRECTUS_TOKEN is not set — using anonymous CMS access. Content that requires authentication (e.g. the homepage banner) will be skipped.",
+    "[Directus] DIRECTUS_TOKEN is not set — using anonymous CMS access. Content that requires authentication will be skipped.",
   );
 }
 directus.setToken(directusToken);
@@ -39,6 +39,8 @@ export interface DirectusBlogItem {
     };
   }[];
 }
+
+export const WIND_DOWN_SLUG = "openbb-belongs-to-everyone";
 
 export const postTypes = [
   "announcements",
@@ -97,20 +99,6 @@ export async function getPostBySlug(
     return (item as DirectusBlogItem) ?? null;
   } catch (error) {
     console.error("[Directus] getPostBySlug error:", error);
-    return null;
-  }
-}
-
-export interface GlobalData {
-  banner?: string;
-}
-
-export async function getGlobalData(): Promise<GlobalData | null> {
-  try {
-    const data = await directus.request(readItems("Global"));
-    if (Array.isArray(data)) return (data as GlobalData[])[0] ?? null;
-    return (data as GlobalData) ?? null;
-  } catch {
     return null;
   }
 }
