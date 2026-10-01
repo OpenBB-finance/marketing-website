@@ -38,7 +38,7 @@ Copy `.env.example` to `.env` and fill in only what you need. Every variable is 
 
 | Variable                          | Browser-exposed | Enables                                                                                    |
 | --------------------------------- | --------------- | ------------------------------------------------------------------------------------------ |
-| `DIRECTUS_TOKEN`                  | no              | Homepage banner and any non-public Directus content at build time (published posts and the letter are readable anonymously) |
+| `DIRECTUS_TOKEN`                  | no              | Any non-public Directus content at build time (published posts and the letter are readable anonymously) |
 | `PUBLIC_DIRECTUS_PREVIEW_TOKEN`   | yes             | Draft preview at `/blog/preview?slug=...` (fetched client-side)                            |
 | `PUBLIC_POSTHOG_API_KEY`          | yes             | PostHog analytics (both PostHog vars must be set)                                          |
 | `PUBLIC_POSTHOG_API_HOST`         | yes             | PostHog ingestion host                                                                     |
@@ -52,7 +52,6 @@ What you get without any of them:
 
 - Every page renders normally, including the blog and the wind-down letter overlay. Published
   posts are fetched anonymously from OpenBB's Directus instance at build time.
-- The homepage banner (Directus `Global` collection) is not rendered.
 - No analytics script is loaded.
 - The build prints a single warning from `src/lib/directus.ts` noting that the CMS token is unset.
 
@@ -90,7 +89,7 @@ src/
 | Contact forms            | `src/data/contact.ts` (Formbricks embed URLs)                   |
 | Lite pricing and checkout | `src/data/lite.ts`                                             |
 | Blog posts               | Directus CMS, collection `Blog` (see `src/lib/directus.ts`)     |
-| Homepage banner          | Directus CMS, collection `Global`, field `banner` (JSON string)  |
+| Homepage banner          | `src/components/Hero.astro`                                     |
 | Redirects                | `redirects` in `astro.config.mjs`                               |
 | Icons                    | `public/sprite.svg`, referenced through `SvgIcon.astro`          |
 

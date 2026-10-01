@@ -8,18 +8,6 @@ import SecuritySection from "../components/SecuritySection.astro";
 import Testimonial from "../components/Testimonial.astro";
 import Workflows from "../components/Workflows.astro";
 import Layout from "../layouts/Layout.astro";
-import { getGlobalData } from "../lib/directus";
-
-let bannerTitle: string | undefined;
-let bannerUrl: string | undefined;
-try {
-  const global = await getGlobalData();
-  if (global?.banner) {
-    const parsed = JSON.parse(global.banner);
-    bannerTitle = parsed.title;
-    bannerUrl = parsed.url;
-  }
-} catch {}
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -52,7 +40,7 @@ const webSiteSchema = {
   schema={[organizationSchema, webSiteSchema]}
 >
   <main class="bg-white overflow-x-clip">
-    <Hero bannerTitle={bannerTitle} bannerUrl={bannerUrl} />
+    <Hero />
 
     <FadeIn>
       <section class="w-full bg-white py-16 lg:pt-32 lg:pb-20">
